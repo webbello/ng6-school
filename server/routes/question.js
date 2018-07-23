@@ -21,10 +21,19 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVE BOOK */
 router.post('/', function(req, res, next) {
-  Question.create(req.body, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+    question = new Question({
+      creator: req.decoded.id,
+      question: req.body.question,
+      type: req.body.type,
+      status: req.body.status
+    });
+    question.save(function (err) {
+      if (err) {
+        res.send(err);
+        return;
+      }
+      res.json({message: 'New Story Created'});
+    });
 });
 
 /* UPDATE BOOK */
