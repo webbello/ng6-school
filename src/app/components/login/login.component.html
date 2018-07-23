@@ -8,15 +8,23 @@
 	  </mat-card-header>
 	  <img mat-card-image src="assets/isro.jpg" alt="Photo of a Shiba Inu">
 	  <mat-card-content>
-      	<form (ngSubmit)="doLogin($event)" #heroForm="ngForm">
+      	<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Username/Email" id="name">
+		    <input matInput placeholder="Username/Email" formControlName="username" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter username/email</span>
+		    </mat-error>
 		  </mat-form-field>
 
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Password">
+		    <input matInput placeholder="Password" formControlName="password" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter password</span>
+		    </mat-error>
 		  </mat-form-field>
-		  <button mat-raised-button color="primary" type="submit">Login</button>
+		  <div class="button-row">
+		    <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon> Login</button>
+		  </div>
 		  <hr>
 		</form>
 	  </mat-card-content>

@@ -21,6 +21,7 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVE BOOK */
 router.post('/', function(req, res, next) {
+  console.log(req.body);
   Book.create(req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);

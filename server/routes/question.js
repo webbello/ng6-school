@@ -32,7 +32,7 @@ router.post('/', function(req, res, next) {
         res.send(err);
         return;
       }
-      res.json({message: 'New Story Created'});
+      res.json({message: 'New Question Created'});
     });
 });
 

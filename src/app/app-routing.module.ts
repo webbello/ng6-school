@@ -28,7 +28,7 @@ import { QuestionComponent } from './components/question/question/question.compo
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
-
+import { AuthGuard } from './_guards/auth/auth.guard';
 // Parent Routes
 const routes : Routes = [
 	// {
@@ -82,6 +82,7 @@ const routes : Routes = [
 	{
 		path: 'question-create',
 		component: QuestionCreateComponent,
+		canActivate: [AuthGuard],
 		data: { title: 'Create Question' }
 	},
 	{

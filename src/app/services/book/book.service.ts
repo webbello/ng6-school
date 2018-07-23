@@ -8,14 +8,10 @@ import { environment } from '../../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-<<<<<<< HEAD
-const apiUrl = "api/book";
-=======
 
 //const apiUrl = "/book";
 //const apiUrl = environment.apiUrl;
 const apiUrl = `${environment.apiUrl}/book`;
->>>>>>> 29871dac0da4f530fc1f69db4fd2c894ac94e59f
 
 @Injectable({
   providedIn: 'root'
