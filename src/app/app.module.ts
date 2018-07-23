@@ -34,6 +34,12 @@ import { BookCreateComponent } from './components/book/book-create/book-create.c
 import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 
+import { QuestionComponent } from './components/question/question/question.component';
+import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
+import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
+import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -49,7 +55,11 @@ import { BookEditComponent } from './components/book/book-edit/book-edit.compone
     BookComponent,
     BookCreateComponent,
     BookDetailComponent,
-    BookEditComponent
+    BookEditComponent,
+    QuestionComponent,
+    QuestionCreateComponent,
+    QuestionDetailComponent,
+    QuestionEditComponent
   ],
   imports: [
     BrowserModule,
