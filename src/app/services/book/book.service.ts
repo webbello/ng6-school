@@ -3,10 +3,15 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 
+import { environment } from '../../../environments/environment';
+
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-const apiUrl = "/book";
+
+//const apiUrl = "/book";
+//const apiUrl = environment.apiUrl;
+const apiUrl = `${environment.apiUrl}/book`;
 
 @Injectable({
   providedIn: 'root'
