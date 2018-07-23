@@ -38,6 +38,7 @@ router.get('/', function(req, res, next) {
 router.post('/signup', function(req, res, next) {
 	var user = new User({
 		name: req.body.name,
+		email: req.body.email,
 		username: req.body.username,
 		password: req.body.password
 	});
@@ -95,6 +96,7 @@ router.use(function (req, res, next) {
 router.post('/add', function(req, res, next) {
 	var user = new User({
 		name: req.body.name,
+		email: req.body.email,
 		username: req.body.username,
 		password: req.body.password
 	});
@@ -114,9 +116,9 @@ router.route('/update/:id').post((req, res) => {
             return next(new Error('Could not load document'));
         else {
             user.title = req.body.title;
-            user.responsible = req.body.responsible;
-            user.description = req.body.description;
-            user.severity = req.body.severity;
+            user.email = req.body.email;
+            user.username = req.body.username;
+            user.password = req.body.password;
             user.status = req.body.status;
 
             user.save().then(user => {

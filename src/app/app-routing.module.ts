@@ -24,6 +24,11 @@ import { BookCreateComponent } from './components/book/book-create/book-create.c
 import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 
+import { QuestionComponent } from './components/question/question/question.component';
+import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
+import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
+import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+
 // Parent Routes
 const routes : Routes = [
 	// {
@@ -60,9 +65,29 @@ const routes : Routes = [
 		data: { title: 'Create Book' }
 	},
 	{
-	path: 'book-edit/:id',
-	component: BookEditComponent,
-	data: { title: 'Edit Book' }
+		path: 'book-edit/:id',
+		component: BookEditComponent,
+		data: { title: 'Edit Book' }
+	},
+	{
+	path: 'questions',
+		component: QuestionComponent,
+		data: { title: 'Question List' }
+	},
+	{
+		path: 'question-details/:id',
+		component: QuestionDetailComponent,
+		data: { title: 'Question Details' }
+	},
+	{
+		path: 'question-create',
+		component: QuestionCreateComponent,
+		data: { title: 'Create Question' }
+	},
+	{
+	path: 'question-edit/:id',
+	component: QuestionEditComponent,
+	data: { title: 'Edit Question' }
 	}
 ];
 

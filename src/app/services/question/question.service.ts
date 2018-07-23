@@ -8,19 +8,15 @@ import { environment } from '../../../environments/environment';
 const httpOptions = {
   headers: new HttpHeaders({'Content-Type': 'application/json'})
 };
-<<<<<<< HEAD
-const apiUrl = "api/book";
-=======
 
 //const apiUrl = "/book";
 //const apiUrl = environment.apiUrl;
-const apiUrl = `${environment.apiUrl}/book`;
->>>>>>> 29871dac0da4f530fc1f69db4fd2c894ac94e59f
+const apiUrl = `${environment.apiUrl}/question`;
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookService {
+export class QuestionService {
 
   constructor(private http: HttpClient) { }
 
@@ -44,27 +40,27 @@ export class BookService {
     return body || { };
   }
 
-  getBooks(): Observable<any> {
+  getQuestions(): Observable<any> {
     return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
-  getBook(id: string): Observable<any> {
+  getQuestion(id: string): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
-  postBook(data): Observable<any> {
+  postQuestion(data): Observable<any> {
     return this.http.post(apiUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateBook(id: string, data): Observable<any> {
+  updateQuestion(id: string, data): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.put(url, data, httpOptions)
       .pipe(
@@ -72,7 +68,7 @@ export class BookService {
       );
   }
 
-  deleteBook(id: string): Observable<{}> {
+  deleteQuestion(id: string): Observable<{}> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete(url, httpOptions)
       .pipe(

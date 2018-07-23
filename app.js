@@ -14,6 +14,7 @@ var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
 var quizRouter = require('./server/routes/quiz');
 var bookRouter = require('./server/routes/book');
+var questionRouter = require('./server/routes/question');
 
 var app = express();
 
@@ -27,6 +28,14 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'server/public')));
 
+app.use(function (req, res, next) {
+	res.setHeader('Access-Control-Allow-Origin', '*');
+	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+	res.setHeader('Access-Control-Allow-Credentials', true);
+	next();
+});
+
 mongoose.connect(config.database);
 
 var db = mongoose.connection;
@@ -39,6 +48,7 @@ app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/quiz', quizRouter);
 app.use('/book', bookRouter);
+app.use('/question', questionRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
