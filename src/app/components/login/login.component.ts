@@ -28,16 +28,18 @@ export class LoginComponent implements OnInit {
     this.api.postLogin(form)
       .subscribe(res => {
           let token = res.token;
+          console.log(res.message);
           if (res.success) {
-            //localStorage.setItem('userData', true);
+            localStorage.setItem('token', token);
             // store username and jwt token in local storage to keep user logged in between page refreshes
-            localStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
-            this.router.navigate(['/questions']);
+            //localStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
+            this.router.navigate(['/books']);
           }else {
-            localStorage.setItem('currentUser', '');
+            localStorage.setItem('token', '');
           }
           //console.log(localStorage.getItem('currentUser'))
         }, (err) => {
+          console.log('irfan');
           console.log(err);
         });
   }

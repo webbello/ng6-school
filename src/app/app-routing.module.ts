@@ -17,6 +17,7 @@ import { StudentAddComponent } from './components/student/add/student-add.compon
 import { StudentDetailsComponent } from './components/student/details/student-details.component';
 import { StudentListComponent } from './components/student/list/student-list.component';
 import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
 import { HomeComponent, homeChildRoutes } from './components/home/home.component';
 import { FacultyAddComponent } from './components/faculty/add/faculty-add.component';
 import { BookComponent } from './components/book/book/book.component';
@@ -40,6 +41,10 @@ const routes : Routes = [
 	{
 		path: 'login',
 		component: LoginComponent
+	},
+	{
+		path: 'signup',
+		component: SignupComponent
 	},
 	{
 		path: 'faculty',
