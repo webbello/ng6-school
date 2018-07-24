@@ -36,6 +36,7 @@ router.get('/', function(req, res, next) {
 
 /* Signup. */
 router.post('/signup', function(req, res, next) {
+	console.log(req.body);
 	var user = new User({
 		name: req.body.name,
 		email: req.body.email,
@@ -46,7 +47,7 @@ router.post('/signup', function(req, res, next) {
 		if (err) { res.send(err);
 			return;
 		}
-		res.json({message: 'User has been added successfully!'})
+		res.json({success: true, message: 'User has been added successfully!'})
 
 	});
   
@@ -74,23 +75,23 @@ router.route('/login').post((req, res) => {
 });
 
 // Middelware to check login user
-router.use(function (req, res, next) {
-	console.log('Somebody just came to our app');
-	var token = req.body.token || req.params.token || req.headers['x-access-token'];
-	if (token) {
-		 jsonwebtoken.verify(token, secretKey, function (err, decoded) {
+// router.use(function (req, res, next) {
+// 	console.log('Somebody just came to our app');
+// 	var token = req.body.token || req.params.token || req.headers['x-access-token'];
+// 	if (token) {
+// 		 jsonwebtoken.verify(token, secretKey, function (err, decoded) {
 
-		 	if (err) {
-		 		res.status(403).send({success: false, message: 'failed to authenticate user'});
-		 	} else {
-		 		req.decoded = decoded;
-		 		next();
-		 	}
-		 });
-	} else {
-		res.status(403).send({success: false, message: 'No Token Provided'});
-	}
-});
+// 		 	if (err) {
+// 		 		res.status(403).send({success: false, message: 'failed to authenticate user'});
+// 		 	} else {
+// 		 		req.decoded = decoded;
+// 		 		next();
+// 		 	}
+// 		 });
+// 	} else {
+// 		res.status(403).send({success: false, message: 'No Token Provided'});
+// 	}
+// });
 
 /* Add User. */
 router.post('/add', function(req, res, next) {

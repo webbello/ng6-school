@@ -40,41 +40,23 @@ export class UserService {
     return body || { };
   }
 
-  getQuestions(): Observable<any> {
-    return this.http.get(apiUrl, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError));
-  }
-
-  getQuestion(id: string): Observable<any> {
-    const url = `${apiUrl}/${id}`;
-    return this.http.get(url, httpOptions).pipe(
-      map(this.extractData),
-      catchError(this.handleError));
-  }
-
   postLogin(data): Observable<any> {
   	const loginUrl = `${apiUrl}/login`;
-  	console.log(loginUrl);
+  	//console.log(loginUrl);
     return this.http.post(loginUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateQuestion(id: string, data): Observable<any> {
-    const url = `${apiUrl}/${id}`;
-    return this.http.put(url, data, httpOptions)
+  postSignup(data): Observable<any> {
+    const signupUrl = `${apiUrl}/signup`;
+    console.log(signupUrl);
+    return this.http.post(signupUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  deleteQuestion(id: string): Observable<{}> {
-    const url = `${apiUrl}/${id}`;
-    return this.http.delete(url, httpOptions)
-      .pipe(
-        catchError(this.handleError)
-      );
-  }
+  
 }
