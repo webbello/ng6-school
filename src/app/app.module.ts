@@ -1,6 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatTreeModule, MatButtonModule, MatCheckboxModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatFormFieldModule} from '@angular/material';
+import { MatSelectModule, MatTreeModule, MatButtonModule, MatCheckboxModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatFormFieldModule} from '@angular/material';
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -80,6 +80,7 @@ import { QuestionEditComponent } from './components/question/question-edit/quest
     MatSidenavModule,
     MatListModule,
     MatInputModule,
+    MatSelectModule,
     MatPaginatorModule,
     MatProgressSpinnerModule,
     MatSortModule,

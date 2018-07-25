@@ -23,6 +23,38 @@
       <span *ngIf="!questionForm.get('status').valid && questionForm.get('status').touched">Please enter Question Status</span>
     </mat-error>
   </mat-form-field>
+  <div class="example-full-width">
+     <mat-form-field>
+        <input matInput placeholder="Choice1" formControlName="choice1" [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!questionForm.get('choice1').valid && questionForm.get('choice1').touched">Please enter Question Choice1</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Choice2" formControlName="choice2" [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!questionForm.get('choice2').valid && questionForm.get('choice2').touched">Please enter Question Choice2</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Choice3" formControlName="choice3" [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!questionForm.get('choice3').valid && questionForm.get('choice3').touched">Please enter Question Choice3</span>
+        </mat-error>
+    </mat-form-field>
+    <mat-form-field>
+        <input matInput placeholder="Choice4" formControlName="choice4" [errorStateMatcher]="matcher">
+        <mat-error>
+          <span *ngIf="!questionForm.get('choice4').valid && questionForm.get('choice4').touched">Please enter Question Choice4</span>
+        </mat-error>
+    </mat-form-field>   
+  </div>
+  <mat-form-field>
+    <mat-select placeholder="Correct Answer" formControlName="choices">
+      <mat-option *ngFor="let choice of choicesList" [value]="choice">{{choice}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
   <div class="button-row">
     <button type="submit" [disabled]="!questionForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
   </div>

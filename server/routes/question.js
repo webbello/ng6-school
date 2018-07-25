@@ -24,6 +24,7 @@ router.post('/', function(req, res, next) {
     question = new Question({
       creator: req.decoded.id,
       question: req.body.question,
+      options:[{choice:'choice1', isAnsware: false}, {choice:'choice2', isAnsware: false}, {choice:'choice1', isAnsware: true}],
       type: req.body.type,
       status: req.body.status
     });
