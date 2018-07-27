@@ -1,74 +1,56 @@
 var express = require('express');
 var router = express.Router();
+var mongoose = require('mongoose');
+var Quiz = require('../models/quiz.js');
 
-var Quiz = require('../models/quiz');
-
-/* GET Quiz listing. */
+/* GET ALL BOOKS */
 router.get('/', function(req, res, next) {
-
-	Quiz.find((err, quizes) => {
-		if (err) {
-			console.log(err);
-
-		} else {
-			res.json(quizes);
-		}
-	});
-  //res.send('respond with a resource');
+  Quiz.find(function (err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
 });
 
-/* GET one quiz listing. */
+/* GET SINGLE BOOK BY ID */
 router.get('/:id', function(req, res, next) {
-
-	Quiz.findById(req.params.id, (err, quiz) => {
-		if (err) {
-			console.log(err);
-
-		} else {
-			res.json(quiz);
-		}
-	})
-  res.send('respond update with a resource');
+  Quiz.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
-router.route('/add').post((req, res) => {
-    var quiz = new Quiz(req.body);
-    quiz.save()
-        .then(quiz => {
-            res.status(200).json({'quiz': 'Added successfully'});
-        })
-        .catch(err => {
-            res.status(400).send(err);
-        });
-});
-
-router.route('/update/:id').post((req, res) => {
-    Quiz.findById(req.params.id, (err, quiz) => {
-        if (!quiz)
-            return next(new Error('Could not load document'));
-        else {
-            quiz.title = req.body.title;
-            quiz.responsible = req.body.responsible;
-            quiz.description = req.body.description;
-            quiz.severity = req.body.severity;
-            quiz.status = req.body.status;
-
-            quiz.save().then(quiz => {
-                res.json('Update done');
-            }).catch(err => {
-                res.status(400).send('Update failed');
-            });
-        }
+/* SAVE BOOK */
+router.post('/', function(req, res, next) {
+  console.log(req.body);
+    quiz = new Quiz({
+      creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
+      name: 'GIS',
+      description: 'Some des',
+      questions: req.body
+    });
+    quiz.save(function (err) {
+      if (err) {
+        res.send(err);
+        return;
+      }
+      res.json({message: 'New Quiz Created'});
     });
 });
 
-router.route('/delete/:id').get((req, res) => {
-    Quiz.findByIdAndRemove({_id: req.params.id}, (err, quiz) => {
-        if (err)
-            res.json(err);
-        else
-            res.json('Remove successfully');
-    })
-})
+/* UPDATE BOOK */
+router.put('/:id', function(req, res, next) {
+  Quiz.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* DELETE BOOK */
+router.delete('/:id', function(req, res, next) {
+  Quiz.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
 
 module.exports = router;

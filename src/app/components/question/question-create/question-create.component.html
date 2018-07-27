@@ -2,6 +2,7 @@
   <a mat-raised-button color="primary" [routerLink]="['/questions']"><mat-icon>list</mat-icon></a>
 </div>
 <form [formGroup]="questionForm" (ngSubmit)="onFormSubmit(questionForm.value)">
+  Value: {{ questionForm.value | json }}
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Question" formControlName="question"
            [errorStateMatcher]="matcher">
@@ -9,6 +10,34 @@
       <span *ngIf="!questionForm.get('question').valid && questionForm.get('question').touched">Please enter Question</span>
     </mat-error>
   </mat-form-field>
+  <div formArrayName="choices">
+
+      <div *ngFor="let choice of choiceForms.controls; let i=index" [formGroupName]="i">
+
+
+          <mat-form-field class="half-width">
+              <input  matInput placeholder="Choice" formControlName="option" [errorStateMatcher]="matcher">
+              <!-- <mat-error>
+                <span *ngIf="!questionForm.get('option').valid && questionForm.get('option').touched">Please enter Question Choice1</span>
+              </mat-error> -->
+          </mat-form-field>
+          
+          <mat-checkbox  formControlName="isRightAnswer">Right Answer</mat-checkbox>
+              <!-- <mat-error>
+                <span *ngIf="!questionForm.get('isRightAnswer').valid && questionForm.get('isRightAnswer').touched">Please enter Question Choice1</span>
+              </mat-error> -->
+          
+
+
+          <button class="pb-10" mat-raised-button color="warn" (click)="deleteChoice()">Delete</button>
+
+      </div>
+
+  </div>
+
+
+  <button mat-raised-button color="primary" (click)="addChoice()">Add Choice Option</button>
+
   <mat-form-field class="example-full-width">
     <input matInput placeholder="Question Type" formControlName="type"
            [errorStateMatcher]="matcher">
@@ -23,35 +52,9 @@
       <span *ngIf="!questionForm.get('status').valid && questionForm.get('status').touched">Please enter Question Status</span>
     </mat-error>
   </mat-form-field>
-  <div class="example-full-width">
-     <mat-form-field>
-        <input matInput placeholder="Choice1" formControlName="choice1" [errorStateMatcher]="matcher">
-        <mat-error>
-          <span *ngIf="!questionForm.get('choice1').valid && questionForm.get('choice1').touched">Please enter Question Choice1</span>
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Choice2" formControlName="choice2" [errorStateMatcher]="matcher">
-        <mat-error>
-          <span *ngIf="!questionForm.get('choice2').valid && questionForm.get('choice2').touched">Please enter Question Choice2</span>
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Choice3" formControlName="choice3" [errorStateMatcher]="matcher">
-        <mat-error>
-          <span *ngIf="!questionForm.get('choice3').valid && questionForm.get('choice3').touched">Please enter Question Choice3</span>
-        </mat-error>
-    </mat-form-field>
-    <mat-form-field>
-        <input matInput placeholder="Choice4" formControlName="choice4" [errorStateMatcher]="matcher">
-        <mat-error>
-          <span *ngIf="!questionForm.get('choice4').valid && questionForm.get('choice4').touched">Please enter Question Choice4</span>
-        </mat-error>
-    </mat-form-field>   
-  </div>
   <mat-form-field>
-    <mat-select placeholder="Correct Answer" formControlName="choices">
-      <mat-option *ngFor="let choice of choicesList" [value]="choice">{{choice}}</mat-option>
+    <mat-select placeholder="Correct Answer" formControlName="answers">
+      <mat-option *ngFor="let answer of answersList" [value]="answer">{{answer}}</mat-option>
     </mat-select>
   </mat-form-field>
 

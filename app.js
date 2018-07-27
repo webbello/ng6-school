@@ -12,9 +12,10 @@ var config = require('./server/config');
 
 var indexRouter = require('./server/routes/index');
 var usersRouter = require('./server/routes/users');
-var quizRouter = require('./server/routes/quiz');
+var issueRouter = require('./server/routes/issue');
 var bookRouter = require('./server/routes/book');
 var questionRouter = require('./server/routes/question');
+var quizRouter = require('./server/routes/quiz');
 // Add your middlewares:
 var VerifyToken = require("./server/middleware/VerifyToken");
 
@@ -52,9 +53,10 @@ app.use('/users', usersRouter);
 // authenticate each request
 // will set `request.user`
 //app.use(authenticate);
-app.use('/quiz', quizRouter);
+app.use('/issue', issueRouter);
 app.use('/book', bookRouter);
-app.use('/question', VerifyToken, questionRouter);
+app.use('/question', questionRouter);
+app.use('/quiz', quizRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

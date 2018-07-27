@@ -4,12 +4,12 @@ var Schema = mongoose.Schema;
 
 var QuestionTypeSchema = Schema({
   name: {type: String, required: true},
-  isActive: {type: Boolean, required: true}
+  isActive: {type: Boolean, required: false}
 });
 
 var QuestionChoiceSchema = Schema({
-  choice: {type: String, required: true},
-  isAnsware: {type: String, required: true}
+  option: {type: String, required: true},
+  isRightAnswer: {type: String, required: false}
 });
 
 var QuestionSchema = Schema({
