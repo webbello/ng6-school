@@ -12,44 +12,22 @@ body {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
-#container {
-    display: grid;
-    grid-template-columns: 70px auto;
-    height: 100%;
+.full {
+    display: block;
+}
 
-    #content {
-        padding: 30px 50px;
+.half-width {
+    width: 50%;
+}
 
-        ul {
-            list-style-type: none;
-            margin:0;padding:0;
-        
-            li {
-                background: #fff;
-                border-radius: 8px;
-                padding: 20px;
-                margin-bottom: 8px;
-        
-                a {
-                    font-size: 1.5em;
-                    text-decoration: none;
-                    font-weight: bold;
-                    color:#00A8FF;
-                }
-        
-                ul {
-                    margin-top: 20px;
-                    
-                    li {
-                        padding:0;
-        
-                        a {
-                            font-size: 1em;
-                            font-weight: 300;
-                        }
-                    }
-                }
-            }
-        }
-    }
+.xs {
+    margin-right: 15px;
+    width: 15%;
+}
+
+.sm {
+    width: 25%;
+}
+.pb-10 {
+    padding-bottom: 10px;
 }

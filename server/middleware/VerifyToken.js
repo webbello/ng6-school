@@ -3,7 +3,8 @@ var secretKey = config.secretKey;
 var jsonwebtoken = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-  console.log('Somebody just came to our app');
+	console.log('Token:', req.headers['x-access-token']);
+  	console.log('Somebody just came to our app');
 	var token = req.body.token || req.params.token || req.headers['x-access-token'];
 	if (token) {
 		 jsonwebtoken.verify(token, secretKey, function (err, decoded) {
