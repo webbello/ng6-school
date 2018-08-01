@@ -1,6 +1,7 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
+var Question = require('../models/question.js');
 var Quiz = require('../models/quiz.js');
 
 /* GET ALL BOOKS */
@@ -22,12 +23,22 @@ router.get('/:id', function(req, res, next) {
 /* SAVE BOOK */
 router.post('/', function(req, res, next) {
   console.log(req.body);
+    question = new Question({
+      creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
+      name: 'GIS',
+      description: 'Some des',
+      question: req.body.question,
+      options: req.body.choices,//[{choice:'choice1', isAnsware: false}, {choice:'choice2', isAnsware: false}, {choice:'choice1', isAnsware: true}],
+      type: req.body.type,
+      status: req.body.status
+    });
     quiz = new Quiz({
       creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
       name: 'GIS',
       description: 'Some des',
-      questions: req.body
+      questions: question
     });
+    //quiz.questions.push(question);
     quiz.save(function (err) {
       if (err) {
         res.send(err);
