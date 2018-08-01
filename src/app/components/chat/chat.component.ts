@@ -47,18 +47,26 @@ export class ChatComponent implements OnInit {
 	    }
 
 	    this.chatService.send({
-	      from: this.user,
+	      from: {
+			    id: 1,
+			    name: 'Irfan',
+			    avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
+			},
 	      content: message
 	    });
 	    this.messageContent = null;
 	}
-	
+
 	public sendNotification(params: any, action: Action): void {
 	    let message: Message;
 
 	    if (action === Action.JOINED) {
 	      message = {
-	        from: this.user,
+	        from: {
+			    id: 1,
+			    name: 'Irfan',
+			    avatar: 'string'
+			},
 	        action: action
 	      }
 	    } else if (action === Action.RENAME) {
