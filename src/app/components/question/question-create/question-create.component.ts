@@ -6,13 +6,13 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgF
 @Component({
   selector: 'app-question-create',
   templateUrl: './question-create.component.html',
-  styleUrls: ['./question-create.component.css']
+  styleUrls: ['./question-create.component.scss']
 })
 export class QuestionCreateComponent implements OnInit {
 
   questionForm: FormGroup;
 
-  answersList: string[] = ['Choice1', 'Choice2', 'Choice3', 'Choice4'];
+  // answersList: string[] = ['Choice1', 'Choice2', 'Choice3', 'Choice4'];
 
   constructor(private router: Router, private api: QuestionService, private formBuilder: FormBuilder) { }
 
@@ -21,8 +21,7 @@ export class QuestionCreateComponent implements OnInit {
       'question' : ['Who?', Validators.required],
        choices: this.formBuilder.array([]),
       'type' : ['Multiple Type', Validators.required],
-      'status' : ['Open', Validators.required],
-      'answers' : [null, Validators.required]
+      'status' : ['Open', Validators.required]
     });
   }
   get choiceForms() {
@@ -33,7 +32,7 @@ export class QuestionCreateComponent implements OnInit {
 
     const choice = this.formBuilder.group({ 
       option: [null, Validators.required],
-      isRightAnswer: [false, Validators.required],
+      isAnswer: [false, Validators.required],
     })
 
     this.choiceForms.push(choice);

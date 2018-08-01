@@ -22,7 +22,7 @@
               </mat-error> -->
           </mat-form-field>
           
-          <mat-checkbox  formControlName="isRightAnswer">Right Answer</mat-checkbox>
+          <mat-checkbox  formControlName="isAnswer">Right Answer</mat-checkbox>
               <!-- <mat-error>
                 <span *ngIf="!questionForm.get('isRightAnswer').valid && questionForm.get('isRightAnswer').touched">Please enter Question Choice1</span>
               </mat-error> -->
@@ -52,11 +52,11 @@
       <span *ngIf="!questionForm.get('status').valid && questionForm.get('status').touched">Please enter Question Status</span>
     </mat-error>
   </mat-form-field>
-  <mat-form-field>
+<!--   <mat-form-field>
     <mat-select placeholder="Correct Answer" formControlName="answers">
       <mat-option *ngFor="let answer of answersList" [value]="answer">{{answer}}</mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <div class="button-row">
     <button type="submit" [disabled]="!questionForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>

@@ -20,7 +20,7 @@ export class QuizComponent implements OnInit {
     'allowBack': true,
     'allowReview': true,
     'autoMove': true,  // if true, it will move to next question automatically when answered.
-    'duration': 20,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 120,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -42,7 +42,7 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
 
-  constructor(private quizService: QuizService, private api: QuestionService) { }
+  constructor(private quizService: QuizService, private api: QuestionService ) { }
 
   ngOnInit() {
     this.quizes = this.quizService.getAll();
@@ -52,7 +52,10 @@ export class QuizComponent implements OnInit {
   }
 
   loadQuiz(quizName: string) {
+    // this.api.getQuestions().subscribe(res => {
+    //   console.log(res);
     this.quizService.get(quizName).subscribe(res => {
+    console.log(res);
       this.quiz = new Quiz(res);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();

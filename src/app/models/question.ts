@@ -1,7 +1,7 @@
 import { Option } from './option';
 
 export class Question {
-    id: number;
+    id: '1010';
     name: string;
     questionTypeId: number;
     options: Option[];

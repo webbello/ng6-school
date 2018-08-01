@@ -29,6 +29,7 @@ import { QuizComponent } from './components/quiz/quiz.component';
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { AuthGuard } from './_guards/auth/auth.guard';
 // Parent Routes
 const routes : Routes = [
@@ -92,7 +93,11 @@ const routes : Routes = [
 	path: 'question-edit/:id',
 	component: QuestionEditComponent,
 	data: { title: 'Edit Question' }
-	}
+	},
+	{
+		path: 'chat',
+		component: ChatComponent
+	},
 ];
 
 @NgModule({

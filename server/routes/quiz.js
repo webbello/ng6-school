@@ -23,10 +23,12 @@ router.get('/:id', function(req, res, next) {
 router.post('/', function(req, res, next) {
   console.log(req.body);
     quiz = new Quiz({
+      _id: new mongoose.Types.ObjectId(),
       creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
+      id: 1,
       name: 'GIS',
-      description: 'Some des',
-      questions: req.body
+      description: 'Asp.Net Quiz (contains webform, mvc, web API, etc.)',
+      questions: new mongoose.Types.ObjectId(),
     });
     quiz.save(function (err) {
       if (err) {

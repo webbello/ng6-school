@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 export class QuestionComponent implements OnInit {
 
   questions: any;
-  displayedColumns = ['question', 'type', 'status', 'created'];
+  displayedColumns = ['name', 'type', 'status', 'created'];
   dataSource = new QuestionDataSource(this.api);
 
   constructor(private api: QuestionService) { }

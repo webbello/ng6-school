@@ -1,17 +1,15 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MatSelectModule, MatTreeModule, MatButtonModule, MatCheckboxModule, MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatToolbarModule, MatSidenavModule, MatListModule, MatInputModule, MatPaginatorModule, MatProgressSpinnerModule, MatSortModule, MatTableModule, MatFormFieldModule} from '@angular/material';
-
 
 import { AppRoutingModule } from './app-routing.module';
 import { BookService } from './services/book/book.service';
-
 
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
+import { SharedModule } from './shared/shared.module';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -39,11 +37,13 @@ import { QuestionComponent } from './components/question/question/question.compo
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
-
+import { ChatComponent } from './components/chat/chat.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+    MaterialDashboardComponent,
+    MaterialNavComponent,
     StudentAddComponent,
     StudentDetailsComponent,
     StudentListComponent,
@@ -51,8 +51,6 @@ import { QuestionEditComponent } from './components/question/question-edit/quest
     SignupComponent,
     FacultyAddComponent,
     SidebarComponent,
-    MaterialDashboardComponent,
-    MaterialNavComponent,
     BookComponent,
     BookCreateComponent,
     BookDetailComponent,
@@ -61,7 +59,8 @@ import { QuestionEditComponent } from './components/question/question-edit/quest
     QuestionComponent,
     QuestionCreateComponent,
     QuestionDetailComponent,
-    QuestionEditComponent
+    QuestionEditComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -70,23 +69,7 @@ import { QuestionEditComponent } from './components/question/question-edit/quest
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCheckboxModule,
-    MatTreeModule,
-    MatToolbarModule,
-    MatSidenavModule,
-    MatListModule,
-    MatInputModule,
-    MatSelectModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatSortModule,
-    MatTableModule,
-    MatFormFieldModule
+    SharedModule
   ],
   providers: [BookService],
   bootstrap: [AppComponent]
