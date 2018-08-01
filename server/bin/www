@@ -22,12 +22,16 @@ app.set('port', port);
 var server = http.createServer(app);
 var io = require('socket.io')(server);
 
-io.on('connection', (socket) => {
-    console.log('user connected');
-    socket.on('new-message', (message) => {
-      io.emit(message);
-      console.log(message);
-    });
+io.on('connect', (socket) => {
+      console.log('Connected client on port %s.', 3000);
+      socket.on('message', (message) => {
+          console.log('[server](message): %s', JSON.stringify(message));
+          io.emit('message', message);
+      });
+
+      socket.on('disconnect', () => {
+          console.log('Client disconnected');
+      });
 });
 
 /**
