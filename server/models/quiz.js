@@ -3,13 +3,12 @@ var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
 
 var QuizSchema = Schema({
-  name: {type: String, required: true},
-  title: {type: String, required: true},
-  responsible: {type: String, required: true},
-  discription: {type: String, required: true},
-  severity: {type: String, required: true},
-  question: {type: String, required: true},
-  status: {type: String, required: true},
+	_id: Schema.Types.ObjectId,
+  creator: {type: Schema.Types.ObjectId, ref: 'User'},
+  name: {type: String, default: 'GIS'},
+  description: {type: String, required: false},
+  questions: [{type: Schema.Types.ObjectId, ref: 'Question'}],
+  created: {type: Date, default: Date.now}
 });
 
 module.exports = mongoose.model('Quiz', QuizSchema);

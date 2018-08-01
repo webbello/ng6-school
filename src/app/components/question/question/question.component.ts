@@ -6,12 +6,12 @@ import { Observable } from 'rxjs';
 @Component({
   selector: 'app-question',
   templateUrl: './question.component.html',
-  styleUrls: ['./question.component.css']
+  styleUrls: ['./question.component.scss']
 })
 export class QuestionComponent implements OnInit {
 
   questions: any;
-  displayedColumns = ['question', 'type', 'status', 'created'];
+  displayedColumns = ['name', 'type', 'status', 'created'];
   dataSource = new QuestionDataSource(this.api);
 
   constructor(private api: QuestionService) { }

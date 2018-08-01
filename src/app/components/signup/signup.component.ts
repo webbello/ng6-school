@@ -31,8 +31,10 @@ export class SignupComponent implements OnInit {
     //console.log(form.username);
     this.api.postSignup(form)
       .subscribe(res => {
-          console.log(res.message));
-          this.router.navigate(['/books']);
+          console.log(res.message);
+          if (res.success) {
+            this.router.navigate(['/books']);
+          }
         }, (err) => {
           console.log(err);
         });

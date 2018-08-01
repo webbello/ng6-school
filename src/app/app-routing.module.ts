@@ -18,7 +18,6 @@ import { StudentDetailsComponent } from './components/student/details/student-de
 import { StudentListComponent } from './components/student/list/student-list.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-import { HomeComponent, homeChildRoutes } from './components/home/home.component';
 import { FacultyAddComponent } from './components/faculty/add/faculty-add.component';
 import { BookComponent } from './components/book/book/book.component';
 import { BookCreateComponent } from './components/book/book-create/book-create.component';
@@ -26,21 +25,21 @@ import { BookDetailComponent } from './components/book/book-detail/book-detail.c
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 
 import { QuestionComponent } from './components/question/question/question.component';
+import { QuizComponent } from './components/quiz/quiz.component';
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+import { ChatComponent } from './components/chat/chat.component';
 import { AuthGuard } from './_guards/auth/auth.guard';
 // Parent Routes
 const routes : Routes = [
-	// {
-	// 	path: '',
-	// 	component: HomeComponent,
-	// 	children :homeChildRoutes,
-	// 	canActivate : [AuthService]
-	// },
 	{
 		path: 'login',
 		component: LoginComponent
+	},
+	{
+		path: 'quiz',
+		component: QuizComponent
 	},
 	{
 		path: 'signup',
@@ -94,7 +93,11 @@ const routes : Routes = [
 	path: 'question-edit/:id',
 	component: QuestionEditComponent,
 	data: { title: 'Edit Question' }
-	}
+	},
+	{
+		path: 'chat',
+		component: ChatComponent
+	},
 ];
 
 @NgModule({
