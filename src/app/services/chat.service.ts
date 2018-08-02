@@ -11,7 +11,7 @@ import { Event } from '../models/chat/event';
 
 export class ChatService {
 
-	private url = 'http://localhost:3000';
+	private url = 'http://192.168.17.35:3000';
     private socket;    
 
     constructor() {
@@ -25,6 +25,12 @@ export class ChatService {
     public onMessage(): Observable<Message> {
         return new Observable<Message>(observer => {
             this.socket.on('message', (data: Message) => observer.next(data));
+        });
+    }
+
+    public onStart(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('startQuiz', (data: {start: true}) => observer.next(data));
         });
     }
 

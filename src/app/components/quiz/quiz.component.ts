@@ -4,6 +4,9 @@ import { QuizService } from '../../services/quiz.service';
 import { QuestionService } from '../../services/question/question.service';
 import { HelperService } from '../../services/helper/helper.service';
 import { Option, Question, Quiz, QuizConfig } from '../../models/index';
+import { Event } from '../../models/chat/event';
+import { Message } from '../../models/chat/message';
+import { ChatService } from '../../services/chat.service';
 
 @Component({
   selector: 'app-quiz',
@@ -16,6 +19,8 @@ export class QuizComponent implements OnInit {
   quiz: Quiz = new Quiz(null);
   mode = 'quiz';
   quizName: string;
+  start: boolean = false;
+  ioConnection: any;
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
@@ -42,13 +47,61 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
 
-  constructor(private quizService: QuizService, private api: QuestionService ) { }
+  constructor(private quizService: QuizService, private api: QuestionService, private chatService: ChatService ) { }
 
   ngOnInit() {
     this.quizes = this.quizService.getAll();
     //console.log(this.quizes);
     this.quizName = this.quizes[0].id;
     this.loadQuiz(this.quizName);
+    this.initIoConnection();
+  }
+
+  private initIoConnection(): void {
+
+      this.ioConnection = this.chatService.onMessage()
+        .subscribe((message: Message) => {
+          console.log(message.content);
+          this.start = message.content;
+        });
+
+      this.chatService.onEvent(Event.CONNECT)
+        .subscribe(() => {
+          console.log('connected');
+        });
+        
+      this.chatService.onEvent(Event.DISCONNECT)
+        .subscribe(() => {
+          console.log('disconnected');
+        });
+  }
+
+  public startQuiz(message: string): void {
+      if (!message) {
+        return;
+      }
+
+      this.chatService.send({
+        from: {
+          id: 1,
+          name: 'Irfan',
+          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
+      },
+        content: message
+      });
+      //this.messageContent = null;
+  }
+  public stopQuiz(message: string): void {
+
+      this.chatService.send({
+        from: {
+          id: 1,
+          name: 'Irfan',
+          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
+      },
+        content: message
+      });
+      //this.messageContent = null;
   }
 
   loadQuiz(quizName: string) {

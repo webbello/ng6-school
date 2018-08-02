@@ -1,15 +1,18 @@
 <div class="row">
   <div class="col-6">
     <h3>Quiz Application</h3>
+
   </div>
   <div class="col-6 text-right">
-    Select Quiz:
+    <button mat-raised-button color="primary" (click)="startQuiz(true)"><mat-icon>start</mat-icon> Start</button>
+    <button mat-raised-button color="primary" (click)="stopQuiz(false)"><mat-icon>stop</mat-icon> Stop</button>
+    Select Quiz: {{start}}
     <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)">
-      <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}}</option>
+      <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}} </option>
     </select>
   </div>
 </div>
-<div id="quiz">
+<div *ngIf="start" id="quiz">
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
 
