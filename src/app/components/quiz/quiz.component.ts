@@ -24,7 +24,7 @@ export class QuizComponent implements OnInit {
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
-    'autoMove': true,  // if true, it will move to next question automatically when answered.
+    'autoMove': false,  // if true, it will move to next question automatically when answered.
     'duration': 120,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
@@ -50,11 +50,7 @@ export class QuizComponent implements OnInit {
   constructor(private quizService: QuizService, private api: QuestionService, private chatService: ChatService ) { }
 
   ngOnInit() {
-    this.quizes = this.quizService.getAll();
-    //console.log(this.quizes);
-    this.quizName = this.quizes[0].id;
-    this.loadQuiz(this.quizName);
-    this.initIoConnection();
+    
   }
 
   private initIoConnection(): void {
@@ -77,6 +73,11 @@ export class QuizComponent implements OnInit {
   }
 
   public startQuiz(message: string): void {
+    this.quizes = this.quizService.getAll();
+    //console.log(this.quizes);
+    this.quizName = this.quizes[0].id;
+    this.loadQuiz(this.quizName);
+    this.initIoConnection();
       if (!message) {
         return;
       }
@@ -170,7 +171,7 @@ export class QuizComponent implements OnInit {
     this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
 
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    console.log(this.quiz.questions);
+    //console.log(this.quiz.questions);
     this.mode = 'result';
   }
 }
