@@ -6,10 +6,12 @@ import { BookService } from './services/book/book.service';
 
 //Modules
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LayoutModule } from '@angular/cdk/layout';
 import { SharedModule } from './shared/shared.module';
+
+import { JwtInterceptor, ErrorInterceptor } from './_interceptor';
 
 // Services
 import { AuthService } from './services/auth/auth.service';
@@ -71,7 +73,11 @@ import { ChatComponent } from './components/chat/chat.component';
     BrowserAnimationsModule,
     SharedModule
   ],
-  providers: [BookService],
+  providers: [
+    BookService,
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    // { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

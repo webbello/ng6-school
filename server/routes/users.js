@@ -8,6 +8,9 @@ var config = require('../config');
 var secretKey = config.secretKey;
 
 var jsonwebtoken = require('jsonwebtoken');
+// Add your middlewares:
+var VerifyToken = require("../middleware/VerifyToken");
+
 function createToken(user) {
  	var token = jsonwebtoken.sign({
  		id: user._id,
@@ -166,7 +169,7 @@ router.route('/story')
 		});
 	});
 
-router.get('/me', function(req, res, next) {
+router.get('/me', VerifyToken, function(req, res, next) {
 
 	res.json(req.decoded);
   
