@@ -31,14 +31,14 @@ export class LoginComponent implements OnInit {
           let token = res.token;
           console.log(res.message);
           if (res.success) {
-            localStorage.setItem('token', token);
+            //localStorage.setItem('token', token);
             // store username and jwt token in local storage to keep user logged in between page refreshes
-            //localStorage.setItem('currentUser', JSON.stringify({ token: res.token }));
+            localStorage.setItem('currentUser', JSON.stringify(res));
             this.router.navigate(['/books']);
           }else {
-            localStorage.setItem('token', '');
+            localStorage.setItem('currentUser', '');
           }
-          //console.log(localStorage.getItem('currentUser'))
+          console.log(localStorage.getItem('currentUser'))
         }, (err) => {
           console.log('irfan');
           console.log(err);

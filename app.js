@@ -36,7 +36,7 @@ app.use(function (req, res, next) {
 	res.setHeader('Access-Control-Allow-Origin', '*');
 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-  //res.setHeader('Access-Control-Allow-Headers', 'X-access-token');
+  // res.setHeader('Authorization', true);
 	res.setHeader('Access-Control-Allow-Credentials', true);
 	next();
 });
@@ -56,7 +56,7 @@ app.use('/users', usersRouter);
 //app.use(authenticate);
 app.use('/issue', issueRouter);
 app.use('/book', bookRouter);
-app.use('/question', questionRouter);
+app.use('/question', VerifyToken, questionRouter);
 app.use('/quiz', quizRouter);
 app.use('/chat', chatRouter);
 
