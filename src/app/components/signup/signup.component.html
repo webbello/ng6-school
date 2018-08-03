@@ -1,0 +1,53 @@
+<div class="main-div">
+
+  	<mat-card class="example-card center">
+	  <mat-card-header layout-align="center center">
+	    <div mat-card-avatar class="example-header-image"></div>
+	    <mat-card-title>IIRS</mat-card-title>
+	    <mat-card-subtitle>ISRO</mat-card-subtitle>
+	  </mat-card-header>
+	  <img mat-card-image src="assets/isro.jpg" alt="Photo of a Shiba Inu">
+	  <mat-card-content>
+      	<form [formGroup]="signupForm" (ngSubmit)="onFormSubmit(signupForm.value)">
+		  
+      	  <mat-form-field class="signup-full-width">
+		    <input matInput placeholder="Full Name" formControlName="name" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched">Please enter Full Name</span>
+		    </mat-error>
+		  </mat-form-field>
+
+		  <mat-form-field class="signup-full-width">
+		    <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter Email</span>
+		    </mat-error>
+		  </mat-form-field>
+
+		  <mat-form-field class="signup-full-width">
+		    <input matInput placeholder="Username/Email" formControlName="username" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please enter username/email</span>
+		    </mat-error>
+		  </mat-form-field>
+
+		  <mat-form-field class="signup-full-width">
+		    <input matInput placeholder="Password" formControlName="password" [errorStateMatcher]="matcher">
+		    <mat-error>
+		      <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter password</span>
+		    </mat-error>
+		  </mat-form-field>
+		  <div class="button-row">
+		    <button type="submit" [disabled]="!signupForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon> Signup</button>
+		  </div>
+		  <hr>
+		</form>
+	  </mat-card-content>
+	  <mat-card-actions>
+	    <button mat-button>T&C</button>
+	    <button mat-button [routerLink]="['/login']" >Login</button>
+	  </mat-card-actions>
+	</mat-card>
+
+</div>
+
