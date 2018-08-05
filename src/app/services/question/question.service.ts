@@ -21,6 +21,14 @@ export class QuestionService {
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
+    // if (error instanceof HttpErrorResponse) {
+    //   console.log('hii');
+    //   if (error.status === 401) {
+    //     console.log('hi');
+    //     this.router.navigate(['/login']);
+    //   }
+    // }
+
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

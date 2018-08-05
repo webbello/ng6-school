@@ -28,6 +28,12 @@ export class ChatService {
         });
     }
 
+    public onStart(): Observable<any> {
+        return new Observable<any>(observer => {
+            this.socket.on('startQuiz', (data: {start: true}) => observer.next(data));
+        });
+    }
+
     public onEvent(event: Event): Observable<any> {
         return new Observable<Event>(observer => {
             this.socket.on(event, () => observer.next());

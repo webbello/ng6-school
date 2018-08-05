@@ -3,6 +3,7 @@ import { Observable, of, throwError } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { catchError, tap, map } from 'rxjs/operators';
 import * as moment from "moment";
+import { Router } from '@angular/router';
 
 import { environment } from '../../../environments/environment';
 
@@ -17,7 +18,7 @@ const apiUrl = `${environment.apiUrl}/users`;
 })
 export class AuthService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private router: Router) { }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -48,6 +49,15 @@ export class AuthService {
       );
   }
 
+  getLoginUser(): Observable<any>{
+    const url = `${apiUrl}/loggedin`;
+    //console.log(loginUrl);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+      
+  }
+
 	private setSession(authResult) {
 	    const expiresAt = moment().add(authResult.expiresIn,'second');
 
@@ -56,12 +66,14 @@ export class AuthService {
 	}          
 
 	logout() {
-	    localStorage.removeItem("id_token");
-	    localStorage.removeItem("expires_at");
+	    localStorage.removeItem("currentUser");
+      this.router.navigate(['/login']);
+	    //localStorage.removeItem("expires_at");
 	}
 
 	public isLoggedIn() {
-	    return moment().isBefore(this.getExpiration());
+    return !!localStorage.getItem("currentUser");
+	  //return moment().isBefore(this.getExpiration());
 	}
 
 	isLoggedOut() {
