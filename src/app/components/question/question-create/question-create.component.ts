@@ -31,7 +31,7 @@ export class QuestionCreateComponent implements OnInit {
   addChoice() {
 
     const choice = this.formBuilder.group({ 
-      option: [null, Validators.required],
+      name: [null, Validators.required],
       isAnswer: [false, Validators.required],
     })
 

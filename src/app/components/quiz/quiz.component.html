@@ -17,6 +17,7 @@
   <hr />
 
   <div *ngIf="mode=='quiz' && quiz">
+    {{filteredQuestions | json}}
     <div *ngFor="let question of filteredQuestions;">
       <div class="badge badge-info">Question {{pager.index + 1}} of {{pager.count}}.</div>
       <div *ngIf="config.duration" class="badge badge-info float-right">Time: {{ellapsedTime}} / {{duration}}</div>
@@ -24,6 +25,7 @@
         <span [innerHTML]="question.name"></span>
       </h3>
       <div class="row text-left options">
+
         <div class="col-md-6" *ngFor="let option of question.options">
           <div class="option">
             <label class="font-weight-normal" [attr.for]="option.id">

@@ -70,7 +70,8 @@ export class ChatComponent implements OnInit {
 
 	    this.chatService.send({
 	      from: this.user,
-	      content: message
+	      content: message,
+	      created_at: new Date(),
 	    });
 	    this.messageContent = null;
 	}

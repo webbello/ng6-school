@@ -3,4 +3,5 @@ export interface User {
     userId?: number;
     name?: string;
     avatar?: string;
+    created_at?: any;
 }

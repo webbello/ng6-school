@@ -11,7 +11,7 @@ import { Event } from '../models/chat/event';
 
 export class ChatService {
 
-	private url = 'http://localhost:3000';
+	private url = 'http://192.168.17.35:3000';
     private socket;    
 
     constructor() {
