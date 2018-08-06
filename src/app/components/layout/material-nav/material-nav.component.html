@@ -11,7 +11,7 @@
       <a mat-list-item routerLink="quiz"><i class="material-icons">timer</i> Quiz</a>
       <a mat-list-item routerLink="faculty"><i class="material-icons">supervised_user_circle</i> Faculty</a>
       <a mat-list-item routerLink="student"><i class="material-icons">school</i> Student</a>
-      <a mat-list-item routerLink="login"><i class="material-icons">fingerprint</i> Login</a>
+      <a mat-list-item routerLink="login" *ngIf="!authService.isLoggedIn()"><i class="material-icons">fingerprint</i> Login</a>
       <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a>
       <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a>
       <a mat-list-item routerLink="chat"><i class="material-icons">chat</i> Chat</a>
@@ -35,7 +35,7 @@
           <mat-icon>more_vert</mat-icon>
         </button>
         <mat-menu #menu="matMenu">
-          <button mat-menu-item [routerLink]="['/login']">
+          <button *ngIf="!authService.isLoggedIn()" mat-menu-item [routerLink]="['/login']">
             <mat-icon>fingerprint</mat-icon>
             <span>Login</span>
           </button>
@@ -46,6 +46,10 @@
           <button mat-menu-item>
             <mat-icon>notifications_off</mat-icon>
             <span>Disable alerts</span>
+          </button>
+          <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="authService.logout()">
+            <mat-icon>fingerprint</mat-icon>
+            <span>Logout</span>
           </button>
         </mat-menu>
       

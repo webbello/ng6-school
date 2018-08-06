@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { QuizService } from '../../services/quiz.service';
+import { QuizService } from '../../services/quiz/quiz.service';
 import { QuestionService } from '../../services/question/question.service';
 import { HelperService } from '../../services/helper/helper.service';
 import { Option, Question, Quiz, QuizConfig } from '../../models/index';
@@ -24,7 +24,7 @@ export class QuizComponent implements OnInit {
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
-    'autoMove': false,  // if true, it will move to next question automatically when answered.
+    'autoMove': true,  // if true, it will move to next question automatically when answered.
     'duration': 120,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
@@ -106,9 +106,9 @@ export class QuizComponent implements OnInit {
   }
 
   loadQuiz(quizName: string) {
-    // this.api.getQuestions().subscribe(res => {
-    //   console.log(res);
-    this.quizService.get(quizName).subscribe(res => {
+     this.quizService.getQuiz('5b601f9d31f2932bf46f793b').subscribe(res => {
+      console.log(res);
+    //this.quizService.get(quizName).subscribe(res => {
     console.log(res);
       this.quiz = new Quiz(res);
       this.pager.count = this.quiz.questions.length;

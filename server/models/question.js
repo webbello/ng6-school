@@ -9,7 +9,7 @@ var QuestionTypeSchema = Schema({
 });
 
 var QuestionChoiceSchema = Schema({
-  option: {type: String, required: true},
+  name: {type: String, required: true},
   isAnswer: {type: String, required: false}
 });
 

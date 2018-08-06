@@ -17,7 +17,8 @@
 		  </mat-form-field>
 
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Password" formControlName="password" [errorStateMatcher]="matcher">
+		    <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" [errorStateMatcher]="matcher">
+		    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
 		    <mat-error>
 		      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter password</span>
 		    </mat-error>

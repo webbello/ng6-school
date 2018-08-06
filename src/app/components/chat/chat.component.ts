@@ -4,6 +4,9 @@ import { Event } from '../../models/chat/event';
 import { Message } from '../../models/chat/message';
 import { User } from '../../models/chat/user';
 import { ChatService } from '../../services/chat.service';
+import { AuthService } from '../../services/auth/auth.service';
+
+const AVATAR_URL = 'https://api.adorable.io/avatars/285';
 
 @Component({
   selector: 'app-chat',
@@ -12,14 +15,29 @@ import { ChatService } from '../../services/chat.service';
 })
 export class ChatComponent implements OnInit {
 	action = Action;
+	loginUser: any;
 	user: User;
 	messages: Message[] = [];
 	messageContent: string;
 	ioConnection: any;
 
-  	constructor(private chatService: ChatService) { }
+  	constructor(private chatService: ChatService, private authService: AuthService) { }
 
 	ngOnInit() {
+    	const randomId = this.getRandomId();
+		this.authService.getLoginUser()
+	      .subscribe(res => {
+	        console.log(res);
+	        this.loginUser = res;
+	        this.user = {
+		      id: randomId,
+		      userId: res._id,
+		      name: res.name,
+		      avatar: `${AVATAR_URL}/${randomId}.png`
+		    };
+	      }, err => {
+	        console.log(err);
+	      });
 	  	this.initIoConnection();
 	}
 
@@ -41,18 +59,19 @@ export class ChatComponent implements OnInit {
 	      });
 	}
 
+	private getRandomId(): number {
+	    return Math.floor(Math.random() * (1000000)) + 1;
+	}
+
 	public sendMessage(message: string): void {
 	    if (!message) {
 	      return;
 	    }
 
 	    this.chatService.send({
-	      from: {
-			    id: 1,
-			    name: 'Irfan',
-			    avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
-			},
-	      content: message
+	      from: this.user,
+	      content: message,
+	      created_at: new Date(),
 	    });
 	    this.messageContent = null;
 	}
@@ -62,11 +81,7 @@ export class ChatComponent implements OnInit {
 
 	    if (action === Action.JOINED) {
 	      message = {
-	        from: {
-			    id: 1,
-			    name: 'Irfan',
-			    avatar: 'string'
-			},
+	        from: this.user,
 	        action: action
 	      }
 	    } else if (action === Action.RENAME) {

@@ -17,7 +17,7 @@ function createToken(user) {
  		name: user.name,
  		username: user.username
  	}, secretKey, {
- 		expiresIn: 1440
+ 		expiresIn: '12h'
  	});
  	return token;
 }
@@ -173,6 +173,14 @@ router.get('/me', VerifyToken, function(req, res, next) {
 
 	res.json(req.decoded);
   
+});
+
+/* GET SINGLE Logged in user BY ID */
+router.get('/loggedin', VerifyToken, function(req, res, next) {
+  User.findById(req.decoded.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
 });
 
 

@@ -11,12 +11,12 @@ const httpOptions = {
 
 //const apiUrl = "/book";
 //const apiUrl = environment.apiUrl;
-const apiUrl = `${environment.apiUrl}/question`;
+const apiUrl = `${environment.apiUrl}/quiz`;
 
 @Injectable({
   providedIn: 'root'
 })
-export class QuestionService {
+export class QuizService {
 
   constructor(private http: HttpClient) { }
 
@@ -47,28 +47,36 @@ export class QuestionService {
     let body = res;
     return body || { };
   }
+  
+  getAll() {
+    return [
+      { id: 'data/aspnet.json', name: 'Asp.Net' },
+      { id: 'data/csharp.json', name: 'C Sharp' },
+      { id: 'data/designPatterns.json', name: 'Design Patterns' }
+    ];
+  }
 
-  getQuestions(): Observable<any> {
+  getQuizs(): Observable<any> {
     return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
-  getQuestion(id: string): Observable<any> {
+  getQuiz(id: string): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }
 
-  postQuestion(data): Observable<any> {
+  postQuiz(data): Observable<any> {
     return this.http.post(apiUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)
       );
   }
 
-  updateQuestion(id: string, data): Observable<any> {
+  updateQuiz(id: string, data): Observable<any> {
     const url = `${apiUrl}/${id}`;
     return this.http.put(url, data, httpOptions)
       .pipe(
@@ -76,7 +84,7 @@ export class QuestionService {
       );
   }
 
-  deleteQuestion(id: string): Observable<{}> {
+  deleteQuiz(id: string): Observable<{}> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete(url, httpOptions)
       .pipe(

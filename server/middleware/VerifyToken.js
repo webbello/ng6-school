@@ -8,8 +8,8 @@ function verifyToken(req, res, next) {
   	if (!req.headers.authorization) {
   		return res.status(401).send('Unauthorized request');
   	}
-	var token = req.body.token || req.params.token || req.headers.authorization;
-	//var token = req.headers.authorization.split(' ')[1];
+	//var token = req.body.token || req.params.token || req.headers.authorization;
+	var token = req.headers.authorization.split(' ')[1];
 	if (token === 'null') {
   		return res.status(401).send('Unauthorized request');
   	}
@@ -18,7 +18,8 @@ function verifyToken(req, res, next) {
   	if (!payload) {
   		return res.status(401).send('Unauthorized request');
   	}
-  	req.userId = payload.subject;
+  	//req.userId = payload.subject;
+  	req.decoded = payload;
   	next();
 
 	// if (token) {

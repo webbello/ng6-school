@@ -1,3 +1,4 @@
+var cors = require('cors');
 var createError = require('http-errors');
 var express = require('express');
 var bodyParser = require('body-parser');
@@ -21,6 +22,7 @@ var chatRouter = require('./server/routes/chat');
 var VerifyToken = require("./server/middleware/VerifyToken");
 
 var app = express();
+app.use(cors());
 
 // view engine setup
 app.set('views', path.join(__dirname, 'server/views'));
@@ -35,7 +37,8 @@ app.use(express.static(path.join(__dirname, 'server/public')));
 // app.use(function (req, res, next) {
 // 	res.setHeader('Access-Control-Allow-Origin', '*');
 // 	res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-// 	res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+// 	//res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+// 	res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
 //   // res.setHeader('Authorization', true);
 // 	res.setHeader('Access-Control-Allow-Credentials', true);
 // 	next();

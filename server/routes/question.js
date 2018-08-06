@@ -25,16 +25,16 @@ router.post('/', function(req, res, next) {
   console.log(req.body.choices);
     question = new Question({
       _id: new mongoose.Types.ObjectId(),
-      creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
+      creator: req.decoded.id,
       name: req.body.question,
       questionTypeId: 1,
       type: req.body.type,
       options: req.body.choices,
       questionType: {
-                "id": 1,
-                "name": "Multiple Choice",
-                "isActive": true
-            },
+        "id": 1,
+        "name": "Multiple Choice",
+        "isActive": true
+      },
       status: req.body.status
     });
     question.save(function (err) {
@@ -42,20 +42,13 @@ router.post('/', function(req, res, next) {
         res.send(err);
         return;
       }
-      quiz = new Quiz({
-        _id: new mongoose.Types.ObjectId(),
-        creator: '5b56e95df6c3bd0b40ef84f8',//req.decoded.id,
-        id: 1,
-        name: 'GIS',
-        description: 'Asp.Net Quiz (contains webform, mvc, web API, etc.)',
-        questions: question._id
-      });
-      quiz.save(function (err) {
-        if (err) {
-          res.send(err);
-          return;
-        }
-        //res.json({message: 'New Quiz Created'});
+      Quiz.update(
+         { _id: '5b601f9d31f2932bf46f793b' },
+         { $addToSet: {questions: [ question ] } }
+      ).then(user => {
+          res.json('Update done');
+      }).catch(err => {
+          res.status(400).send('Update failed');
       });
       res.json({message: 'New Question Created'});
     });
