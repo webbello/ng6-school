@@ -1,0 +1,28 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
+</div>
+<form [formGroup]="quizForm" (ngSubmit)="onFormSubmit(quizForm.value)">
+  Value: {{ quizForm.value | json }}
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Quiz Name" formControlName="name"
+           [errorStateMatcher]="matcher">
+    <mat-error>
+      <span *ngIf="!quizForm.get('name').valid && quizForm.get('name').touched">Please enter Quiz Name</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <textarea matInput placeholder="Description" formControlName="description"></textarea>
+    <mat-error>
+      <span *ngIf="!quizForm.get('description').valid && quizForm.get('description').touched">Please enter Quiz Description</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <mat-select placeholder="Questions" formControlName="questions" multiple>
+      <mat-option *ngFor="let question of questionList" [value]="question">{{question}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <div class="button-row">
+    <button type="submit" [disabled]="!quizForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>
+  </div>
+</form>

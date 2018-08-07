@@ -1,0 +1,29 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
+</div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><h2>{{quiz.name}}</h2></mat-card-title>
+    <mat-card-subtitle>{{quiz.description}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <dl>
+      <dt>Quiz Name:</dt>
+      <dd>{{quiz.name}}</dd>
+      <dt>Questions:</dt>
+      <dd *ngFor="let question of quiz.questions">
+        {{question.name}}
+      </dd>
+      <dt>Status:</dt>
+      <dd>{{quiz.status}}</dd>
+      <dt>Publish Year:</dt>
+      <dd>{{quiz.created}}</dd>
+      <dt>Update Date:</dt>
+      <dd>{{quiz.created | date}}</dd>
+    </dl>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['/quiz-edit', quiz._id]"><mat-icon>edit</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteQuiz(quiz._id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions>
+</mat-card>

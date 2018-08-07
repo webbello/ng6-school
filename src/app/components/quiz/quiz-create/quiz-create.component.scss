@@ -4,11 +4,15 @@
   width: 100%;
 }
 
-.example-full-width {
+.full-width {
   width: 100%;
 }
 
-.example-full-width:nth-last-child() {
+.width-25 {
+	width: 25%;
+}
+
+.full-width:nth-last-child() {
   margin-bottom: 10px;
 }
 

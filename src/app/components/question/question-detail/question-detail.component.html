@@ -3,15 +3,17 @@
 </div>
 <mat-card class="example-card">
   <mat-card-header>
-    <mat-card-title><h2>{{question.title}}</h2></mat-card-title>
+    <mat-card-title><h2>{{question.name}}</h2></mat-card-title>
     <mat-card-subtitle>{{question.description}}</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <dl>
       <dt>Question:</dt>
-      <dd>{{question.question}}</dd>
-      <dt>Type:</dt>
-      <dd>{{question.type}}</dd>
+      <dd>{{question.name}}</dd>
+      <dt>Options:</dt>
+      <dd *ngFor="let option of question.options">{{option.name}} 
+        <svg *ngIf="option.isAnswer === 'true'" xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7"/></svg>
+      </dd>
       <dt>Status:</dt>
       <dd>{{question.status}}</dd>
       <dt>Publish Year:</dt>
@@ -22,6 +24,6 @@
   </mat-card-content>
   <mat-card-actions>
     <a mat-raised-button color="primary" [routerLink]="['/question-edit', question._id]"><mat-icon>edit</mat-icon></a>
-    <a mat-raised-button color="warn" (click)="deleteBook(question._id)"><mat-icon>delete</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteQuestion(question._id)"><mat-icon>delete</mat-icon></a>
   </mat-card-actions>
 </mat-card>

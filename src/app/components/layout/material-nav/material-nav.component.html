@@ -9,6 +9,7 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="quiz"><i class="material-icons">timer</i> Quiz</a>
+      <a mat-list-item routerLink="quiz-create"><i class="material-icons">timer</i> Quiz Create</a>
       <a mat-list-item routerLink="faculty"><i class="material-icons">supervised_user_circle</i> Faculty</a>
       <a mat-list-item routerLink="student"><i class="material-icons">school</i> Student</a>
       <a mat-list-item routerLink="login" *ngIf="!authService.isLoggedIn()"><i class="material-icons">fingerprint</i> Login</a>
