@@ -50,7 +50,7 @@ export class QuizComponent implements OnInit {
   constructor(private quizService: QuizService, private api: QuestionService, private chatService: ChatService ) { }
 
   ngOnInit() {
-    
+    //this.loadQuiz(this.quizName);
   }
 
   private initIoConnection(): void {
@@ -106,11 +106,13 @@ export class QuizComponent implements OnInit {
   }
 
   loadQuiz(quizName: string) {
-     this.quizService.getQuiz('5b601f9d31f2932bf46f793b').subscribe(res => {
-      console.log(res);
-    //this.quizService.get(quizName).subscribe(res => {
+    this.quizService.getQuiz('5b601f9d31f2932bf46f793b').subscribe(res => {
     console.log(res);
+    console.log('getQuiz');
+    //this.quizService.get(quizName).subscribe(res => {
+    
       this.quiz = new Quiz(res);
+      console.log(this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
       this.timer = setInterval(() => { this.tick(); }, 1000);
@@ -163,6 +165,7 @@ export class QuizComponent implements OnInit {
   };
 
   isCorrect(question: Question) {
+    console.log(question);
     return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
   };
 

@@ -9,7 +9,7 @@ export class Question {
 
     constructor(data: any) {
         data = data || {};
-        this.id = data.id;
+        this.id = data._id;
         this.name = data.name;
         this.questionTypeId = data.questionTypeId;
         this.options = [];
