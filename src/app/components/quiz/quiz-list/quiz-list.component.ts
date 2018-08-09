@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-quiz-list',
@@ -14,7 +15,7 @@ export class QuizListComponent implements OnInit {
   displayedColumns = ['name', 'description', 'status', 'created'];
   dataSource = new QuizDataSource(this.api);
 
-  constructor(private api: QuizService) { }
+  constructor(private api: QuizService, private chatService: ChatService) { }
 
   ngOnInit() {
     this.api.getQuizs()
@@ -23,6 +24,23 @@ export class QuizListComponent implements OnInit {
         this.quizs = res;
       }, err => {
         console.log(err);
+      });
+  }
+  /**
+   * [startQuiz description]
+   * @param {string}  quizId [description]
+   * @param {boolean} start  [description]
+   */
+  public startQuiz(quizId: string, start: boolean): void {
+      if (!quizId) {
+        return;
+      }
+
+      this.chatService.startQuiz({
+        id: quizId,
+        from: this.user,
+        start: start,
+        created_at: new Date(),
       });
   }
 }
