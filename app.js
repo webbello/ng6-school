@@ -60,7 +60,7 @@ app.use('/users', usersRouter);
 app.use('/issue', issueRouter);
 app.use('/book', bookRouter);
 app.use('/question', VerifyToken, questionRouter);
-app.use('/quiz', quizRouter);
+app.use('/quiz', VerifyToken, quizRouter);
 app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler

@@ -3,6 +3,7 @@ import * as io from 'socket.io-client';
 import { Observable, of } from 'rxjs';
 
 import { Message } from '../models/chat/message';
+import { QuizChatModel } from '../models/chat/quiz';
 import { Event } from '../models/chat/event';
 
 @Injectable({
@@ -21,6 +22,9 @@ export class ChatService {
 	public send(message: Message): void {
         this.socket.emit('message', message);
     }
+    public startQuiz(quiz: QuizChatModel): void {
+        this.socket.emit('quiz', quiz);
+    }
 
     public onMessage(): Observable<Message> {
         return new Observable<Message>(observer => {
@@ -28,9 +32,9 @@ export class ChatService {
         });
     }
 
-    public onStart(): Observable<any> {
-        return new Observable<any>(observer => {
-            this.socket.on('startQuiz', (data: {start: true}) => observer.next(data));
+    public onQuizStart(): Observable<QuizChatModel> {
+        return new Observable<QuizChatModel>(observer => {
+            this.socket.on('quiz', (data: QuizChatModel) => observer.next(data));
         });
     }
 
