@@ -43,8 +43,8 @@ router.post('/', function(req, res, next) {
         return;
       }
       Quiz.update(
-         { _id: '5b601f9d31f2932bf46f793b' },
-         { $addToSet: {questions: [ question ] } }
+         { _id: '5b69c3322e7c81238cc8afe8' },
+         { $addToSet: {questionId: [ question._id ] , questions: [ question ] } }
       ).then(user => {
           res.json('Update done');
       }).catch(err => {

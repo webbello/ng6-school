@@ -1,5 +1,7 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quiz-create']"><mat-icon>add</mat-icon></a>
+  <button mat-raised-button color="primary" (click)="startQuiz(true, '5b69c3322e7c81238cc8afe8')"><mat-icon>start</mat-icon> Start</button>
+        <button mat-raised-button color="primary" (click)="stopQuiz(false)"><mat-icon>stop</mat-icon> Stop</button>
 </div>
 <div class="example-container mat-elevation-z8">
   <table mat-table #table [dataSource]="dataSource" class="example-full-width">
@@ -7,28 +9,36 @@
     <!--- Note that these columns can be defined in any order.
           The actual rendered columns are set as a property on the row definition" -->
 
-    <!-- Title Column -->
+    <!-- Quiz Column -->
     <ng-container matColumnDef="name">
       <th mat-header-cell *matHeaderCellDef> Quiz </th>
       <td mat-cell *matCellDef="let element" class="isbn-col"> {{element.name}} </td>
     </ng-container>
 
-    <!-- Title Column -->
+    <!-- Description Column -->
     <ng-container matColumnDef="description">
       <th mat-header-cell *matHeaderCellDef> Description </th>
       <td mat-cell *matCellDef="let element"> {{element.description}} </td>
     </ng-container>
 
-    <!-- Author Column -->
+    <!-- Status Column -->
     <ng-container matColumnDef="status">
       <th mat-header-cell *matHeaderCellDef> Status </th>
       <td mat-cell *matCellDef="let element"> {{element.status}} </td>
     </ng-container>
 
-    <!-- Author Column -->
+    <!-- Created Column -->
     <ng-container matColumnDef="created">
       <th mat-header-cell *matHeaderCellDef> Created </th>
       <td mat-cell *matCellDef="let element"> {{element.created | date}} </td>
+    </ng-container>
+
+    <!-- Created Column -->
+    <ng-container matColumnDef="action">
+      <th mat-header-cell *matHeaderCellDef> Action </th>
+      <td mat-cell *matCellDef="let element"> 
+        jjj
+      </td>
     </ng-container>
 
     <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

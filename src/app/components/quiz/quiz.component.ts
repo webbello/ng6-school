@@ -59,6 +59,7 @@ export class QuizComponent implements OnInit {
         .subscribe((message: Message) => {
           console.log(message.content);
           this.start = message.content;
+          this.startQuiz(message.content, message.quizId);
         });
 
       this.chatService.onEvent(Event.CONNECT)
@@ -72,11 +73,11 @@ export class QuizComponent implements OnInit {
         });
   }
 
-  public startQuiz(message: string): void {
+  public startQuiz(message: string, quizId: string): void {
     this.quizes = this.quizService.getAll();
     //console.log(this.quizes);
     this.quizName = this.quizes[0].id;
-    this.loadQuiz(this.quizName);
+    this.loadQuiz(quizId);
     this.initIoConnection();
       if (!message) {
         return;
@@ -92,7 +93,7 @@ export class QuizComponent implements OnInit {
       });
       //this.messageContent = null;
   }
-  public stopQuiz(message: string): void {
+  public stopQuiz(message: string, quizId: string): void {
 
       this.chatService.send({
         from: {
@@ -105,8 +106,8 @@ export class QuizComponent implements OnInit {
       //this.messageContent = null;
   }
 
-  loadQuiz(quizName: string) {
-     this.quizService.getQuiz('5b601f9d31f2932bf46f793b').subscribe(res => {
+  loadQuiz(quizId: string) {
+     this.quizService.getQuiz(quizId).subscribe(res => {
       console.log(res);
     //this.quizService.get(quizName).subscribe(res => {
     console.log(res);

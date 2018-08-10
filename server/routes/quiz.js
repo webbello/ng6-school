@@ -27,7 +27,8 @@ router.post('/', function(req, res, next) {
       creator: req.decoded.id,
       name: req.body.name,
       description: req.body.description,
-      questions: req.body.questions,
+      questionId: [],
+      questions: [req.body.questions],
     });
     quiz.save(function (err) {
       if (err) {

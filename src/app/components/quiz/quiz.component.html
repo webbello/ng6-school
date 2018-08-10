@@ -4,8 +4,8 @@
 
   </div>
   <div class="col-6 text-right">
-    <button mat-raised-button color="primary" (click)="startQuiz(true)"><mat-icon>start</mat-icon> Start</button>
-    <button mat-raised-button color="primary" (click)="stopQuiz(false)"><mat-icon>stop</mat-icon> Stop</button>
+    <button mat-raised-button color="primary" (click)="startQuiz(true, '5b69c3322e7c81238cc8afe8')"><mat-icon>start</mat-icon> Start</button>
+    <button mat-raised-button color="primary" (click)="stopQuiz(false, '5b69c3322e7c81238cc8afe8')"><mat-icon>stop</mat-icon> Stop</button>
     Select Quiz:
     <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)">
       <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}} </option>
