@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { User } from '../../../models/chat/user';
 import { ChatService } from '../../../services/chat.service';
 
 @Component({
@@ -12,6 +13,7 @@ import { ChatService } from '../../../services/chat.service';
 export class QuizListComponent implements OnInit {
 
   quizs: any;
+  user: User;
   displayedColumns = ['name', 'description', 'status', 'created'];
   dataSource = new QuizDataSource(this.api);
 

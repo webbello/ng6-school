@@ -1,5 +1,5 @@
 export class Option {
-    id: number;
+    id: string;
     questionId: number;
     name: string;
     isAnswer: boolean;
