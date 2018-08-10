@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { DataSource } from '@angular/cdk/collections';
 import { Observable } from 'rxjs';
+import { User } from '../../../models/chat/user';
 import { Event } from '../../../models/chat/event';
 import { Message } from '../../../models/chat/message';
 import { ChatService } from '../../../services/chat.service';
@@ -15,6 +16,7 @@ import { ChatService } from '../../../services/chat.service';
 export class QuizListComponent implements OnInit {
 
   quizs: any;
+  user: User;
   start: boolean = false;
   ioConnection: any;
   displayedColumns = ['name', 'description', 'status', 'created', 'action'];
@@ -32,54 +34,22 @@ export class QuizListComponent implements OnInit {
       });
   }
 
-  private initIoConnection(): void {
-
-      this.ioConnection = this.chatService.onMessage()
-        .subscribe((message: Message) => {
-          //console.log(message.content);
-          this.start = message.content;
-        });
-
-      this.chatService.onEvent(Event.CONNECT)
-        .subscribe(() => {
-          console.log('connected');
-        });
-        
-      this.chatService.onEvent(Event.DISCONNECT)
-        .subscribe(() => {
-          console.log('disconnected');
-        });
-  }
-   public startQuiz(message: string, quizId: string): void {
-    this.initIoConnection();
-    console.log(quizId);
-      if (!message) {
-
+  /**
+   * [startQuiz description]
+   * @param {string}  quizId [description]
+   * @param {boolean} start  [description]
+   */
+  public startQuiz(quizId: string, start: boolean): void {
+      if (!quizId) {
         return;
       }
 
-      this.chatService.send({
-        from: {
-          id: 1,
-          name: 'Irfan',
-          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
-      },
-        content: message,
-        quizId: quizId
+      this.chatService.startQuiz({
+        id: quizId,
+        from: this.user,
+        start: start,
+        created_at: new Date(),
       });
-      //this.messageContent = null;
-  }
-  public stopQuiz(message: string, quizId: string): void {
-
-      this.chatService.send({
-        from: {
-          id: 1,
-          name: 'Irfan',
-          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
-      },
-        content: message
-      });
-      //this.messageContent = null;
   }
 }
 

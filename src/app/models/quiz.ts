@@ -10,7 +10,7 @@ export class Quiz {
 
     constructor(data: any) {
         if (data) {
-            this.id = data.id;
+            this.id = data._id;
             this.name = data.name;
             this.description = data.description;
             this.config = new QuizConfig(data.config);

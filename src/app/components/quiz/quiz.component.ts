@@ -3,9 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../services/quiz/quiz.service';
 import { QuestionService } from '../../services/question/question.service';
 import { HelperService } from '../../services/helper/helper.service';
+import { AuthService } from '../../services/auth/auth.service';
 import { Option, Question, Quiz, QuizConfig } from '../../models/index';
+import { User } from '../../models/chat/user';
 import { Event } from '../../models/chat/event';
-import { Message } from '../../models/chat/message';
+import { QuizChatModel } from '../../models/chat/quiz';
 import { ChatService } from '../../services/chat.service';
 
 @Component({
@@ -16,7 +18,10 @@ import { ChatService } from '../../services/chat.service';
 })
 export class QuizComponent implements OnInit {
   quizes: any[];
+  user: User;
+  //quizId: any;
   quiz: Quiz = new Quiz(null);
+  quizChat: QuizChatModel;
   mode = 'quiz';
   quizName: string;
   start: boolean = false;
@@ -47,19 +52,32 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
 
-  constructor(private quizService: QuizService, private api: QuestionService, private chatService: ChatService ) { }
+  constructor(private quizService: QuizService, private authService: AuthService, private api: QuestionService, private chatService: ChatService ) { }
 
   ngOnInit() {
-    
+    this.authService.getLoginUser()
+        .subscribe(res => {
+          console.log(res);
+          //this.loginUser = res;
+          this.user = {
+          //id: randomId,
+          userId: res._id,
+          name: res.name
+        };
+        }, err => {
+          console.log(err);
+        });
+    this.initIoConnection();
   }
 
   private initIoConnection(): void {
 
-      this.ioConnection = this.chatService.onMessage()
-        .subscribe((message: Message) => {
-          console.log(message.content);
-          this.start = message.content;
-          this.startQuiz(message.content, message.quizId);
+      this.ioConnection = this.chatService.onQuizStart()
+        .subscribe((quiz: QuizChatModel) => {
+          console.log(quiz);
+          this.start = quiz.start;
+          //this.quizId = quiz.id;
+          this.loadQuiz(quiz.id);
         });
 
       this.chatService.onEvent(Event.CONNECT)
@@ -73,45 +91,34 @@ export class QuizComponent implements OnInit {
         });
   }
 
-  public startQuiz(message: string, quizId: string): void {
+  public startQuiz(quizId: string, start: boolean): void {
     this.quizes = this.quizService.getAll();
     //console.log(this.quizes);
     this.quizName = this.quizes[0].id;
-    this.loadQuiz(quizId);
     this.initIoConnection();
-      if (!message) {
+      if (!quizId) {
         return;
       }
 
-      this.chatService.send({
-        from: {
-          id: 1,
-          name: 'Irfan',
-          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
-      },
-        content: message
+      this.chatService.startQuiz({
+        id: quizId,
+        from: this.user,
+        start: start,
+        created_at: new Date(),
       });
       //this.messageContent = null;
-  }
-  public stopQuiz(message: string, quizId: string): void {
-
-      this.chatService.send({
-        from: {
-          id: 1,
-          name: 'Irfan',
-          avatar: 'https://avatars3.githubusercontent.com/u/2644084?s=460&v=4'
-      },
-        content: message
-      });
-      //this.messageContent = null;
+      // this.loadQuiz(quizId);
   }
 
   loadQuiz(quizId: string) {
-     this.quizService.getQuiz(quizId).subscribe(res => {
-      console.log(res);
-    //this.quizService.get(quizName).subscribe(res => {
+
+    this.quizService.getQuiz(quizId).subscribe(res => {
     console.log(res);
+    console.log('getQuiz');
+    //this.quizService.get(quizName).subscribe(res => {
+    
       this.quiz = new Quiz(res);
+      console.log(this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
       this.timer = setInterval(() => { this.tick(); }, 1000);
@@ -164,6 +171,7 @@ export class QuizComponent implements OnInit {
   };
 
   isCorrect(question: Question) {
+    console.log(question);
     return question.options.every(x => x.selected === x.isAnswer) ? 'correct' : 'wrong';
   };
 

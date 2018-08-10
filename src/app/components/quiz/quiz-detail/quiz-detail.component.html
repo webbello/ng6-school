@@ -25,5 +25,9 @@
   <mat-card-actions>
     <a mat-raised-button color="primary" [routerLink]="['/quiz-edit', quiz._id]"><mat-icon>edit</mat-icon></a>
     <a mat-raised-button color="warn" (click)="deleteQuiz(quiz._id)"><mat-icon>delete</mat-icon></a>
+    <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
+    <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, false)"><mat-icon>stop</mat-icon> Stop Quiz</button>
   </mat-card-actions>
 </mat-card>
+
+<app-quiz></app-quiz>
