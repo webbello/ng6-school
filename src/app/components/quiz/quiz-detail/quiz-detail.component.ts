@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
-import { ChatService } from '../../../services/chat.service';
 import { User } from '../../../models/chat/user';
+import { ChatService } from '../../../services/chat.service';
 
 @Component({
   selector: 'app-quiz-detail',
@@ -13,6 +13,7 @@ export class QuizDetailComponent implements OnInit {
 
   quiz = {};
   user: User;
+
   constructor(private route: ActivatedRoute, private api: QuizService, private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
