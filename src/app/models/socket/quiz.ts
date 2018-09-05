@@ -1,9 +1,8 @@
-import {User} from './user';
-import {Action} from './action';
+import {User} from '../chat/user';
+import {Action} from '../chat/action';
 
-export interface QuizChatModel {
+export interface QuizResultModel {
     id?: string;
-    start?: boolean;
     name?: string;
     description?: string;
     from?: User;

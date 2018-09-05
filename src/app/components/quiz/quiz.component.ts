@@ -30,7 +30,7 @@ export class QuizComponent implements OnInit {
     'allowBack': true,
     'allowReview': true,
     'autoMove': true,  // if true, it will move to next question automatically when answered.
-    'duration': 120,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 20,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -112,8 +112,8 @@ export class QuizComponent implements OnInit {
 
   loadQuiz(quizId: string) {
     this.quizService.getQuiz(quizId).subscribe(res => {
-      console.log(res);
-      console.log('loadQuiz');
+      //console.log(res);
+      //console.log('loadQuiz');
 
       this.quiz = new Quiz(res);
       //console.log(this.quiz);
@@ -148,11 +148,11 @@ export class QuizComponent implements OnInit {
   }
 
   onSelect(question: Question, option: Option) {
-    console.log('onselectup')
+    //console.log('onselectup')
     
     if (question.questionTypeId == 1) {
-      console.log(question.questionTypeId)
-      console.log('onselect')
+      //console.log(question.questionTypeId)
+      //console.log('onselect')
       question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
     }
 
@@ -179,11 +179,21 @@ export class QuizComponent implements OnInit {
 
   onSubmit() {
     let answers = [];
-    console.log(this.quiz.questions)
+    //console.log(this.quiz)
     this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong' }));
-    console.log(answers)
+    //console.log(answers)
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    //console.log(this.quiz.questions);
+    const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
+    //console.log(correctAnswerCount);
+
+    this.chatService.submitQuiz({
+      id: this.quiz.id,
+      from: this.user,
+      correctAnswerCount: correctAnswerCount,
+      created_at: new Date(),
+    });
+
     this.mode = 'result';
+    
   }
 }
