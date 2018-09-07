@@ -2,7 +2,7 @@
   <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
 </div>
 <form [formGroup]="quizForm" (ngSubmit)="onFormSubmit(quizForm.value)">
-  Value: {{ quizForm.value | json }}
+  <!-- Value: {{ quizForm.value | json }} -->
   <mat-form-field class="full-width">
     <input matInput placeholder="Quiz Name" formControlName="name"
            [errorStateMatcher]="matcher">
@@ -18,7 +18,7 @@
   </mat-form-field>
   <mat-form-field class="full-width">
     <mat-select placeholder="Questions" formControlName="questions" multiple>
-      <mat-option *ngFor="let question of questionList" [value]="question">{{question}}</mat-option>
+      <mat-option *ngFor="let question of questionList" [value]="question._id">{{question.name}}</mat-option>
     </mat-select>
   </mat-form-field>
 

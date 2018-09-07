@@ -31,16 +31,6 @@ export class QuizDetailComponent implements OnInit {
       console.log(quizResult);
       this.quizResults.push(quizResult);
     });
-
-    this.chatService.onEvent(Event.CONNECT)
-      .subscribe(() => {
-        console.log('connected');
-    });
-        
-    this.chatService.onEvent(Event.DISCONNECT)
-      .subscribe(() => {
-        console.log('disconnected');
-    });
   }
 
   getQuizDetails(id) {
