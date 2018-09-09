@@ -11,6 +11,13 @@
   position: sticky;
   top: 0;
 }
-.padding {
-	padding: 15px;
+
+.content {
+  min-height: calc(100vh - 136px);
+  padding: 15px;
+}
+.footer {
+  //height: 50px;
+  position: sticky;
+  bottom: 0;
 }
