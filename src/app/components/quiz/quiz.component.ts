@@ -149,11 +149,8 @@ export class QuizComponent implements OnInit {
   }
 
   onSelect(question: Question, option: Option) {
-    console.log('onselectup')
     
     if (question.questionTypeId == 1) {
-      console.log(question.questionTypeId)
-      console.log('onselect')
       question.options.forEach((x) => { if (x.id !== option.id) x.selected = false; });
     }
 
@@ -181,7 +178,7 @@ export class QuizComponent implements OnInit {
   onSubmit() {
     let answers = [];
     console.log(this.quiz.questions)
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.answered }));
+    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options }));
     console.log(answers)
     // Post your data to the server here. answers contains the questionId and the users' answer.
     //console.log(this.quiz.questions);
