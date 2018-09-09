@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 
 import { Message } from '../models/chat/message';
 import { QuizChatModel } from '../models/chat/quiz';
+import { QuizResultModel } from '../models/socket/quiz';
 import { Event } from '../models/chat/event';
 
 @Injectable({
@@ -26,6 +27,10 @@ export class ChatService {
         this.socket.emit('quiz', quiz);
     }
 
+    public submitQuiz(quizResult: QuizResultModel): void {
+        this.socket.emit('quizResult', quizResult);
+    }
+
     public onMessage(): Observable<Message> {
         return new Observable<Message>(observer => {
             this.socket.on('message', (data: Message) => observer.next(data));
@@ -35,6 +40,12 @@ export class ChatService {
     public onQuizStart(): Observable<QuizChatModel> {
         return new Observable<QuizChatModel>(observer => {
             this.socket.on('quiz', (data: QuizChatModel) => observer.next(data));
+        });
+    }
+
+    public onQuizSubmit(): Observable<QuizResultModel> {
+        return new Observable<QuizResultModel>(observer => {
+            this.socket.on('quizResult', (data: QuizResultModel) => observer.next(data));
         });
     }
 

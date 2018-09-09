@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
+import { QuestionService } from '../../../services/question/question.service';
 import { FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgForm, Validators } from '@angular/forms';
 
 @Component({
@@ -12,9 +13,9 @@ export class QuizCreateComponent implements OnInit {
 
   quizForm: FormGroup;
 
-  questionList: string[] = ['Choice1', 'Choice2', 'Choice3', 'Choice4'];
+  questionList: any = [];
 
-  constructor(private router: Router, private api: QuizService, private formBuilder: FormBuilder) { }
+  constructor(private router: Router, private api: QuizService, private questionService: QuestionService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.quizForm = this.formBuilder.group({
@@ -22,6 +23,14 @@ export class QuizCreateComponent implements OnInit {
       'description' : [null, Validators.required],
       'questions': []
     });
+    
+    this.questionService.getQuestions()
+      .subscribe(res => {
+        console.log(res);
+        this.questionList = res;
+      }, err => {
+        console.log(err);
+      });
   }
 
   onFormSubmit(form:NgForm) {

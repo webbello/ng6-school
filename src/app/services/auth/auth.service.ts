@@ -67,15 +67,15 @@ export class AuthService {
 
 	logout() {
 	    localStorage.removeItem("currentUser");
-      // localStorage.removeItem("id_token");
+      localStorage.removeItem("id_token");
       localStorage.removeItem("expires_at");
       this.router.navigate(['/login']);
 	    
 	}
 
 	public isLoggedIn() {
-    return !!localStorage.getItem("currentUser");
-	  //return moment().isBefore(this.getExpiration());
+    //return !!localStorage.getItem("currentUser");
+	  return moment().isBefore(this.getExpiration());
 	}
 
 	isLoggedOut() {

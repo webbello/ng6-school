@@ -2,7 +2,7 @@ import { QuizConfig } from './quiz-config';
 import { Question } from './question';
 
 export class Quiz {
-    id: number;
+    id: string;
     name: string;
     description: string;
     config: QuizConfig;

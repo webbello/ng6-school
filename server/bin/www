@@ -34,6 +34,11 @@ io.on('connect', (socket) => {
           io.emit('quiz', quiz);
       });
 
+      socket.on('quizResult', (quizResult) => {
+          console.log('[server](quizResult): %s', JSON.stringify(quizResult));
+          io.emit('quizResult', quizResult);
+      });
+
       socket.on('disconnect', () => {
           console.log('Client disconnected');
       });

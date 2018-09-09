@@ -71,7 +71,7 @@ router.route('/login').post((req, res) => {
     				success: true,
     				message: 'Successfully Login!',
     				token: token,
-    				expiresIn: '12h'
+    				expiresIn: '12'
     			})
     		}
     	}

@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { User } from '../../../models/chat/user';
+import { QuizChatModel } from '../../../models/chat/quiz';
+import { QuizResultModel } from '../../../models/socket/quiz';
 import { ChatService } from '../../../services/chat.service';
 
 @Component({
@@ -13,11 +15,22 @@ export class QuizDetailComponent implements OnInit {
 
   quiz = {};
   user: User;
+  ioConnection: any;
+  quizResults: any = [];
 
   constructor(private route: ActivatedRoute, private api: QuizService, private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
     this.getQuizDetails(this.route.snapshot.params['id']);
+    this.initIoConnection();
+  }
+  private initIoConnection(): void {
+
+    this.ioConnection = this.chatService.onQuizSubmit()
+      .subscribe((quizResult: QuizResultModel) => {
+      console.log(quizResult);
+      this.quizResults.push(quizResult);
+    });
   }
 
   getQuizDetails(id) {

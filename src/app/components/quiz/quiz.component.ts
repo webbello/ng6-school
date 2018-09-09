@@ -30,7 +30,7 @@ export class QuizComponent implements OnInit {
     'allowBack': true,
     'allowReview': true,
     'autoMove': true,  // if true, it will move to next question automatically when answered.
-    'duration': 120,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 10,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -76,6 +76,7 @@ export class QuizComponent implements OnInit {
         .subscribe((quiz: QuizChatModel) => {
           console.log(quiz);
           this.start = quiz.start;
+          console.log(this.start);
           //this.quizId = quiz.id;
           this.loadQuiz(quiz.id);
         });
@@ -91,30 +92,11 @@ export class QuizComponent implements OnInit {
         });
   }
 
-  public startQuiz(quizId: string, start: boolean): void {
-    this.quizes = this.quizService.getAll();
-    //console.log(this.quizes);
-    this.quizName = this.quizes[0].id;
-    this.initIoConnection();
-      if (!quizId) {
-        return;
-      }
-
-      this.chatService.startQuiz({
-        id: quizId,
-        from: this.user,
-        start: start,
-        created_at: new Date(),
-      });
-      //this.messageContent = null;
-      // this.loadQuiz(quizId);
-  }
-
   loadQuiz(quizId: string) {
 
     this.quizService.getQuiz(quizId).subscribe(res => {
-      console.log(res);
-      console.log('loadQuiz');
+      //console.log(res);
+      //console.log(this.startTime);
 
       this.quiz = new Quiz(res);
       //console.log(this.quiz);
@@ -122,6 +104,7 @@ export class QuizComponent implements OnInit {
       this.startTime = new Date();
       this.timer = setInterval(() => { this.tick(); }, 1000);
       this.duration = this.parseTime(this.config.duration);
+      //console.log(this.startTime);
     });
     this.mode = 'quiz';
   }
@@ -130,7 +113,9 @@ export class QuizComponent implements OnInit {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
     if (diff >= this.config.duration) {
-      this.onSubmit();
+      console.log('in diff');
+      clearTimeout(this.timer);
+      //this.onSubmit();
     }
     this.ellapsedTime = this.parseTime(diff);
   }
@@ -177,11 +162,21 @@ export class QuizComponent implements OnInit {
 
   onSubmit() {
     let answers = [];
-    console.log(this.quiz.questions)
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options }));
-    console.log(answers)
+    //console.log(this.quiz)
+    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong' }));
+    
     // Post your data to the server here. answers contains the questionId and the users' answer.
-    //console.log(this.quiz.questions);
+    const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
+    //console.log(correctAnswerCount);
+
+    this.chatService.submitQuiz({
+      id: this.quiz.id,
+      from: this.user,
+      correctAnswerCount: correctAnswerCount,
+      created_at: new Date(),
+    });
+    
     this.mode = 'result';
+    
   }
 }

@@ -30,16 +30,20 @@ export class LoginComponent implements OnInit {
     this.api.postLogin(form)
       .subscribe(res => {
           let token = res.token;
-          console.log(res.message);
+          
           if (res.success) {
-            const expiresAt = moment().add(res.expiresIn,'second');
-            //localStorage.setItem('id_token', res.token);
+            const expiresAt = moment().utcOffset("+05:30").add(res.expiresIn,'hours');
+            // var now = moment().utcOffset("+05:30");
+            // console.log(now);
+
+            console.log(expiresAt);
+            localStorage.setItem('id_token', res.token);
             localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
             //localStorage.setItem('token', token);
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(res));
             
-            this.router.navigate(['/books']);
+            this.router.navigate(['/questions']);
           }else {
             localStorage.setItem('currentUser', '');
           }
