@@ -9,6 +9,7 @@ var UserSchema = Schema({
   username: {type: String, required: true, index: {unique: true}},
   password: {type: String, required: true, select: false},
   role: {type: String, default: 'User'},
+  quiz: [],
   status: {type: String, default: 0},
   created: {type: Date, default: Date.now}
 

@@ -163,11 +163,11 @@ export class QuizComponent implements OnInit {
   onSubmit() {
     let answers = [];
     //console.log(this.quiz)
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong' }));
+    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
     
     // Post your data to the server here. answers contains the questionId and the users' answer.
     const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
-    //console.log(correctAnswerCount);
+    console.log(answers);
 
     this.chatService.submitQuiz({
       id: this.quiz.id,
