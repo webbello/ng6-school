@@ -20,7 +20,7 @@ export class AppComponent implements OnInit{
 
     this.authService.getLoginUser()
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.loginUser = res;
       }, err => {
         console.log(err);

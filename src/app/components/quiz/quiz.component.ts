@@ -57,7 +57,7 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.authService.getLoginUser()
         .subscribe(res => {
-          console.log(res);
+          //console.log(res);
           //this.loginUser = res;
           this.user = {
           //id: randomId,
@@ -74,9 +74,9 @@ export class QuizComponent implements OnInit {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          console.log(quiz);
+          //console.log(quiz);
           this.start = quiz.start;
-          console.log(this.start);
+          //console.log(this.start);
           //this.quizId = quiz.id;
           this.loadQuiz(quiz.id);
         });
@@ -163,16 +163,18 @@ export class QuizComponent implements OnInit {
   onSubmit() {
     let answers = [];
     //console.log(this.quiz)
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
+    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'questionName': x.name 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
     
     // Post your data to the server here. answers contains the questionId and the users' answer.
     const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
-    console.log(answers);
+    //console.log(answers);
 
     this.chatService.submitQuiz({
       id: this.quiz.id,
       from: this.user,
       correctAnswerCount: correctAnswerCount,
+      questions: this.quiz.questions, 
+      answers: answers,
       created_at: new Date(),
     });
     
