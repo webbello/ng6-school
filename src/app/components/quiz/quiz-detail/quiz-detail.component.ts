@@ -43,6 +43,7 @@ export class QuizDetailComponent implements OnInit {
     this.getChart(this.canvasId, this.type, this.labels, this.label, this.data);
     this.getChart('canvas1', 'line', this.labels, this.label, this.data);
     this.getChart('canvas2', 'pie', this.labels, this.label, this.data);
+    this.getChart('bubbleCanvas', 'bubble', this.labels, this.label, this.data);
   }
   private initIoConnection(): void {
      
@@ -51,36 +52,43 @@ export class QuizDetailComponent implements OnInit {
       
       this.quizResults.push(quizResult);
       //console.log(this.quizResults);
-      let i = 1;
+      let i = 0;
       this.quizResults.forEach((items, indexes) => {
-        
+
+        let labelsChart = ['A', 'B', 'C', 'D', 'E'];
+        let j = 0;
+        // let newDataChart = [];
         items.questions.forEach((question, qi) => {
           let dataChart = [];
-          let labelsChart = [];
-          let j = 1;
-          question.options.forEach((item, index) => {
-            labelsChart.push(this.numToChar[index]);
+          // newDataChart[qi] = [];
 
-            //console.log(dataChart);
-            // dataChart.push(i-j);
-            dataChart[index] = i-j;
-            if (item.selected) {
-              dataChart[index] += 1;
-              j++
-              
+          let k = 0;
+          question.options.forEach((item, index) => {
+            // check if array value is false or NaN
+            if (isNaN(dataChart[index])) {
+                dataChart[index] = 0;
+                console.log("NaN found at place " + i);
+            } else {
+              dataChart[index] += 0;
             }
             
-            //console.log(index); // 0, 1, 2
+            if (item.selected) {
+              dataChart[index] += 1;
+            }
+            // newDataChart[qi][index] = dataChart[index];
+            k++;
+
           });
-          //console.log(labelsChart);
-          console.log(dataChart);
+          j++;
+          //console.log('Old Index',oldIndex);
+          console.log(j, dataChart);
+          //console.log('new Chart', newDataChart);
           this.getChart(question.id, 'bar', labelsChart, question.name, dataChart);
-          //console.log(items); // 1, 2, 3
-          //console.log(indexes); // 0, 1, 2
-        }
-      i++;
+        },
+        //console.log('Two Dimen', newDataChart);
+        i++
       });
-      console.log(i);
+      console.log('i = ', i);
     });
     
   }
@@ -95,12 +103,12 @@ export class QuizDetailComponent implements OnInit {
                 label: label,
                 data: data,
                 backgroundColor: [
-                    'rgba(255, 99, 132, 0.2)',
-                    'rgba(54, 162, 235, 0.2)',
-                    'rgba(255, 206, 86, 0.2)',
-                    'rgba(75, 192, 192, 0.2)',
-                    'rgba(153, 102, 255, 0.2)',
-                    'rgba(255, 159, 64, 0.2)'
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
                 ],
                 borderColor: [
                     'rgba(255,99,132,1)',
