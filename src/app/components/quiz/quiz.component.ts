@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { QuizService } from '../../services/quiz/quiz.service';
-import { QuestionService } from '../../services/question/question.service';
+import { LogService } from '../../services/log/log.service';
 import { HelperService } from '../../services/helper/helper.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Option, Question, Quiz, QuizConfig } from '../../models/index';
@@ -25,6 +25,7 @@ export class QuizComponent implements OnInit {
   mode = 'quiz';
   quizName: string;
   start: boolean = false;
+  quizBy: string;
   ioConnection: any;
   config: QuizConfig = {
     'allowBack': true,
@@ -52,7 +53,7 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
 
-  constructor(private quizService: QuizService, private authService: AuthService, private api: QuestionService, private chatService: ChatService ) { }
+  constructor(private quizService: QuizService, private authService: AuthService, private log: LogService, private chatService: ChatService ) { }
 
   ngOnInit() {
     this.authService.getLoginUser()
@@ -74,8 +75,9 @@ export class QuizComponent implements OnInit {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          //console.log(quiz);
+          console.log(quiz);
           this.start = quiz.start;
+          this.quizBy = quiz.from.userId;
           //console.log(this.start);
           //this.quizId = quiz.id;
           this.loadQuiz(quiz.id);
@@ -168,15 +170,24 @@ export class QuizComponent implements OnInit {
     // Post your data to the server here. answers contains the questionId and the users' answer.
     const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
     //console.log(answers);
-
-    this.chatService.submitQuiz({
+    let data = {
       id: this.quiz.id,
       from: this.user,
       correctAnswerCount: correctAnswerCount,
       questions: this.quiz.questions, 
       answers: answers,
+      quiz_by: this.quizBy,
       created_at: new Date(),
-    });
+    };
+
+    this.chatService.submitQuiz(data);
+
+    this.log.postQuizLog(data)
+      .subscribe(res => {
+      console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
     
     this.mode = 'result';
     

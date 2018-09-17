@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../models/chat/user';
 import { QuizChatModel } from '../../../models/chat/quiz';
 import { QuizResultModel } from '../../../models/socket/quiz';
@@ -25,20 +26,50 @@ export class QuizDetailComponent implements OnInit {
   type: any;
   labels: any = [];
   label: any;
-  data: any = {'labels': [],'datasets': [], 'type': '', 'data': [] };
+  datasets: any = {'label': '', 'data': [], 'backgroundColor': []};
+  data: any = {'labels': [],'datasets': [this.datasets], 'type': ''};
+  backgroundColor: any = [
+      'rgba(255, 99, 132, 0.8)',
+      'rgba(54, 162, 235, 0.8)',
+      'rgba(255, 206, 86, 0.8)',
+      'rgba(75, 192, 192, 0.8)',
+      'rgba(153, 102, 255, 0.8)',
+      'rgba(255, 159, 64, 0.8)'
+  ];
+  borderColor: any = [
+      'rgba(255,99,132,1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(255, 159, 64, 1)'
+  ];
+  
 
-  constructor(private route: ActivatedRoute, private api: QuizService, private chatService: ChatService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private api: QuizService, private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
+    this.authService.getLoginUser()
+      .subscribe(res => {
+        this.user = {
+        //id: randomId,
+        userId: res._id,
+        name: res.name
+      };
+      }, err => {
+        console.log(err);
+      });
     this.getQuizDetails(this.route.snapshot.params['id']);
     //console.log(this.quiz);
     this.initIoConnection();
     this.canvasId = 'canvas';
-    this.type = 'bar';
+    this.data.type = 'bar';
     this.data.labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-    this.data.datasets['label'] = '# of Votes';
-    this.data.datasets['data'] = [12, 19, 3, 5, 2, 3];
+    this.datasets.label = '# of Votes';
+    this.datasets.data = [12, 19, 3, 5, 2, 3];
+    this.datasets.backgroundColor = this.backgroundColor;
     console.log(this.data);
+    this.makeChart(this.canvasId, this.data);
     // this.getChart(this.canvasId, this.type, this.labels, this.label, this.data);
     // this.getChart('canvas1', 'line', this.labels, this.label, this.data);
     // this.getChart('canvas2', 'pie', this.labels, this.label, this.data);
@@ -73,7 +104,7 @@ export class QuizDetailComponent implements OnInit {
             }
 
           });
-          console.log('dataChart',dataChart);
+          //console.log('dataChart',dataChart);
           //console.log('Inside Question', dataChart);
           //console.log('new Chart', newDataChart);
           this.getChart(question.id, 'bar', labelsChart, question.name, dataChart);
@@ -86,7 +117,25 @@ export class QuizDetailComponent implements OnInit {
     });
     
   }
-
+  public makeChart(canvasId, data) {
+    this.chart = new Chart(canvasId, {
+      type: 'bar',
+      data: data,
+      options: {
+        responsive: true,
+        legend: {
+          position: 'top',
+        },
+          scales: {
+              yAxes: [{
+                  ticks: {
+                      beginAtZero:true
+                  }
+              }]
+          }
+      }
+    });
+  }
   public getChart(canvasId, type, labels, label, data) {
     //console.log(labels);
     this.chart = new Chart(canvasId, {

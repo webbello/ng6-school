@@ -9,6 +9,8 @@ export interface QuizResultModel {
     content?: any;
     action?: Action;
     correctAnswerCount?: number;
+    questions?: any;
+    answers?: any;
     created_by?: any;
     created_at?: any;
 }
