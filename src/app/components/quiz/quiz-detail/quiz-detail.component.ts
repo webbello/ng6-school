@@ -20,6 +20,7 @@ export class QuizDetailComponent implements OnInit {
   ioConnection: any;
   quizResults: any = [];
   numToChar = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  dataChart: any = [];
   chart: any = [];
   //chart data
   canvasId: any;
@@ -82,37 +83,35 @@ export class QuizDetailComponent implements OnInit {
       let labelsChart = ['A', 'B', 'C', 'D', 'E'];
       this.quizResults.push(quizResult);
       //console.log(this.quizResults);
-      let i = 0;
-      //let dataChart = [];
-      let labelsChartCW = ['correct', 'wrong'];
-      this.quizResults.forEach((items, indexes) => {
-        
-        items.questions.forEach((question, qi) => {
-          let dataChart = [];
-          question.options.forEach((item, index) => {
-            labelsChart[index] = this.numToChar[index];
-            //console.log('befor', dataChart[indexes][qi][index])
-            if (dataChart[index] == null){
-                dataChart[index] = 0;
-            }else {
-              dataChart[index] += dataChart[index];
-            }
+      let i = 1;
+      console.log(this.quizResults)
+      // let dataChart = [];
+      // this.quizResults.forEach((items, indexes) => {
+      //   let j = 1
+      //   items.questions.forEach((question, qi) => {
+          
+      //     question.options.forEach((item, index) => {
+      //       labelsChart[index] = this.numToChar[index];
 
-            //console.log('after', dataChart[indexes][qi][index])
-            if (item.selected) {
-              dataChart[index] += 1;
-            }
+      //       //if (this.dataChart[index] == null){
+      //           this.dataChart[index] = 0;
+      //       //}
 
-          });
-          //console.log('dataChart',dataChart);
-          //console.log('Inside Question', dataChart);
-          //console.log('new Chart', newDataChart);
-          this.getChart(question.id, 'bar', labelsChart, question.name, dataChart);
-        });
-        //console.log('Two Dimen', newDataChart);
-        i++;
-        //console.log('i = ', dataChart)
-      })
+      //       if (item.selected) {
+      //         this.dataChart[index] += 1;
+      //       }
+
+      //     });
+      //     console.log(j,this.dataChart);
+      //     //console.log('Inside Question', dataChart);
+      //     //console.log('new Chart', newDataChart);
+      //     this.getChart(question.id, 'bar', labelsChart, question.name, this.dataChart);
+      //     j++;
+      //   });
+      //   //console.log('Two Dimen', newDataChart);
+      //   i++;
+      //   //console.log('i = ', dataChart)
+      // })
       
     });
     
@@ -143,27 +142,6 @@ export class QuizDetailComponent implements OnInit {
         data: {
             labels: labels,
             datasets: [{
-                label: label,
-                data: data,
-                backgroundColor: [
-                    'rgba(255, 99, 132, 0.8)',
-                    'rgba(54, 162, 235, 0.8)',
-                    'rgba(255, 206, 86, 0.8)',
-                    'rgba(75, 192, 192, 0.8)',
-                    'rgba(153, 102, 255, 0.8)',
-                    'rgba(255, 159, 64, 0.8)'
-                ],
-                borderColor: [
-                    'rgba(255,99,132,1)',
-                    'rgba(54, 162, 235, 1)',
-                    'rgba(255, 206, 86, 1)',
-                    'rgba(75, 192, 192, 1)',
-                    'rgba(153, 102, 255, 1)',
-                    'rgba(255, 159, 64, 1)'
-                ],
-                borderWidth: 1
-            },
-            {
                 label: label,
                 data: data,
                 backgroundColor: [

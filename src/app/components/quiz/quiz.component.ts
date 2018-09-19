@@ -182,12 +182,12 @@ export class QuizComponent implements OnInit {
 
     this.chatService.submitQuiz(data);
 
-    this.log.postQuizLog(data)
-      .subscribe(res => {
-      console.log(res);
-      }, (err) => {
-        console.log(err);
-      });
+    // this.log.postQuizLog(data)
+    //   .subscribe(res => {
+    //   console.log(res);
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
     
     this.mode = 'result';
     
