@@ -20,14 +20,13 @@ export class QuizDetailComponent implements OnInit {
   ioConnection: any;
   quizResults: any = [];
   numToChar = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
-  dataChart: any = [];
   chart: any = [];
   //chart data
   canvasId: any;
   type: any;
   labels: any = [];
   label: any;
-  datasets: any = {'label': '', 'data': [], 'backgroundColor': []};
+  datasets: any = {'label': '', 'data': [], 'backgroundColor': [], 'correctAnswer': []};
   data: any = {'labels': [],'datasets': [this.datasets], 'type': ''};
   backgroundColor: any = [
       'rgba(255, 99, 132, 0.8)',
@@ -69,8 +68,9 @@ export class QuizDetailComponent implements OnInit {
     this.datasets.label = '# of Votes';
     this.datasets.data = [12, 19, 3, 5, 2, 3];
     this.datasets.backgroundColor = this.backgroundColor;
+    this.datasets.correctAnswer = [0, 0, 1, 0, 0, 0];
     console.log(this.data);
-    this.makeChart(this.canvasId, this.data);
+    //this.makeChart(this.canvasId, this.data);
     // this.getChart(this.canvasId, this.type, this.labels, this.label, this.data);
     // this.getChart('canvas1', 'line', this.labels, this.label, this.data);
     // this.getChart('canvas2', 'pie', this.labels, this.label, this.data);
@@ -80,38 +80,48 @@ export class QuizDetailComponent implements OnInit {
      
     this.ioConnection = this.chatService.onQuizSubmit()
       .subscribe((quizResult: QuizResultModel) => {
-      let labelsChart = ['A', 'B', 'C', 'D', 'E'];
+      
       this.quizResults.push(quizResult);
-      //console.log(this.quizResults);
-      let i = 1;
-      console.log(this.quizResults)
-      // let dataChart = [];
-      // this.quizResults.forEach((items, indexes) => {
-      //   let j = 1
-      //   items.questions.forEach((question, qi) => {
-          
-      //     question.options.forEach((item, index) => {
-      //       labelsChart[index] = this.numToChar[index];
+      let labelsChart = [];
+      let dataChart = [];
+      let qOption = [];
+      this.quizResults.forEach((items, indexes) => {
 
-      //       //if (this.dataChart[index] == null){
-      //           this.dataChart[index] = 0;
-      //       //}
+        items.questions.forEach((question, qi) => {
+          if (typeof dataChart[qi] === 'undefined') {
+            labelsChart[qi] = [];
+            dataChart[qi] = [];
+            qOption[qi] = [];
+          }
+          question.options.forEach((item, index) => {
 
-      //       if (item.selected) {
-      //         this.dataChart[index] += 1;
-      //       }
+            labelsChart[qi][index] = this.numToChar[index];
+            qOption[qi][index] = item.name;
+            // Index of correct Answer
+            if(item.isAnswer){
+              labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
+            }
 
-      //     });
-      //     console.log(j,this.dataChart);
-      //     //console.log('Inside Question', dataChart);
-      //     //console.log('new Chart', newDataChart);
-      //     this.getChart(question.id, 'bar', labelsChart, question.name, this.dataChart);
-      //     j++;
-      //   });
-      //   //console.log('Two Dimen', newDataChart);
-      //   i++;
-      //   //console.log('i = ', dataChart)
-      // })
+            if (dataChart[qi][index] == null){
+                dataChart[qi][index] = 0;
+            }
+
+            if(item.selected){
+              dataChart[qi][index] += 1;
+            }
+
+            
+
+          });
+
+          this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
+
+        });
+        console.log('Question Option', qOption);
+
+        //console.log('i = ', dataChart)
+      })
+      console.log('data', dataChart)
       
     });
     
@@ -134,13 +144,48 @@ export class QuizDetailComponent implements OnInit {
           }
       }
     });
+
+    // Define a plugin to provide data labels
+    Chart.plugins.register({
+      afterDatasetsDraw: function(chart) {
+        var ctx = chart.ctx;
+        chart.data.datasets.forEach(function(dataset, i) {
+          
+          var meta = chart.getDatasetMeta(i);
+          if (!meta.hidden) {
+            meta.data.forEach(function(element, index) {
+              // Draw the text in black, with the specified font
+              ctx.fillStyle = 'rgb(0, 0, 0)';
+
+              var fontSize = 16;
+              var fontStyle = 'normal';
+              var fontFamily = 'Helvetica Neue';
+              ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+              // Just naively convert to string for now
+              var dataString = dataset.data[index].toString();
+
+
+              // Make sure alignment settings are correct
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+
+              var padding = 5;
+              var position = element.tooltipPosition();
+              ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+            });
+          }
+        });
+      }
+    });
   }
-  public getChart(canvasId, type, labels, label, data) {
+  public getChart(canvasId, type, labels, label, data, qOption, numOfStudent) {
     //console.log(labels);
     this.chart = new Chart(canvasId, {
         type: type,
         data: {
             labels: labels,
+            qOption: qOption,
             datasets: [{
                 label: label,
                 data: data,
@@ -168,14 +213,67 @@ export class QuizDetailComponent implements OnInit {
           legend: {
             position: 'top',
           },
-            scales: {
-                yAxes: [{
-                    ticks: {
-                        beginAtZero:true
-                    }
-                }]
+          scales: {
+            
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Participant: '+ numOfStudent
+              },
+              ticks: {
+                  //min: 0,
+                  beginAtZero:true,
+                  // forces step size to be 5 units
+                  //stepSize: 2
+              }
+            }]
+          },
+          tooltips: {
+          mode: 'index',
+          callbacks: {
+            // Use the footer callback to display the sum of the items showing in the tooltip
+            title: function(tooltipItem, data) {
+              
+                var label = data.qOption[tooltipItem[0].index] || '';
+                return label
             }
+          },
+          footerFontStyle: 'normal'
+        },
         }
+    });
+    Chart.plugins.register({
+      afterDatasetsDraw: function(chart) {
+        var ctx = chart.ctx;
+        chart.data.datasets.forEach(function(dataset, i) {
+          //console.log(dataset)
+          var meta = chart.getDatasetMeta(i);
+          if (!meta.hidden) {
+            meta.data.forEach(function(element, index) {
+              // Draw the text in black, with the specified font
+              ctx.fillStyle = 'rgb(0, 0, 0)';
+
+              var fontSize = 16;
+              var fontStyle = 'normal';
+              var fontFamily = 'Helvetica Neue';
+              ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
+
+              // Just naively convert to string for now
+              
+              var dataString = dataset.data[index].toString();
+              
+
+              // Make sure alignment settings are correct
+              ctx.textAlign = 'center';
+              ctx.textBaseline = 'middle';
+
+              var padding = 5;
+              var position = element.tooltipPosition();
+              ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
+            });
+          }
+        });
+      }
     });
   }
   getQuizDetails(id) {
