@@ -4,8 +4,7 @@
 <form [formGroup]="questionForm" (ngSubmit)="onFormSubmit(questionForm.value)">
   Value: {{ questionForm.value | json }}
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Question" formControlName="question"
-           [errorStateMatcher]="matcher">
+    <input matInput placeholder="Question" formControlName="question">
     <mat-error>
       <span *ngIf="!questionForm.get('question').valid && questionForm.get('question').touched">Please enter Question</span>
     </mat-error>
@@ -13,7 +12,7 @@
   <div formArrayName="choices">
       <div *ngFor="let choice of choiceForms.controls; let i=index" [formGroupName]="i">
           <mat-form-field class="half-width">
-              <input  matInput placeholder="Choice" formControlName="name" [errorStateMatcher]="matcher">
+              <input  matInput placeholder="Choice" formControlName="name">
               <!-- <mat-error>
                 <span *ngIf="!questionForm.get('name').valid && questionForm.get('name').touched">Please enter Question Choice1</span>
               </mat-error> -->
@@ -27,15 +26,13 @@
   </div>
   <button mat-raised-button color="primary" (click)="addChoice()">Add Choice Option</button>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Question Type" formControlName="type"
-           [errorStateMatcher]="matcher">
+    <input matInput placeholder="Question Type" formControlName="type">
     <mat-error>
       <span *ngIf="!questionForm.get('type').valid && questionForm.get('type').touched">Please enter Question Type</span>
     </mat-error>
   </mat-form-field>
   <mat-form-field class="example-full-width">
-    <input matInput placeholder="Status" formControlName="status"
-           [errorStateMatcher]="matcher">
+    <input matInput placeholder="Status" formControlName="status">
     <mat-error>
       <span *ngIf="!questionForm.get('status').valid && questionForm.get('status').touched">Please enter Question Status</span>
     </mat-error>

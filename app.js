@@ -17,6 +17,7 @@ var issueRouter = require('./server/routes/issue');
 var bookRouter = require('./server/routes/book');
 var questionRouter = require('./server/routes/question');
 var quizRouter = require('./server/routes/quiz');
+var logRouter = require('./server/routes/log');
 var chatRouter = require('./server/routes/chat');
 // Add your middlewares:
 var VerifyToken = require("./server/middleware/VerifyToken");
@@ -61,6 +62,7 @@ app.use('/issue', issueRouter);
 app.use('/book', bookRouter);
 app.use('/question', VerifyToken, questionRouter);
 app.use('/quiz', VerifyToken, quizRouter);
+app.use('/log', VerifyToken, logRouter);
 app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler

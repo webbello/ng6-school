@@ -39,8 +39,11 @@
     </div>
   </mat-expansion-panel>
 </mat-accordion>
-<div *ngIf="chart">
-  <canvas id="canvas">{{ chart }}</canvas>
+<!-- {{ quiz.questions | json }} -->
+<div class="row">
+  <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
+    <canvas id="{{ result._id }}"></canvas>
+  </div>
 </div>
 <div class="button-row">
   <button *ngFor="let result of quizResults; let index = index" mat-raised-button color="primary" matBadge="{{ result.correctAnswerCount }}" matBadgePosition="after" matBadgeColor="accent">

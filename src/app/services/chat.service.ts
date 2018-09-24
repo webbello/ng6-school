@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 import { Message } from '../models/chat/message';
 import { QuizChatModel } from '../models/chat/quiz';
@@ -13,7 +14,7 @@ import { Event } from '../models/chat/event';
 
 export class ChatService {
 
-	private url = 'http://localhost:3000';
+	private url = environment.apiUrl;
     private socket;    
 
     constructor() {

@@ -1,55 +1,56 @@
 var express = require('express');
 var router = express.Router();
 var mongoose = require('mongoose');
-var Quiz = require('../models/quiz.js');
-
-/* GET ALL QUIZ */
+var Log = require('../models/log.js');
+/* GET ALL LOGS */
 router.get('/', function(req, res, next) {
-  Quiz.find(function (err, products) {
+  Log.find(function (err, products) {
     if (err) return next(err);
     res.json(products);
   });
 });
 
-/* GET SINGLE QUIZ BY ID */
+/* GET SINGLE LOG BY ID */
 router.get('/:id', function(req, res, next) {
-  Quiz.findById(req.params.id, function (err, post) {
+  Log.findById(req.params.id, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* SAVE QUIZ */
+
+/* Log Log */
 router.post('/', function(req, res, next) {
   console.log(req.body);
-    quiz = new Quiz({
+    log = new Log({
       _id: new mongoose.Types.ObjectId(),
-      creator: req.decoded.id,
-      name: req.body.name,
-      description: req.body.description,
-      questionId: [],
-      questions: [req.body.questions],
+      user_id: req.decoded.id,
+      player_id: req.body.from.user_id,
+      quiz_id: req.body.id,
+      marks: req.body.correctAnswerCount,
+      answered: [req.body.answers],
+      quiz_by: req.body.quiz_by
     });
-    quiz.save(function (err) {
+    log.save(function (err) {
       if (err) {
         res.send(err);
         return;
       }
-      res.json({message: 'New Quiz Created'});
+      res.json({message: 'New Quiz Log Created'});
     });
 });
 
-/* UPDATE QUIZ */
+/* UPDATE LOG */
 router.put('/:id', function(req, res, next) {
-  Quiz.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
+  Log.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
 });
 
-/* DELETE QUIZ */
+/* DELETE LOG */
 router.delete('/:id', function(req, res, next) {
-  Quiz.findByIdAndRemove(req.params.id, req.body, function (err, post) {
+  Log.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });
