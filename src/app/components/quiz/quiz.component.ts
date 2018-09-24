@@ -57,7 +57,7 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.authService.getLoginUser()
         .subscribe(res => {
-          console.log(res);
+          //console.log(res);
           //this.loginUser = res;
           this.user = {
           //id: randomId,
@@ -74,9 +74,9 @@ export class QuizComponent implements OnInit {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          console.log(quiz);
+          //console.log(quiz);
           this.start = quiz.start;
-          console.log(this.start);
+          //console.log(this.start);
           //this.quizId = quiz.id;
           this.loadQuiz(quiz.id);
         });
