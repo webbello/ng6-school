@@ -11,28 +11,28 @@
       	<form [formGroup]="signupForm" (ngSubmit)="onFormSubmit(signupForm.value)">
 		  
       	  <mat-form-field class="signup-full-width">
-		    <input matInput placeholder="Full Name" formControlName="name" [errorStateMatcher]="matcher">
+		    <input matInput placeholder="Full Name" formControlName="name">
 		    <mat-error>
 		      <span *ngIf="!signupForm.get('name').valid && signupForm.get('name').touched">Please enter Full Name</span>
 		    </mat-error>
 		  </mat-form-field>
 
 		  <mat-form-field class="signup-full-width">
-		    <input matInput placeholder="Email" formControlName="email" [errorStateMatcher]="matcher">
+		    <input matInput placeholder="Email" formControlName="email">
 		    <mat-error>
 		      <span *ngIf="!signupForm.get('email').valid && signupForm.get('email').touched">Please enter Email</span>
 		    </mat-error>
 		  </mat-form-field>
 
 		  <mat-form-field class="signup-full-width">
-		    <input matInput placeholder="Username/Email" formControlName="username" [errorStateMatcher]="matcher">
+		    <input matInput placeholder="Username/Email" formControlName="username">
 		    <mat-error>
 		      <span *ngIf="!signupForm.get('username').valid && signupForm.get('username').touched">Please enter username/email</span>
 		    </mat-error>
 		  </mat-form-field>
 
 		  <mat-form-field class="signup-full-width">
-		    <input matInput placeholder="Password" formControlName="password" [errorStateMatcher]="matcher">
+		    <input matInput placeholder="Password" formControlName="password">
 		    <mat-error>
 		      <span *ngIf="!signupForm.get('password').valid && signupForm.get('password').touched">Please enter password</span>
 		    </mat-error>

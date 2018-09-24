@@ -9,7 +9,7 @@ import { QuestionService } from '../../../services/question/question.service';
 })
 export class QuestionDetailComponent implements OnInit {
 
-  question = {};
+  question: any = {};
 
   constructor(private route: ActivatedRoute, private api: QuestionService, private router: Router) { }
 

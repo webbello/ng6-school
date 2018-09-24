@@ -11,6 +11,7 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
 export class QuizEditComponent implements OnInit {
 
   quizForm: FormGroup;
+  questionList: any = [];
   id:string = '';
   name:string = '';
   description:string = '';

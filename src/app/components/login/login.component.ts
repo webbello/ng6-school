@@ -11,7 +11,8 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, NgForm, Valida
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  
+  hide = true;
   loginForm: FormGroup;
   username:string='';
   password:string='';
