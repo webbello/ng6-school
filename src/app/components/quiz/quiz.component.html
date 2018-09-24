@@ -1,3 +1,21 @@
+<div *ngIf="!start" class="main-div">
+  <mat-card class="card-w-400 center">
+    <!-- <mat-card-header layout-align="center center">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>IIRS</mat-card-title>
+      <mat-card-subtitle>ISRO</mat-card-subtitle>
+    </mat-card-header> -->
+    <img mat-card-image src="https://cdn.dribbble.com/users/442994/screenshots/2795274/loader.gif" alt="Photo of a Shiba Inu">
+    <mat-card-content>
+      <h5>Quiz will start when teacher will intiate it.. Stay here to play on time !</h5>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-button>Quiz Rules</button>
+      <button mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button>
+    </mat-card-actions>
+  </mat-card>
+</div>
+
 <div *ngIf="start" id="quiz">
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
@@ -11,7 +29,11 @@
         <span [innerHTML]="question.name"></span>
       </h3>
       <div class="row text-left options">
-
+          <div class="col-md-6" *ngFor="let option of question.options">
+            <div class="option">
+              <mat-checkbox id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
+            </div>
+          </div>        
         <div class="col-md-6" *ngFor="let option of question.options">
           <div class="option">
             <label class="font-weight-normal" [attr.for]="option.id">
