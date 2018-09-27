@@ -7,6 +7,7 @@ var QuizSchema = Schema({
   creator: {type: Schema.Types.ObjectId, ref: 'User'},
   name: {type: String, default: 'GIS'},
   description: {type: String, required: false},
+  questionId: [{type: Schema.Types.ObjectId, ref: 'Question'}],
   questions: [],
   created: {type: Date, default: Date.now}
 });

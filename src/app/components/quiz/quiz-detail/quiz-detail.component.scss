@@ -1,0 +1,26 @@
+.example-card {
+  max-width: 100%;
+}
+
+.button-row {
+  margin: 10px 0;
+}
+.button-row button,
+.button-row a {
+  margin: 12px 12px 12px;
+}
+
+dt {
+	float: left;
+	clear: left;
+	width: 100px;
+	text-align: right;
+	font-weight: bold;
+}
+	dt::after {
+	content: ":";
+}
+dd {
+	margin: 0 0 0 110px;
+	padding: 0 0 0.5em 0;
+}

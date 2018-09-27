@@ -67,10 +67,11 @@ router.route('/login').post((req, res) => {
     			res.json({message: 'Invalid password'});
     		} else {
     			var token = createToken(user);
-    			res.json({
+    			res.status(200).json({
     				success: true,
     				message: 'Successfully Login!',
-    				token: token
+    				token: token,
+    				expiresIn: '12'
     			})
     		}
     	}

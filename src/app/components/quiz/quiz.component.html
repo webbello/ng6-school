@@ -1,23 +1,9 @@
-<div class="row">
-  <div class="col-6">
-    <h3>Quiz Application</h3>
-
-  </div>
-  <div class="col-6 text-right">
-    <button mat-raised-button color="primary" (click)="startQuiz(true)"><mat-icon>start</mat-icon> Start</button>
-    <button mat-raised-button color="primary" (click)="stopQuiz(false)"><mat-icon>stop</mat-icon> Stop</button>
-    Select Quiz:
-    <select [(ngModel)]="quizName" (change)="loadQuiz(quizName)">
-      <option *ngFor="let quiz of quizes" [value]="quiz.id">{{quiz.name}} </option>
-    </select>
-  </div>
-</div>
 <div *ngIf="start" id="quiz">
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
 
   <div *ngIf="mode=='quiz' && quiz">
-    {{filteredQuestions | json}}
+    <!-- {{quiz | json}} -->
     <div *ngFor="let question of filteredQuestions;">
       <div class="badge badge-info">Question {{pager.index + 1}} of {{pager.count}}.</div>
       <div *ngIf="config.duration" class="badge badge-info float-right">Time: {{ellapsedTime}} / {{duration}}</div>
@@ -55,7 +41,7 @@
     <div *ngFor="let question of quiz.questions; let index = index">
       <div class="result-question">
         <h5>{{index + 1}}. {{question.name}}</h5>
-        <div class="row">
+        <div class="row pl-3">
           <div class="col-md-6" *ngFor="let Option of question.options">
             <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}}
           </div>
@@ -63,7 +49,7 @@
         <div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">Your answer is {{isCorrect(question)}}.</div>
       </div>
     </div>
-    <h4 class="alert alert-info text-center">You may close this window now.</h4>
+    <!-- <h4 class="alert alert-info text-center">You may close this window now.</h4> -->
   </div>
   <hr />
   <div *ngIf="mode!='result'">

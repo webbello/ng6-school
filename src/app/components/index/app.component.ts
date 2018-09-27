@@ -12,9 +12,15 @@ export class AppComponent implements OnInit{
   constructor(private authService: AuthService) { }
 
   ngOnInit() {
+
+    if (!this.authService.isLoggedIn()) {
+      console.log('not login')
+      this.authService.logout();
+    }
+
     this.authService.getLoginUser()
       .subscribe(res => {
-        console.log(res);
+        //console.log(res);
         this.loginUser = res;
       }, err => {
         console.log(err);

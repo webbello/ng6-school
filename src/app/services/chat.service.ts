@@ -1,8 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as io from 'socket.io-client';
 import { Observable, of } from 'rxjs';
+import { environment } from '../../environments/environment';
 
 import { Message } from '../models/chat/message';
+import { QuizChatModel } from '../models/chat/quiz';
+import { QuizResultModel } from '../models/socket/quiz';
 import { Event } from '../models/chat/event';
 
 @Injectable({
@@ -11,7 +14,7 @@ import { Event } from '../models/chat/event';
 
 export class ChatService {
 
-	private url = 'http://192.168.17.35:3000';
+	private url = environment.apiUrl;
     private socket;    
 
     constructor() {
@@ -21,6 +24,13 @@ export class ChatService {
 	public send(message: Message): void {
         this.socket.emit('message', message);
     }
+    public startQuiz(quiz: QuizChatModel): void {
+        this.socket.emit('quiz', quiz);
+    }
+
+    public submitQuiz(quizResult: QuizResultModel): void {
+        this.socket.emit('quizResult', quizResult);
+    }
 
     public onMessage(): Observable<Message> {
         return new Observable<Message>(observer => {
@@ -28,9 +38,15 @@ export class ChatService {
         });
     }
 
-    public onStart(): Observable<any> {
-        return new Observable<any>(observer => {
-            this.socket.on('startQuiz', (data: {start: true}) => observer.next(data));
+    public onQuizStart(): Observable<QuizChatModel> {
+        return new Observable<QuizChatModel>(observer => {
+            this.socket.on('quiz', (data: QuizChatModel) => observer.next(data));
+        });
+    }
+
+    public onQuizSubmit(): Observable<QuizResultModel> {
+        return new Observable<QuizResultModel>(observer => {
+            this.socket.on('quizResult', (data: QuizResultModel) => observer.next(data));
         });
     }
 

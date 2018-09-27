@@ -3,7 +3,7 @@ var router = express.Router();
 var mongoose = require('mongoose');
 var Quiz = require('../models/quiz.js');
 
-/* GET ALL BOOKS */
+/* GET ALL QUIZ */
 router.get('/', function(req, res, next) {
   Quiz.find(function (err, products) {
     if (err) return next(err);
@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   });
 });
 
-/* GET SINGLE BOOK BY ID */
+/* GET SINGLE QUIZ BY ID */
 router.get('/:id', function(req, res, next) {
   Quiz.findById(req.params.id, function (err, post) {
     if (err) return next(err);
@@ -19,16 +19,16 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
-/* SAVE BOOK */
+/* SAVE QUIZ */
 router.post('/', function(req, res, next) {
   console.log(req.body);
     quiz = new Quiz({
       _id: new mongoose.Types.ObjectId(),
       creator: req.decoded.id,
-      id: 1,
-      name: 'GIS',
-      description: 'Asp.Net Quiz (contains webform, mvc, web API, etc.)',
-      questions: [],
+      name: req.body.name,
+      description: req.body.description,
+      questionId: [],
+      questions: [req.body.questions],
     });
     quiz.save(function (err) {
       if (err) {
@@ -39,7 +39,7 @@ router.post('/', function(req, res, next) {
     });
 });
 
-/* UPDATE BOOK */
+/* UPDATE QUIZ */
 router.put('/:id', function(req, res, next) {
   Quiz.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
@@ -47,7 +47,7 @@ router.put('/:id', function(req, res, next) {
   });
 });
 
-/* DELETE BOOK */
+/* DELETE QUIZ */
 router.delete('/:id', function(req, res, next) {
   Quiz.findByIdAndRemove(req.params.id, req.body, function (err, post) {
     if (err) return next(err);

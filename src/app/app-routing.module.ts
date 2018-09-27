@@ -5,6 +5,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
 
+// Guard
+import { AuthGuard } from './_guards/auth/auth.guard';
 // Services
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
@@ -13,24 +15,34 @@ import { BookService } from './services/book/book.service';
 
 // Components
 import { AppComponent } from './components/index/app.component';
+
+import { LoginComponent } from './components/login/login.component';
+import { SignupComponent } from './components/signup/signup.component';
+//Student
 import { StudentAddComponent } from './components/student/add/student-add.component';
 import { StudentDetailsComponent } from './components/student/details/student-details.component';
 import { StudentListComponent } from './components/student/list/student-list.component';
-import { LoginComponent } from './components/login/login.component';
-import { SignupComponent } from './components/signup/signup.component';
+// Faculty
 import { FacultyAddComponent } from './components/faculty/add/faculty-add.component';
+// Book
 import { BookComponent } from './components/book/book/book.component';
 import { BookCreateComponent } from './components/book/book-create/book-create.component';
 import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
-
-import { QuestionComponent } from './components/question/question/question.component';
+// Quiz
 import { QuizComponent } from './components/quiz/quiz.component';
+import { QuizListComponent } from './components/quiz/quiz-list/quiz-list.component';
+import { QuizDetailComponent } from './components/quiz/quiz-detail/quiz-detail.component';
+import { QuizCreateComponent } from './components/quiz/quiz-create/quiz-create.component';
+import { QuizEditComponent } from './components/quiz/quiz-edit/quiz-edit.component';
+// Question
+import { QuestionComponent } from './components/question/question/question.component';
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+//Chat
 import { ChatComponent } from './components/chat/chat.component';
-import { AuthGuard } from './_guards/auth/auth.guard';
+
 // Parent Routes
 const routes : Routes = [
 	{
@@ -40,6 +52,24 @@ const routes : Routes = [
 	{
 		path: 'quiz',
 		component: QuizComponent
+	},
+	{
+		path: 'quizs',
+		component: QuizListComponent
+	},
+	{
+		path: 'quiz-details/:id',
+		component: QuizDetailComponent,
+		data: { title: 'Quiz Details' }
+	},
+	{
+		path: 'quiz-edit/:id',
+		component: QuizEditComponent,
+		data: { title: 'Quiz Edit' }
+	},
+	{
+		path: 'quiz-create',
+		component: QuizCreateComponent
 	},
 	{
 		path: 'signup',

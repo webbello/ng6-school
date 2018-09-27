@@ -1,0 +1,61 @@
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
+  <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
+  <!-- <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, false)"><mat-icon>stop</mat-icon> Stop Quiz</button> -->
+</div>
+<mat-accordion class="col-md-12">
+  <mat-expansion-panel>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Quiz Detail
+      </mat-panel-title>
+    </mat-expansion-panel-header>
+    <div class="row">
+      <div class="col">
+        <mat-card-content>
+          <dl>
+            <dt>Quiz Name:</dt>
+            <dd>{{quiz.name}}</dd>
+            <dt>Questions:</dt>
+            <dd *ngFor="let question of quiz.questions">
+              {{question.name}}
+            </dd>
+            <dt>Status:</dt>
+            <dd>{{quiz.status}}</dd>
+            <dt>Publish Year:</dt>
+            <dd>{{quiz.created}}</dd>
+            <dt>Update Date:</dt>
+            <dd>{{quiz.created | date}}</dd>
+          </dl>
+        </mat-card-content>
+        <mat-card-actions class="button-row">
+          <a mat-raised-button color="primary" [routerLink]="['/quiz-edit', quiz._id]"><mat-icon>edit</mat-icon></a>
+          <a mat-raised-button color="warn" (click)="deleteQuiz(quiz._id)"><mat-icon>delete</mat-icon></a>
+        </mat-card-actions>
+      </div>
+      <div class="col">
+        <app-quiz></app-quiz>
+      </div>
+    </div>
+  </mat-expansion-panel>
+</mat-accordion>
+<!-- {{ quiz.questions | json }} -->
+<div class="row">
+  <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
+    <canvas id="{{ result._id }}"></canvas>
+  </div>
+</div>
+<!-- <div class="row">
+  <div class="col-md-4"><canvas id="canvas"></canvas></div>
+  <div class="col-md-4"><canvas id="canvas1"></canvas></div>
+  <div class="col-md-4"><canvas id="canvas2"></canvas></div>
+</div> -->
+<!-- <div class="row">
+  <div class="col-md-12"><canvas id="bubbleCanvas"></canvas></div>
+</div> -->
+<div class="button-row">
+  <button *ngFor="let result of quizResults; let index = index" mat-raised-button color="primary" matBadge="{{ result.correctAnswerCount }}" matBadgePosition="after" matBadgeColor="accent">
+    {{ result.from.name }}
+  </button>
+</div>
+

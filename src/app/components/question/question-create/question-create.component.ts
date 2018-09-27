@@ -18,10 +18,10 @@ export class QuestionCreateComponent implements OnInit {
 
   ngOnInit() {
     this.questionForm = this.formBuilder.group({
-      'question' : ['Who?', Validators.required],
+      'question' : [null, Validators.required],
        choices: this.formBuilder.array([]),
-      'type' : ['Multiple Type', Validators.required],
-      'status' : ['Open', Validators.required]
+      'type' : [null, Validators.required],
+      'status' : [null, Validators.required]
     });
   }
   get choiceForms() {

@@ -10,7 +10,7 @@ var QuestionTypeSchema = Schema({
 
 var QuestionChoiceSchema = Schema({
   name: {type: String, required: true},
-  isAnswer: {type: String, required: false}
+  isAnswer: {type: Boolean, required: false}
 });
 
 var QuestionSchema = Schema({
