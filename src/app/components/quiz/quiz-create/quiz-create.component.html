@@ -15,11 +15,11 @@
       <span *ngIf="!quizForm.get('description').valid && quizForm.get('description').touched">Please enter Quiz Description</span>
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <!-- <mat-form-field class="full-width">
     <mat-select placeholder="Questions" formControlName="questions" multiple>
       <mat-option *ngFor="let question of questionList" [value]="question._id">{{question.name}}</mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <div class="button-row">
     <button type="submit" [disabled]="!quizForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>

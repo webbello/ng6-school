@@ -2,7 +2,6 @@
   <a mat-raised-button color="primary" (click)="quizDetails()"><mat-icon>show</mat-icon></a>
 </div>
 <form [formGroup]="quizForm" (ngSubmit)="onFormSubmit(quizForm.value)">
-  Value: {{ quizForm.value | json }}
   <mat-form-field class="full-width">
     <input matInput placeholder="Quiz Name" formControlName="name">
     <mat-error>
@@ -15,11 +14,11 @@
       <span *ngIf="!quizForm.get('description').valid && quizForm.get('description').touched">Please enter Quiz Description</span>
     </mat-error>
   </mat-form-field>
-  <mat-form-field class="full-width">
+  <!-- <mat-form-field class="full-width">
     <mat-select placeholder="Questions" formControlName="questions" multiple>
       <mat-option *ngFor="let question of questionList" [value]="question">{{question}}</mat-option>
     </mat-select>
-  </mat-form-field>
+  </mat-form-field> -->
 
   <div class="button-row">
     <button type="submit" [disabled]="!quizForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon></button>

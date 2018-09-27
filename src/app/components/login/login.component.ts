@@ -36,21 +36,20 @@ export class LoginComponent implements OnInit {
             const expiresAt = moment().utcOffset("+05:30").add(res.expiresIn,'hours');
             // var now = moment().utcOffset("+05:30");
             // console.log(now);
-
-            console.log(expiresAt);
+            //console.log(expiresAt);
             localStorage.setItem('id_token', res.token);
             localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
             //localStorage.setItem('token', token);
             // store username and jwt token in local storage to keep user logged in between page refreshes
             localStorage.setItem('currentUser', JSON.stringify(res));
             
-            this.router.navigate(['/questions']);
+            this.router.navigate(['/quiz']);
           }else {
             localStorage.setItem('currentUser', '');
           }
-          console.log(localStorage.getItem('currentUser'))
+          //console.log(localStorage.getItem('currentUser'))
         }, (err) => {
-          console.log('irfan');
+          //console.log('irfan');
           console.log(err);
         });
   }

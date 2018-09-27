@@ -45,7 +45,6 @@ export class QuizDetailComponent implements OnInit {
       'rgba(255, 159, 64, 1)'
   ];
   
-
   constructor(private route: ActivatedRoute, private authService: AuthService, private api: QuizService, private chatService: ChatService, private router: Router) { }
 
   ngOnInit() {
@@ -60,7 +59,7 @@ export class QuizDetailComponent implements OnInit {
         console.log(err);
       });
     this.getQuizDetails(this.route.snapshot.params['id']);
-    //console.log(this.quiz);
+
     this.initIoConnection();
     this.canvasId = 'canvas';
     this.data.type = 'bar';
