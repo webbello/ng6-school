@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 // Guard
 import { AuthGuard } from './_guards/auth/auth.guard';
+import { RoleGuard } from './_guards/role/role.guard';
 // Services
 import { AuthService } from './services/auth/auth.service';
 import { UserService } from './services/user/user.service';
@@ -55,7 +56,9 @@ const routes : Routes = [
 	},
 	{
 		path: 'quizs',
-		component: QuizListComponent
+		component: QuizListComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'quiz-details/:id',

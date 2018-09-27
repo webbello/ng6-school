@@ -25,7 +25,6 @@ export class QuizEditComponent implements OnInit {
     this.quizForm = this.formBuilder.group({
       'name' : [null, Validators.required],
       'description' : [null, Validators.required],
-      'questions' : [[], Validators.required],
       'creator' : [null, Validators.required],
       'created' : [null, Validators.required]
     });
@@ -37,7 +36,6 @@ export class QuizEditComponent implements OnInit {
       this.quizForm.setValue({
         name: data.name,
         description: data.description,
-        questions: data.questions,
         creator: data.creator,
         created: data.created
       });
@@ -47,8 +45,10 @@ export class QuizEditComponent implements OnInit {
   onFormSubmit(form:NgForm) {
     this.api.updateQuiz(this.id, form)
       .subscribe(res => {
+        if (!res.errors) {
           let id = res['_id'];
           this.router.navigate(['/quiz-details', id]);
+        }
         }, (err) => {
           console.log(err);
         }

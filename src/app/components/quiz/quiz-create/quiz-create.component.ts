@@ -38,8 +38,9 @@ export class QuizCreateComponent implements OnInit {
     this.api.postQuiz(form)
     .subscribe(res => {
     console.log(res);
-      //let id = res['_id'];
-      //this.router.navigate(['/quiz-details', id]);
+      if (!res.errors) {
+        this.router.navigate(['/quizs']);
+      }
     }, (err) => {
       console.log(err);
     });
