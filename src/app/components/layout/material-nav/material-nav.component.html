@@ -6,7 +6,19 @@
     [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
     [mode]="(isHandset$ | async) ? 'over' : 'side'"
     [opened]="!(isHandset$ | async)">
-    <mat-toolbar color="primary">Menu</mat-toolbar>
+    <mat-toolbar color="primary">
+      <img src="assets/isro-logo.png" alt="ISRO" width="50px">
+      <!-- <span class="spacer"></span>
+      <button
+        type="button"
+        aria-label="Toggle sidenav"
+        mat-icon-button
+        (click)="drawer.toggle()"
+        *ngIf="!(isHandset$ | async)">
+        <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+      </button> -->
+    </mat-toolbar>
+    
     <mat-nav-list>
       <a mat-list-item routerLink="quiz"><i class="material-icons">timer</i> Play</a>
       <a mat-list-item routerLink="quizs"><i class="material-icons">timer</i> Quiz</a>
@@ -29,9 +41,14 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
+      <img *ngIf="isHandset$ | async" src="assets/isro-logo.png" alt="ISRO" width="50px">
 
-      <span>Student Interaction</span>
+      <!-- <span>Student Interaction</span> -->
         <span class="spacer"></span>
+        <div class="text-right app-name">
+          <span class="color1">अंतरिक्ष प्रश्नमंच</span> <br>
+          <span class="color2">SPACE QUIZ</span>
+        </div>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
         </button>
@@ -47,6 +64,10 @@
           <button mat-menu-item>
             <mat-icon>notifications_off</mat-icon>
             <span>Disable alerts</span>
+          </button>
+          <button mat-menu-item (click)="changeTheme()">
+            <mat-icon>brightness_2</mat-icon>
+            <span>Change Theme</span>
           </button>
           <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="authService.logout()">
             <mat-icon>fingerprint</mat-icon>

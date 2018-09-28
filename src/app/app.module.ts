@@ -13,11 +13,6 @@ import { SharedModule } from './shared/shared.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_interceptor';
 
-// Services
-import { AuthService } from './services/auth/auth.service';
-import { UserService } from './services/user/user.service';
-import { StudentService } from './services/student/student.service';
-
 
 // Components
 import { AppComponent } from './components/index/app.component';
