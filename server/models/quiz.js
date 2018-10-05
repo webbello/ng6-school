@@ -5,7 +5,8 @@ var Schema = mongoose.Schema;
 var QuizSchema = Schema({
 	_id: Schema.Types.ObjectId,
   creator: {type: Schema.Types.ObjectId, ref: 'User'},
-  name: {type: String, default: 'GIS'},
+  courseId: {type: Number, required: true},
+  name: {type: String, required: true},
   description: {type: String, required: false},
   questionId: [{type: Schema.Types.ObjectId, ref: 'Question'}],
   questions: [],

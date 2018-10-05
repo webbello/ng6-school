@@ -1,6 +1,6 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
-  <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
+  <button mat-raised-button color="primary" (click)="startQuiz(quiz.courseId, quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
   <!-- <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, false)"><mat-icon>stop</mat-icon> Stop Quiz</button> -->
 </div>
 <mat-accordion class="col-md-12">

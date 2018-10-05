@@ -12,6 +12,7 @@ const httpOptions = {
 //const apiUrl = "/book";
 //const apiUrl = environment.apiUrl;
 const apiUrl = `${environment.apiUrl}/quiz`;
+const phpApiUrl = `${environment.phpApiUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,12 @@ export class QuizService {
     ];
   }
 
+  getCourses(): Observable<any> {
+    const url = phpApiUrl +'/courses';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
   getQuizs(): Observable<any> {
     return this.http.get(apiUrl, httpOptions).pipe(
       map(this.extractData),

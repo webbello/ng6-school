@@ -13,6 +13,7 @@ const httpOptions = {
 };
 
 const apiUrl = `${environment.apiUrl}/users`;
+const phpApiUrl = `${environment.phpApiUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -45,7 +46,9 @@ export class AuthService {
   }
 
   public postLogin(data): Observable<any> {
-  	const loginUrl = `${apiUrl}/login`;
+    console.log(data)
+  	//const loginUrl = `${apiUrl}/login`;
+    const loginUrl = phpApiUrl + '/login';
   	//console.log(loginUrl);
     return this.http.post(loginUrl, data, httpOptions)
       .pipe(
@@ -54,7 +57,8 @@ export class AuthService {
   }
 
   public getLoginUser(): Observable<any>{
-    const url = `${apiUrl}/loggedin`;
+    //const url = `${apiUrl}/loggedin`;
+    const url = phpApiUrl + '/loggedin';
     //console.log(loginUrl);
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),

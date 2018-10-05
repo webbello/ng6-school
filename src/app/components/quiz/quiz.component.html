@@ -35,14 +35,7 @@
             <div class="option">
               <mat-checkbox id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
             </div>
-          </div>        
-<!--         <div class="col-md-6" *ngFor="let option of question.options">
-          <div class="option">
-            <label class="font-weight-normal" [attr.for]="option.id">
-              <input id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" /> {{option.name}}
-            </label>
           </div>
-        </div> -->
       </div>
     </div>
     <hr />
@@ -67,7 +60,8 @@
         <h5>{{index + 1}}. {{question.name}}</h5>
         <div class="row pl-3">
           <div class="col-md-6" *ngFor="let Option of question.options">
-            <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}}
+            <!-- <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}} -->
+            <mat-checkbox id="{{Option.id}}" [(ngModel)]="Option.selected || Option.isAnswer" color="{{Option.isAnswer ? 'primary':'warn'}}">{{Option.name}}</mat-checkbox>
           </div>
         </div>
         <div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">Your answer is {{isCorrect(question)}}.</div>

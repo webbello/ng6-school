@@ -25,6 +25,7 @@ router.post('/', function(req, res, next) {
     quiz = new Quiz({
       _id: new mongoose.Types.ObjectId(),
       creator: req.decoded.id,
+      courseId: req.body.course,
       name: req.body.name,
       description: req.body.description,
       questionId: [],

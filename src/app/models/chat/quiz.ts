@@ -3,6 +3,7 @@ import {Action} from './action';
 
 export interface QuizChatModel {
     id?: string;
+    courseId?: number;
     start?: boolean;
     name?: string;
     description?: string;

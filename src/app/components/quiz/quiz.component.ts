@@ -58,14 +58,17 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.authService.getLoginUser()
         .subscribe(res => {
-          //console.log(res);
+          console.log(res);
           //this.loginUser = res;
           this.user = {
             //id: randomId,
-            userId: res._id,
-            role: res.role,
-            name: res.name
+            userId: res.user.id,
+            role: res.user.role,
+            name: res.user.name,
+            email:res.user.email,
+            courses:res.courses
           }
+          //console.log(this.user);
         }, err => {
           console.log(err);
         });
@@ -77,8 +80,11 @@ export class QuizComponent implements OnInit {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          //console.log(quiz);
-          this.start = quiz.start;
+          console.log(quiz);
+          console.log(this.user.courses.includes(quiz.courseId));
+          if (this.user.courses.includes(49)) {
+            this.start = quiz.start;
+          }
           this.quizBy = quiz.from.userId;
           //console.log(this.start);
           //this.quizId = quiz.id;
@@ -117,7 +123,7 @@ export class QuizComponent implements OnInit {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
     if (diff >= this.config.duration) {
-      console.log('in diff');
+      //console.log('in diff');
       clearTimeout(this.timer);
       //this.onSubmit();
     }

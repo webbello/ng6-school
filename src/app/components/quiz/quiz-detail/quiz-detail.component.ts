@@ -50,10 +50,12 @@ export class QuizDetailComponent implements OnInit {
   ngOnInit() {
     this.authService.getLoginUser()
       .subscribe(res => {
+        //console.log(res);
         this.user = {
         //id: randomId,
-        userId: res._id,
-        name: res.name
+        userId: res.user.id,
+        name: res.user.name,
+        email: res.user.email
       };
       }, err => {
         console.log(err);
@@ -61,68 +63,60 @@ export class QuizDetailComponent implements OnInit {
     this.getQuizDetails(this.route.snapshot.params['id']);
 
     this.initIoConnection();
-    this.canvasId = 'canvas';
-    this.data.type = 'bar';
-    this.data.labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-    this.datasets.label = '# of Votes';
-    this.datasets.data = [12, 19, 3, 5, 2, 3];
-    this.datasets.backgroundColor = this.backgroundColor;
-    this.datasets.correctAnswer = [0, 0, 1, 0, 0, 0];
-    console.log(this.data);
-    //this.makeChart(this.canvasId, this.data);
-    // this.getChart(this.canvasId, this.type, this.labels, this.label, this.data);
-    // this.getChart('canvas1', 'line', this.labels, this.label, this.data);
-    // this.getChart('canvas2', 'pie', this.labels, this.label, this.data);
-    // this.getChart('bubbleCanvas', 'bubble', this.labels, this.label, this.data);
+    // this.canvasId = 'canvas';
+    // this.data.type = 'bar';
+    // this.data.labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
+    // this.datasets.label = '# of Votes';
+    // this.datasets.data = [12, 19, 3, 5, 2, 3];
+    // this.datasets.backgroundColor = this.backgroundColor;
+    // this.datasets.correctAnswer = [0, 0, 1, 0, 0, 0];
+    //console.log(this.data);
+
   }
   private initIoConnection(): void {
      
     this.ioConnection = this.chatService.onQuizSubmit()
       .subscribe((quizResult: QuizResultModel) => {
-      
-      this.quizResults.push(quizResult);
-      let labelsChart = [];
-      let dataChart = [];
-      let qOption = [];
-      this.quizResults.forEach((items, indexes) => {
+        console.log(quizResult);
+        this.quizResults.push(quizResult);
+        let labelsChart = [];
+        let dataChart = [];
+        let qOption = [];
+        this.quizResults.forEach((items, indexes) => {
 
-        items.questions.forEach((question, qi) => {
-          if (typeof dataChart[qi] === 'undefined') {
-            labelsChart[qi] = [];
-            dataChart[qi] = [];
-            qOption[qi] = [];
-          }
-          question.options.forEach((item, index) => {
-
-            labelsChart[qi][index] = this.numToChar[index];
-            qOption[qi][index] = item.name;
-            // Index of correct Answer
-            if(item.isAnswer){
-              labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
+          items.questions.forEach((question, qi) => {
+            if (typeof dataChart[qi] === 'undefined') {
+              labelsChart[qi] = [];
+              dataChart[qi] = [];
+              qOption[qi] = [];
             }
+            question.options.forEach((item, index) => {
 
-            if (dataChart[qi][index] == null){
-                dataChart[qi][index] = 0;
-            }
+              labelsChart[qi][index] = this.numToChar[index];
+              qOption[qi][index] = item.name;
+              // Index of correct Answer
+              if(item.isAnswer){
+                labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
+              }
 
-            if(item.selected){
-              dataChart[qi][index] += 1;
-            }
+              if (dataChart[qi][index] == null){
+                  dataChart[qi][index] = 0;
+              }
 
-            
+              if(item.selected){
+                dataChart[qi][index] += 1;
+              }
+            });
+
+            this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
 
           });
+          //console.log('Question Option', qOption);
 
-          this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
-
-        });
-        console.log('Question Option', qOption);
-
-        //console.log('i = ', dataChart)
-      })
-      console.log('data', dataChart)
-      
-    });
+          //console.log('i = ', dataChart)
+        })
+        //console.log('data', dataChart)
+      });
     
   }
   public makeChart(canvasId, data) {
@@ -288,13 +282,15 @@ export class QuizDetailComponent implements OnInit {
    * @param {string}  quizId [description]
    * @param {boolean} start  [description]
    */
-  public startQuiz(quizId: string, start: boolean): void {
+  public startQuiz(courseId: number, quizId: string, start: boolean): void {
+    //console.log(courseId);
       if (!quizId) {
         return;
       }
 
       this.chatService.startQuiz({
         id: quizId,
+        courseId: courseId,
         from: this.user,
         start: start,
         created_at: new Date(),
