@@ -47,6 +47,7 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
+import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
 
 @NgModule({
   declarations: [
@@ -82,7 +83,12 @@ import { ChatComponent } from './components/chat/chat.component';
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [
     BookService,

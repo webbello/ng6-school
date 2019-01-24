@@ -16,6 +16,7 @@ import { BookService } from './services/book/book.service';
 
 // Components
 import { AppComponent } from './components/index/app.component';
+import { MaterialDashboardComponent } from './components/layout/material-dashboard/material-dashboard.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
@@ -53,6 +54,10 @@ const routes : Routes = [
 	{
 		path: 'quiz',
 		component: QuizComponent
+	},
+	{
+		path: 'dashboard',
+		component: MaterialDashboardComponent
 	},
 	{
 		path: 'quizs',
