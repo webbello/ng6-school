@@ -47,7 +47,11 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
-import { MatGridListModule, MatCardModule, MatMenuModule, MatIconModule, MatButtonModule } from '@angular/material';
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
 
 @NgModule({
   declarations: [

@@ -13,7 +13,8 @@
 .mat-drawer.mat-drawer-side {
     padding: 0 5px;
 }
-.container /deep/ .mat-tab-label {
+
+.container ::ng-deep .mat-tab-label {
     min-width: 100px;
 }
 

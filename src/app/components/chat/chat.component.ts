@@ -31,8 +31,8 @@ export class ChatComponent implements OnInit {
 	        this.loginUser = res;
 	        this.user = {
 		      id: randomId,
-		      userId: res._id,
-		      name: res.name,
+		      userId: res.user.id,
+		      name: res.user.name,
 		      avatar: `${AVATAR_URL}/${randomId}.png`
 		    };
 	      }, err => {

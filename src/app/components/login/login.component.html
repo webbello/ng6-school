@@ -10,9 +10,9 @@
 	  <mat-card-content>
       	<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Username/Email" formControlName="username" >
+		    <input matInput placeholder="Registraion Number" formControlName="username" >
 		    <mat-error>
-		      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter username/email</span>
+		      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter registraion number</span>
 		    </mat-error>
 		  </mat-form-field>
 
