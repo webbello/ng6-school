@@ -109,7 +109,7 @@ export class QuizComponent implements OnInit {
       //console.log(this.startTime);
 
       this.quiz = new Quiz(res);
-      //console.log(this.quiz);
+      //console.log('this.quiz',this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
       this.timer = setInterval(() => { this.tick(); }, 1000);
@@ -177,9 +177,11 @@ export class QuizComponent implements OnInit {
     
     // Post your data to the server here. answers contains the questionId and the users' answer.
     const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
-    //console.log(answers);
+    console.log('answers', this.quiz);
+    console.log('correctAnswerCount', correctAnswerCount);
     let data = {
       id: this.quiz.id,
+      courseId: this.quiz.courseId,
       from: this.user,
       correctAnswerCount: correctAnswerCount,
       questions: this.quiz.questions, 
@@ -190,12 +192,21 @@ export class QuizComponent implements OnInit {
 
     this.chatService.submitQuiz(data);
 
-    // this.log.postQuizLog(data)
-    //   .subscribe(res => {
-    //   console.log(res);
-    //   }, (err) => {
-    //     console.log(err);
-    //   });
+    // post in log table
+    this.log.postQuizLog(data)
+      .subscribe(res => {
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
+
+    // post in log table in QuizAPi Php
+    this.log.postQuizApiPhpLog(data)
+    .subscribe(res => {
+      console.log(res);
+    }, (err) => {
+      console.log(err);
+    });
     
     this.mode = 'result';
     

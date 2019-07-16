@@ -9,7 +9,8 @@ var LogSchema = Schema({
   quiz_id: {type: Schema.Types.ObjectId, ref: 'Quiz'},
   marks: {type: String, required: false},
   answered: [],
-  quiz_by: {type: Schema.Types.ObjectId, ref: 'User'},
+  // quiz_by: {type: Schema.Types.ObjectId, ref: 'User'},
+  quiz_by: {type: String, required: false},
   played_at: {type: Date, default: Date.now}
 });
 

@@ -21,7 +21,7 @@ router.get('/:id', function(req, res, next) {
 
 /* Log Log */
 router.post('/', function(req, res, next) {
-  console.log(req.body);
+  console.log('req.body', req.body);
     log = new Log({
       _id: new mongoose.Types.ObjectId(),
       user_id: req.decoded.id,
