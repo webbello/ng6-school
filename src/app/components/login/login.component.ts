@@ -31,7 +31,7 @@ export class LoginComponent implements OnInit {
     this.api.postLogin(form)
       .subscribe(res => {
           let token = res.token;
-          console.log(res);
+          console.log('postLogin',res);
           if (res.success) {
             const expiresAt = moment().utcOffset("+05:30").add(res.expiresIn,'hours');
             // var now = moment().utcOffset("+05:30");

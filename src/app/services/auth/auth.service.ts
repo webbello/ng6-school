@@ -46,7 +46,7 @@ export class AuthService {
   }
 
   public postLogin(data): Observable<any> {
-    console.log(data)
+    //console.log(data)
   	//const loginUrl = `${apiUrl}/login`;
     const loginUrl = phpApiUrl + '/login';
   	//console.log(loginUrl);
@@ -98,12 +98,12 @@ export class AuthService {
 
 
   isAdmin(){
-    this.http.get(apiUrl + '/loggedin', httpOptions).pipe(
-      map(response => {
-        console.log(response);
-        return response;
-      }),
-      catchError(this.handleError));
+    var curentUser = JSON.parse( localStorage.getItem("currentUser") );
+    console.log('curentUser.admin', curentUser.admin);
+    if (curentUser) {
+      return curentUser.admin;
+    }
+    return false;
   }
 
   getUserRoles(user: User): Observable<User> {
