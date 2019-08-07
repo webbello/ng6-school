@@ -3,6 +3,7 @@ export class QuizConfig {
     allowReview: boolean;
     autoMove: boolean;  // if boolean; it will move to next question automatically when answered.
     duration: number;  // indicates the time in which quiz needs to be completed. 0 means unlimited.
+    autoSubmit: boolean; // it will submit quiz automatically when duration is complete.
     pageSize: number;
     requiredAll: boolean;  // indicates if you must answer all the questions before submitting.
     richText: boolean;
@@ -18,6 +19,7 @@ export class QuizConfig {
         this.allowReview = data.allowReview;
         this.autoMove = data.autoMove;
         this.duration = data.duration;
+        this.autoSubmit = data.autoSubmit;
         this.pageSize = data.pageSize;
         this.requiredAll = data.requiredAll;
         this.richText = data.richText;

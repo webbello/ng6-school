@@ -32,6 +32,7 @@ export class QuizComponent implements OnInit {
     'allowReview': true,
     'autoMove': false,  // if true, it will move to next question automatically when answered.
     'duration': 30,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'autoSubmit': true,
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -125,7 +126,9 @@ export class QuizComponent implements OnInit {
     if (diff >= this.config.duration) {
       //console.log('in diff');
       clearTimeout(this.timer);
-      //this.onSubmit();
+      if (this.config.autoSubmit) {
+        this.onSubmit();
+      }
     }
     this.ellapsedTime = this.parseTime(diff);
   }

@@ -20,14 +20,15 @@
     </mat-toolbar>
     
     <mat-nav-list>
-      <a mat-list-item routerLink="quiz"><i class="material-icons">timer</i> Play</a>
-      <a mat-list-item routerLink="quizs"><i class="material-icons">timer</i> Quiz</a>
-      <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a>
+      <a mat-list-item routerLink="quiz" *ngIf="authService.isLoggedIn()"><i class="material-icons">timer</i> Play</a>
+      <a mat-list-item routerLink="quizs" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Quiz</a>
+      <!-- <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a> -->
+      <a mat-list-item routerLink="questions" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question </a>
       <!-- <a mat-list-item routerLink="faculty"><i class="material-icons">supervised_user_circle</i> Faculty</a>
       <a mat-list-item routerLink="student"><i class="material-icons">school</i> Student</a> -->
       <a mat-list-item routerLink="login" *ngIf="!authService.isLoggedIn()"><i class="material-icons">fingerprint</i> Login</a>
       <!-- <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a> -->
-      <a mat-list-item routerLink="chat"><i class="material-icons">chat</i> Chat</a>
+      <!-- <a mat-list-item routerLink="chat"><i class="material-icons">chat</i> Chat</a> -->
 
     </mat-nav-list>
   </mat-sidenav>
@@ -47,8 +48,7 @@
         <span class="spacer"></span>
         
         <div class="text-right app-name">
-          <span class="color1">अंतरिक्ष प्रश्नमंच</span> <br>
-          <span class="color2">SPACE QUIZ</span>
+            <img src="assets/e-class.png" alt="e-class ISRO" width="170px">
         </div>
         <button mat-icon-button [matMenuTriggerFor]="menu">
           <mat-icon>more_vert</mat-icon>
@@ -75,13 +75,13 @@
             <span>Logout</span>
           </button>
         </mat-menu>
-        <button
+        <!-- <button
           type="button"
           aria-label="Toggle sidenav"
           mat-icon-button
           (click)="drawerRight.toggle()">
           <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
-        </button>
+        </button> -->
       
     </mat-toolbar>
     <!-- Add Content Here -->
@@ -139,13 +139,13 @@
     
     <mat-nav-list>
       <a mat-list-item routerLink="quiz"><i class="material-icons">timer</i> Play</a>
-      <a mat-list-item routerLink="quizs" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Quiz</a>
-      <a mat-list-item routerLink="questions" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question</a>
+      <!-- <a mat-list-item routerLink="quizs" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Quiz</a>
+      <a mat-list-item routerLink="questions" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question</a> -->
       <!-- <a mat-list-item routerLink="faculty"><i class="material-icons">supervised_user_circle</i> Faculty</a>
       <a mat-list-item routerLink="student"><i class="material-icons">school</i> Student</a> -->
       <a mat-list-item routerLink="login" *ngIf="authService.isLoggedIn()"><i class="material-icons">fingerprint</i> Login</a>
       <!-- <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a> -->
-      <a mat-list-item routerLink="chat" *ngIf="authService.isAdmin()"><i class="material-icons">chat</i> Chat1</a>
+      <!-- <a mat-list-item routerLink="chat" *ngIf="authService.isAdmin()"><i class="material-icons">chat</i> Chat1</a> -->
 
     </mat-nav-list>
   </mat-sidenav>

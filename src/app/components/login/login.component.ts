@@ -16,6 +16,7 @@ export class LoginComponent implements OnInit {
   loginForm: FormGroup;
   username:string='';
   password:string='';
+  message:string='';
 
   constructor(private router: Router, private api: AuthService, private formBuilder: FormBuilder) { }
 
@@ -32,6 +33,7 @@ export class LoginComponent implements OnInit {
       .subscribe(res => {
           let token = res.token;
           console.log('postLogin',res);
+          //this.message = res.message;
           if (res.success) {
             const expiresAt = moment().utcOffset("+05:30").add(res.expiresIn,'hours');
             // var now = moment().utcOffset("+05:30");
