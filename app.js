@@ -7,6 +7,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 
 var mongoose = require('mongoose');
+mongoose.set('useCreateIndex', true);
 
 //Config
 var config = require('./server/config');
@@ -45,7 +46,7 @@ app.use(express.static(path.join(__dirname, 'server/public')));
 // 	next();
 // });
 
-mongoose.connect(config.database);
+mongoose.connect(config.database, { useNewUrlParser: true });
 
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));

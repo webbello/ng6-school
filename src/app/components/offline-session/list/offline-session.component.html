@@ -1,0 +1,22 @@
+<mat-grid-list cols="4" rowHeight="4:5">
+  {{sessions | json}}
+    <mat-grid-tile *ngFor="let session of sessions" >
+      
+        <mat-card class="example-card">
+            <a [routerLink]="['/offline-session/', session.lecture_id]" >
+              <img mat-card-image src="http://img.youtube.com/vi/{{session.off_lecture_url}}/0.jpg" alt="Photo of a Shiba Inu" width="200px">
+            </a>
+            <mat-card-content>
+              <h5>
+                {{session.session_name}}
+              </h5>
+            </mat-card-content>
+            <mat-card-footer>
+              <p>{{session.presentation}}</p>
+              <mat-card-subtitle>{{session.submit_time}}</mat-card-subtitle>
+            </mat-card-footer>
+        </mat-card>
+       
+    </mat-grid-tile>
+  </mat-grid-list>
+  

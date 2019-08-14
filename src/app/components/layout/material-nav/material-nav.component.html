@@ -21,6 +21,7 @@
     
     <mat-nav-list>
       <a mat-list-item routerLink="quiz" *ngIf="authService.isLoggedIn()"><i class="material-icons">timer</i> Play</a>
+      <a mat-list-item routerLink="offline-session" *ngIf="authService.isLoggedIn()"><i class="material-icons">timer</i> Offline Session</a>
       <a mat-list-item routerLink="quizs" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Quiz</a>
       <!-- <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a> -->
       <a mat-list-item routerLink="questions" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question </a>

@@ -27,9 +27,9 @@ import { StudentListComponent } from './components/student/list/student-list.com
 // Faculty
 import { FacultyAddComponent } from './components/faculty/add/faculty-add.component';
 // Book
-import { BookComponent } from './components/book/book/book.component';
+import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
 import { BookCreateComponent } from './components/book/book-create/book-create.component';
-import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
+import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
 // Quiz
 import { QuizComponent } from './components/quiz/quiz.component';
@@ -92,14 +92,14 @@ const routes : Routes = [
 		component: StudentListComponent
 	},
 	{
-	path: 'books',
-		component: BookComponent,
-		data: { title: 'Book List' }
+	path: 'offline-session',
+		component: OfflineSessionComponent,
+		data: { title: 'Offline Session' }
 	},
 	{
-		path: 'book-details/:id',
-		component: BookDetailComponent,
-		data: { title: 'Book Details' }
+		path: 'offline-session/:id',
+		component: OfflineSessionDetailComponent,
+		data: { title: 'Offline Session Details' }
 	},
 	{
 		path: 'book-create',

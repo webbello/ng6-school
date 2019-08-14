@@ -52,6 +52,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
+import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
+import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 
 @NgModule({
   declarations: [
@@ -78,7 +80,9 @@ import { MatMenuModule } from '@angular/material/menu';
     QuestionCreateComponent,
     QuestionDetailComponent,
     QuestionEditComponent,
-    ChatComponent
+    ChatComponent,
+    OfflineSessionComponent,
+    OfflineSessionDetailComponent
   ],
   imports: [
     BrowserModule,

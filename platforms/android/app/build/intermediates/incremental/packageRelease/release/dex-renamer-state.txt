@@ -1,4 +1,0 @@
-#Wed Aug 07 16:08:37 IST 2019
-base.0=D\:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\transforms\\dex\\release\\0
-path.0=classes.dex
-renamed.0=classes.dex

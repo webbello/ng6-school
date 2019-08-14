@@ -1,0 +1,20 @@
+<p>{{session.off_lecture_url | json}}</p>
+
+<div class="button-row">
+  <a mat-raised-button color="primary" [routerLink]="['/offline-session']"><mat-icon>list</mat-icon></a>
+</div>
+<mat-card class="example-card">
+  <mat-card-header>
+    <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
+    <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    {{session.off_lecture_url}}
+      <iframe width="560" height="315" src="https://www.youtube.com/embed/{{session.off_lecture_url}}" frameborder="0" allowfullscreen></iframe>
+  </mat-card-content>
+  <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['/question-edit', session.lecture_id]"><mat-icon>edit</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteQuestion(session.lecture_id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions>
+</mat-card>
+  
