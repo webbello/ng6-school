@@ -99,7 +99,7 @@ export class AuthService {
 
   isAdmin(){
     var curentUser = JSON.parse( localStorage.getItem("currentUser") );
-    console.log('curentUser.admin', curentUser);
+    // console.log('curentUser.admin', curentUser);
     if (curentUser) {
       return curentUser.admin;
     }

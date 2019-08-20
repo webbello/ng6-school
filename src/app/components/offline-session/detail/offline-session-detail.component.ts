@@ -10,20 +10,29 @@ import { OfflineSessionService } from '../../../services/offline-session/offline
 export class OfflineSessionDetailComponent implements OnInit {
 
   session: any;
-  url : any;
+
+  youtubeId: string;
+
+  public embedUrl = 'https://www.youtube.com/embed/'
+
+  videoUrl: string;
 
   constructor(private route: ActivatedRoute, private api: OfflineSessionService, private router: Router) { }
 
   ngOnInit() {
     this.getOfflineSessionDetail(this.route.snapshot.params['id']);
+    //console.log('session', this.session);
   }
 
   getOfflineSessionDetail(id) {
     this.api.getOfflineSession(id)
       .subscribe(data => {
-        console.log(data);
+        //console.log('getOfflineSession', data);
         this.session = data.offlineSessions;
-        this.url = "https://www.youtube.com/embed/" + data.offlineSessions.off_lecture_url;
+        this.youtubeId = data.offlineSessions.off_lecture_url;
+        this.videoUrl =  this.embedUrl + this.youtubeId;
+        //console.log(this.session);
+        //this.url = "https://www.youtube.com/embed/" + data.offlineSessions.off_lecture_url;
       });
   }
 

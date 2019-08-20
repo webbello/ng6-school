@@ -8,13 +8,13 @@
     <img mat-card-image src="assets/iirs-building.jpg" alt="Photo of a Shiba Inu">
     <div class="caption">IIRS OUTREACH PROGRAMME</div>
     <mat-card-content>
-      <h5 class="color-hindi">प्रश्न मंच जल्द ही शुरु होगा.</h5>
-      <h5 class="color-english">Quiz will start shortly..!</h5>
+      <h5 class="color-hindi">क्लास गतिविधि जल्द ही शुरु होगी.</h5>
+      <h5 class="color-english">Class activity will start shortly..!</h5>
     </mat-card-content>
-    <mat-card-actions>
+    <!-- <mat-card-actions>
       <button mat-button>Quiz Rules</button>
       <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button>
-    </mat-card-actions>
+    </mat-card-actions> -->
   </mat-card>
 </div>
 
@@ -54,7 +54,9 @@
     </div>
   </div>
   <div class="result" *ngIf="mode=='result'">
+    
     <h2>Quiz Result</h2>
+    
     <div *ngFor="let question of quiz.questions; let index = index">
       <div class="result-question">
         <h5>{{index + 1}}. {{question.name}}</h5>

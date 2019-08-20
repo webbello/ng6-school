@@ -25,13 +25,13 @@ export class QuizComponent implements OnInit {
   mode = 'quiz';
   quizName: string;
   start: boolean = false;
-  quizBy: string;
+  quizBy: User;
   ioConnection: any;
   config: QuizConfig = {
     'allowBack': true,
     'allowReview': true,
     'autoMove': false,  // if true, it will move to next question automatically when answered.
-    'duration': 30,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
+    'duration': 60,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
     'autoSubmit': true,
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
@@ -59,7 +59,7 @@ export class QuizComponent implements OnInit {
   ngOnInit() {
     this.authService.getLoginUser()
         .subscribe(res => {
-          console.log(res);
+          console.log('getLoginUser', res);
           //this.loginUser = res;
           this.user = {
             //id: randomId,
@@ -81,15 +81,23 @@ export class QuizComponent implements OnInit {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          console.log(quiz);
+          console.log('quiz',quiz);
+          console.log('this.user',this.user);
           console.log(this.user.courses.includes(quiz.courseId));
-          if (this.user.courses.includes(49)) {
-            this.start = quiz.start;
+          
+          this.quizBy = {
+            //id: randomId,
+            userId: quiz.from.userId,
+            name: quiz.from.name,
+            email:quiz.from.email
           }
-          this.quizBy = quiz.from.userId;
           //console.log(this.start);
           //this.quizId = quiz.id;
-          this.loadQuiz(quiz.id);
+          if (this.user.courses.includes(quiz.courseId)) {
+            this.start = quiz.start;
+            this.loadQuiz(quiz.id);
+          }
+          
         });
 
       this.chatService.onEvent(Event.CONNECT)
@@ -104,7 +112,7 @@ export class QuizComponent implements OnInit {
   }
 
   loadQuiz(quizId: string) {
-
+    //this.playAudio();
     this.quizService.getQuiz(quizId).subscribe(res => {
       //console.log(res);
       //console.log(this.startTime);
@@ -113,13 +121,19 @@ export class QuizComponent implements OnInit {
       //console.log('this.quiz',this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
+      this.ellapsedTime = '00:00';
       this.timer = setInterval(() => { this.tick(); }, 1000);
       this.duration = this.parseTime(this.config.duration);
       //console.log(this.startTime);
     });
     this.mode = 'quiz';
   }
-
+  playAudio(){
+    let audio = new Audio();
+    // audio.src = "../../../assets/audio/beep-01a.wav";
+    audio.load();
+    audio.play();
+  }
   tick() {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
@@ -174,6 +188,8 @@ export class QuizComponent implements OnInit {
   };
 
   onSubmit() {
+    
+    clearTimeout(this.timer);
     let answers = [];
     //console.log(this.quiz)
     this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'questionName': x.name, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
@@ -189,19 +205,19 @@ export class QuizComponent implements OnInit {
       correctAnswerCount: correctAnswerCount,
       questions: this.quiz.questions, 
       answers: answers,
-      quiz_by: this.quizBy,
+      quiz_by: this.quizBy.userId,
       created_at: new Date(),
     };
 
     this.chatService.submitQuiz(data);
 
     // post in log table
-    this.log.postQuizLog(data)
-      .subscribe(res => {
-        console.log(res);
-      }, (err) => {
-        console.log(err);
-      });
+    // this.log.postQuizLog(data)
+    //   .subscribe(res => {
+    //     console.log(res);
+    //   }, (err) => {
+    //     console.log(err);
+    //   });
 
     // post in log table in QuizAPi Php
     this.log.postQuizApiPhpLog(data)

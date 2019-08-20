@@ -12,7 +12,7 @@
           </div> -->
 
           <!-- <mat-divider></mat-divider> -->
-          {{ createdAt | date:'h:mm a'}}
+          <!-- {{ createdAt | date:'h:mm a'}} -->
           <mat-list dense class="conversation-history mat-typography">
             <div class="conversation-container">
               <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">

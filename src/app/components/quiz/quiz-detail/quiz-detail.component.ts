@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { AuthService } from '../../../services/auth/auth.service';
@@ -8,17 +8,43 @@ import { QuizResultModel } from '../../../models/socket/quiz';
 import { ChatService } from '../../../services/chat.service';
 import { Chart } from 'chart.js';
 
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+export interface UserData {
+  id: string;
+  name: string;
+  progress: string;
+  color: string;
+}
+
+/** Constants used to fill up our data base. */
+const COLORS: string[] = [
+  'maroon', 'red', 'orange', 'yellow', 'olive', 'green', 'purple', 'fuchsia', 'lime', 'teal',
+  'aqua', 'blue', 'navy', 'black', 'gray'
+];
+const NAMES: string[] = [
+  'Maia', 'Asher', 'Olivia', 'Atticus', 'Amelia', 'Jack', 'Charlotte', 'Theodore', 'Isla', 'Oliver',
+  'Isabella', 'Jasper', 'Cora', 'Levi', 'Violet', 'Arthur', 'Mia', 'Thomas', 'Elizabeth'
+];
+
 @Component({
   selector: 'app-quiz-detail',
   templateUrl: './quiz-detail.component.html',
   styleUrls: ['./quiz-detail.component.scss']
 })
 export class QuizDetailComponent implements OnInit {
+  displayedColumns: string[] = ['id', 'name', 'progress', 'color'];
+  dataSource: MatTableDataSource<UserData>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   quiz: any = [];
   user: User;
   ioConnection: any;
   quizResults: any = [];
+  resultsTable: any = [];
   numToChar = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   chart: any = [];
   //chart data
@@ -45,9 +71,12 @@ export class QuizDetailComponent implements OnInit {
       'rgba(255, 159, 64, 1)'
   ];
   
-  constructor(private route: ActivatedRoute, private authService: AuthService, private api: QuizService, private chatService: ChatService, private router: Router) { }
+  constructor(private route: ActivatedRoute, private authService: AuthService, private api: QuizService, private chatService: ChatService, private router: Router) { 
+
+  }
 
   ngOnInit() {
+    
     this.authService.getLoginUser()
       .subscribe(res => {
         //console.log(res);
@@ -63,22 +92,26 @@ export class QuizDetailComponent implements OnInit {
     this.getQuizDetails(this.route.snapshot.params['id']);
 
     this.initIoConnection();
-    // this.canvasId = 'canvas';
-    // this.data.type = 'bar';
-    // this.data.labels = ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"];
-    // this.datasets.label = '# of Votes';
-    // this.datasets.data = [12, 19, 3, 5, 2, 3];
-    // this.datasets.backgroundColor = this.backgroundColor;
-    // this.datasets.correctAnswer = [0, 0, 1, 0, 0, 0];
-    //console.log(this.data);
 
   }
   private initIoConnection(): void {
      
     this.ioConnection = this.chatService.onQuizSubmit()
       .subscribe((quizResult: QuizResultModel) => {
-        console.log(quizResult);
-        this.quizResults.push(quizResult);
+        //console.log('quizResult', quizResult);
+        //console.log('this.user',this.user);
+        // exclude sender from game
+        if (quizResult.from.userId != this.user.userId) {
+          this.quizResults.push(quizResult);
+        }
+
+        this.resultsTable.push(createNewUser(quizResult));
+        
+        this.dataSource = new MatTableDataSource(this.resultsTable);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
+
+        console.log('quizResults', this.resultsTable);
         let labelsChart = [];
         let dataChart = [];
         let qOption = [];
@@ -117,7 +150,7 @@ export class QuizDetailComponent implements OnInit {
         })
         //console.log('data', dataChart)
       });
-    
+      
   }
   public makeChart(canvasId, data) {
     this.chart = new Chart(canvasId, {
@@ -274,6 +307,7 @@ export class QuizDetailComponent implements OnInit {
       .subscribe(data => {
         //console.log(data);
         this.quiz = data;
+        console.log('this.quiz',this.quiz);
       });
 
   }
@@ -306,5 +340,23 @@ export class QuizDetailComponent implements OnInit {
         }
       );
   }
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
 
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
+}
+
+/** Builds and returns a new User. */
+function createNewUser(quizResult): UserData {
+
+  return {
+    id: quizResult.id.toString(),
+    name: quizResult.from.name,
+    progress: quizResult.correctAnswerCount,
+    color: quizResult.created_at
+  };
 }

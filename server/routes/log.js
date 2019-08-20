@@ -29,7 +29,7 @@ router.post('/', function(req, res, next) {
       quiz_id: req.body.id,
       marks: req.body.correctAnswerCount,
       answered: [req.body.answers],
-      quiz_by: req.body.quiz_by
+      quiz_by: req.body.quiz_by.userId
     });
     log.save(function (err) {
       if (err) {

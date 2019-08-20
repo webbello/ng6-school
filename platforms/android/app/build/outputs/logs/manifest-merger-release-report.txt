@@ -9,7 +9,7 @@ INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\Andro
 INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
 INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
 	package
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:102-129
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:102-126
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -19,7 +19,7 @@ INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\Andro
 	android:hardwareAccelerated
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:11-45
 	xmlns:android
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:130-188
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:127-185
 	android:versionCode
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:46-73
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
@@ -52,7 +52,7 @@ ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidM
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:5:18-52
 	android:icon
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:5:53-87
-activity#com.example.hello.MainActivity
+activity#com.demo.hello.MainActivity
 ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:9-11:20
 	android:label
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:97-134

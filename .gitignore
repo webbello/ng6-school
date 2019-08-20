@@ -38,3 +38,10 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+
+# cordova
+build.json
+appreleasedemo.keystore
+my-release-key.jks
+
+/platforms

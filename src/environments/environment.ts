@@ -7,6 +7,9 @@ export const environment = {
   // URL of production API
   apiUrl: 'http://192.168.17.35:3000',
   phpApiUrl: 'http://192.168.17.35/quizApi/public/api'
+
+  // apiUrl: 'https://eclass.iirs.gov.in:3000',
+  // phpApiUrl: 'https://eclass.iirs.gov.in/quizApi/public/api'
 };
 
 /*

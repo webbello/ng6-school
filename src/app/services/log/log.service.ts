@@ -57,7 +57,7 @@ export class LogService {
 
   /* Post Quiz Log */
   postQuizLog(data): Observable<any> {
-    console.log(data);
+    //console.log(data);
     return this.http.post(apiUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)
@@ -66,7 +66,7 @@ export class LogService {
 
   /* Post Quiz Log in php url */
   postQuizApiPhpLog(data): Observable<any> {
-    console.log(data);
+    //console.log(data);
     return this.http.post(phpApiUrl, data, httpOptions)
       .pipe(
         catchError(this.handleError)

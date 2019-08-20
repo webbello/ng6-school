@@ -92,7 +92,7 @@ const routes : Routes = [
 		component: StudentListComponent
 	},
 	{
-	path: 'offline-session',
+		path: 'offline-session',
 		component: OfflineSessionComponent,
 		data: { title: 'Offline Session' }
 	},
@@ -112,7 +112,7 @@ const routes : Routes = [
 		data: { title: 'Edit Book' }
 	},
 	{
-	path: 'questions',
+		path: 'questions',
 		component: QuestionComponent,
 		data: { title: 'Question List' }
 	},
@@ -128,9 +128,9 @@ const routes : Routes = [
 		data: { title: 'Create Question' }
 	},
 	{
-	path: 'question-edit/:id',
-	component: QuestionEditComponent,
-	data: { title: 'Edit Question' }
+		path: 'question-edit/:id',
+		component: QuestionEditComponent,
+		data: { title: 'Edit Question' }
 	},
 	{
 		path: 'chat',
