@@ -1,7 +1,7 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
   <button mat-raised-button color="primary" (click)="startQuiz(quiz.courseId, quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
-  <!-- <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, false)"><mat-icon>stop</mat-icon> Stop Quiz</button> -->
+  <button *ngIf="onlineUsers" mat-raised-button color="primary" matBadge="{{onlineUsers.length }}" matBadgePosition="after" matBadgeColor="accent" (click)="getLastActiveUserByCourseId(quiz.courseId)"><mat-icon>refresh</mat-icon> Online Users</button>
 </div>
 <mat-accordion class="col-md-12">
   <mat-expansion-panel>
@@ -40,16 +40,11 @@
   </mat-expansion-panel>
 </mat-accordion>
 <!-- {{ quiz.questions | json }} -->
-<div class="row">
-  <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
-    <canvas id="{{ result._id }}"></canvas>
-  </div>
-</div>
-<!-- <div class="button-row">
-  <button *ngFor="let result of quizResults; let index = index" mat-raised-button color="primary" matBadge="{{ result.correctAnswerCount }}" matBadgePosition="after" matBadgeColor="accent">
-    {{ result.from.name }}
-  </button>
-</div> -->
+
+<!-- <mat-list>
+  <mat-list-item>Total Participants: {{quizResults.length}}</mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list> -->
 
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">

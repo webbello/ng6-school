@@ -1,4 +1,21 @@
-<div *ngIf="!start" class="main-div">
+<!-- <h2 *ngIf="numberOfActiveSockets"> {{numberOfActiveSockets}}</h2> -->
+<mat-card *ngIf="(!start && live_lecture_url !== undefined) || mode=='live_lecture'" class="example-card">
+  
+  <mat-card-content>
+    <div class="iframe-container">
+      <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </mat-card-content>
+  <!-- <mat-card-content>
+    <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
+    <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
+  </mat-card-content> -->
+  <!-- <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['/question-edit', session.lecture_id]"><mat-icon>edit</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteSession(session.lecture_id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions> -->
+</mat-card>
+<div *ngIf="!start && live_lecture_url === undefined" class="main-div">
   <mat-card class="card-w-400 center">
     <!-- <mat-card-header layout-align="center center">
       <div mat-card-avatar class="example-header-image"></div>
@@ -19,6 +36,8 @@
 </div>
 
 <div *ngIf="start" id="quiz">
+  <!-- <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'" class="btn btn-light" (click)="mode = 'live_lecture'"> <mat-icon>back</mat-icon> Live Lecture</button> -->
+  <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'"  (click)="mode = 'live_lecture'" mat-stroked-button><mat-icon>arrow_back</mat-icon> Live Lecture</button>
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
 
@@ -33,17 +52,17 @@
       <div class="row text-left options">
           <div class="col-md-6" *ngFor="let option of question.options">
             <div class="option">
-              <mat-checkbox id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
+              <mat-checkbox [disabled]="disabled" id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
             </div>
           </div>
       </div>
     </div>
     <hr />
     <div class="text-center">
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);">First</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);">Prev</button>
-      <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);">Last</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(0);" [disabled]="disabled">First</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);" [disabled]="disabled">Prev</button>
+      <button class="btn btn-primary" (click)="goTo(pager.index + 1);" [disabled]="disabled">Next</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);" [disabled]="disabled">Last</button>
       <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
     </div>
   </div>
@@ -73,7 +92,7 @@
   </div>
   <hr />
   <div *ngIf="mode!='result'">
-    <button class="btn btn-default" (click)="mode = 'quiz'">Quiz</button>
+    <button class="btn btn-light" (click)="mode = 'quiz'">Quiz</button>
     <button class="btn btn-info" (click)="mode = 'review'">Review</button>
     <button class="btn btn-primary" (click)="onSubmit();">Submit Quiz</button>
   </div>

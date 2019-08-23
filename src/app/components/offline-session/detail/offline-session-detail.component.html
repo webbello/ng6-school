@@ -1,7 +1,7 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/offline-session']"><mat-icon>list</mat-icon></a>
 </div>
-<mat-card class="example-card">
+<mat-card class="example-card" *ngIf="session">
   
   <mat-card-content>
     <div class="iframe-container">

@@ -6,5 +6,6 @@ export interface User {
     courses?: any;
     role?: string;
     avatar?: string;
+    lastActive?: any;
     created_at?: any;
 }

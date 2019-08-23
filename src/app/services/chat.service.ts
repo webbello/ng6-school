@@ -15,7 +15,7 @@ import { Event } from '../models/chat/event';
 export class ChatService {
 
 	private url = environment.apiUrl;
-    private socket;    
+    private socket;
 
     constructor() {
 	    this.socket = io(this.url);
@@ -33,26 +33,39 @@ export class ChatService {
     }
 
     public onMessage(): Observable<Message> {
-        return new Observable<Message>(observer => {
+        let observable = new Observable<Message>(observer => {
             this.socket.on('message', (data: Message) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onQuizStart(): Observable<QuizChatModel> {
-        return new Observable<QuizChatModel>(observer => {
+        let observable =  new Observable<QuizChatModel>(observer => {
             this.socket.on('quiz', (data: QuizChatModel) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onQuizSubmit(): Observable<QuizResultModel> {
-        return new Observable<QuizResultModel>(observer => {
+        let observable = new Observable<QuizResultModel>(observer => {
             this.socket.on('quizResult', (data: QuizResultModel) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onEvent(event: Event): Observable<any> {
         return new Observable<Event>(observer => {
             this.socket.on(event, () => observer.next());
         });
-	}
+    }
+
 }

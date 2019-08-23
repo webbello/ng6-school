@@ -55,6 +55,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
+import { OnlineUsersComponent } from './components/online-users/online-users.component';
 
 @NgModule({
   declarations: [
@@ -84,7 +85,8 @@ import { SafeUrlPipe } from './pipe/safe-url.pipe';
     ChatComponent,
     OfflineSessionComponent,
     OfflineSessionDetailComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    OnlineUsersComponent
   ],
   imports: [
     BrowserModule,

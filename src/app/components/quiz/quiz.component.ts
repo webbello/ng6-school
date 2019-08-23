@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 
 import { QuizService } from '../../services/quiz/quiz.service';
 import { LogService } from '../../services/log/log.service';
@@ -19,6 +20,11 @@ import { ChatService } from '../../services/chat.service';
 export class QuizComponent implements OnInit {
   quizes: any[];
   user: User;
+  live_lecture_url: string;
+  embedUrl = 'https://www.youtube.com/embed/'
+  videoUrl: string;
+  numberOfActiveSockets: number;
+
   //quizId: any;
   quiz: Quiz = new Quiz(null);
   quizChat: QuizChatModel;
@@ -32,7 +38,7 @@ export class QuizComponent implements OnInit {
     'allowReview': true,
     'autoMove': false,  // if true, it will move to next question automatically when answered.
     'duration': 60,  // indicates the time (in secs) in which quiz needs to be completed. 0 means unlimited.
-    'autoSubmit': true,
+    'autoSubmit': false,
     'pageSize': 1,
     'requiredAll': false,  // indicates if you must answer all the questions before submitting.
     'richText': false,
@@ -53,37 +59,61 @@ export class QuizComponent implements OnInit {
   endTime: Date;
   ellapsedTime = '00:00';
   duration = '';
+  disabled = false;
 
-  constructor(private quizService: QuizService, private authService: AuthService, private log: LogService, private chatService: ChatService ) { }
+  constructor(private quizService: QuizService, private router: Router, private authService: AuthService, private log: LogService, private chatService: ChatService ) { 
+    this.authService.getLoginUser()
+      .subscribe(res => {
+        //console.log('getLoginUser', res);
+        //this.loginUser = res;
+        this.user = {
+          //id: randomId,
+          userId: res.user.id,
+          role: res.user.role,
+          name: res.user.name,
+          email:res.user.email,
+          courses:res.courses,
+          lastActive:res.user.last_active
+        }
+        //console.log(this.user);
+      }, err => {
+        console.log(err);
+      });
+
+      this.authService.getLiveLectureUrl()
+      .subscribe(res => {
+        //console.log('getLiveLacture', res.live_url.lecture_url);
+        this.live_lecture_url = res.live_url.lecture_url;
+        this.videoUrl =  this.embedUrl + this.live_lecture_url;
+        //console.log(this.user);
+      }, err => {
+        console.log(err);
+      });
+  }
 
   ngOnInit() {
-    this.authService.getLoginUser()
-        .subscribe(res => {
-          console.log('getLoginUser', res);
-          //this.loginUser = res;
-          this.user = {
-            //id: randomId,
-            userId: res.user.id,
-            role: res.user.role,
-            name: res.user.name,
-            email:res.user.email,
-            courses:res.courses
-          }
-          //console.log(this.user);
-        }, err => {
-          console.log(err);
-        });
-
+    if (this.authService.isLoggedIn()) {
     this.initIoConnection();
+    this.chatService.onEvent(Event.CONNECT)
+      .subscribe((numberOfActiveSockets) => {
+        //this.numberOfActiveSockets = numberOfActiveSockets;
+        console.log('connected', numberOfActiveSockets);
+      });
+      
+    this.chatService.onEvent(Event.DISCONNECT)
+      .subscribe((data) => {
+        console.log('disconnected', data);
+      });
+    }
   }
 
   private initIoConnection(): void {
 
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          console.log('quiz',quiz);
-          console.log('this.user',this.user);
-          console.log(this.user.courses.includes(quiz.courseId));
+          //console.log('quiz',quiz);
+          //console.log('this.user',this.user);
+          //console.log(this.user.courses.includes(quiz.courseId));
           
           this.quizBy = {
             //id: randomId,
@@ -95,20 +125,13 @@ export class QuizComponent implements OnInit {
           //this.quizId = quiz.id;
           if (this.user.courses.includes(quiz.courseId)) {
             this.start = quiz.start;
-            this.loadQuiz(quiz.id);
+            if (this.start) {
+              this.loadQuiz(quiz.id);
+            }
           }
           
         });
 
-      this.chatService.onEvent(Event.CONNECT)
-        .subscribe(() => {
-          console.log('connected');
-        });
-        
-      this.chatService.onEvent(Event.DISCONNECT)
-        .subscribe(() => {
-          console.log('disconnected');
-        });
   }
 
   loadQuiz(quizId: string) {
@@ -116,7 +139,7 @@ export class QuizComponent implements OnInit {
     this.quizService.getQuiz(quizId).subscribe(res => {
       //console.log(res);
       //console.log(this.startTime);
-
+      this.disabled = false;
       this.quiz = new Quiz(res);
       //console.log('this.quiz',this.quiz);
       this.pager.count = this.quiz.questions.length;
@@ -137,11 +160,19 @@ export class QuizComponent implements OnInit {
   tick() {
     const now = new Date();
     const diff = (now.getTime() - this.startTime.getTime()) / 1000;
+    //console.log('diff', diff);
     if (diff >= this.config.duration) {
       //console.log('in diff');
       clearTimeout(this.timer);
       if (this.config.autoSubmit) {
         this.onSubmit();
+      } else {
+        this.disabled = true;
+        setTimeout(()=> {
+          //this.mode = 'result';
+          this.start = false;
+          //this.router.navigate(["/quiz"]);
+        }, 10000);
       }
     }
     this.ellapsedTime = this.parseTime(diff);
@@ -188,46 +219,53 @@ export class QuizComponent implements OnInit {
   };
 
   onSubmit() {
-    
+
+    console.log('isloggedin', this.user.lastActive);
+    // const now = new Date();
+    // const diff = (now.getTime() - this.user.lastActive.getTime()) / 1000;
+    // console.log('Diff Now', now);
+    // console.log('Diff in last login', diff);
+
     clearTimeout(this.timer);
-    let answers = [];
-    //console.log(this.quiz)
-    this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'questionName': x.name, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
-    
-    // Post your data to the server here. answers contains the questionId and the users' answer.
-    const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
-    console.log('answers', this.quiz);
-    console.log('correctAnswerCount', correctAnswerCount);
-    let data = {
-      id: this.quiz.id,
-      courseId: this.quiz.courseId,
-      from: this.user,
-      correctAnswerCount: correctAnswerCount,
-      questions: this.quiz.questions, 
-      answers: answers,
-      quiz_by: this.quizBy.userId,
-      created_at: new Date(),
-    };
+    if (this.authService.isLoggedIn()) {
+      let answers = [];
+      //console.log(this.quiz)
+      this.quiz.questions.forEach(x => answers.push({ 'quizId': this.quiz.id, 'questionId': x.id, 'questionName': x.name, 'answered': x.options.every(y => y.selected === y.isAnswer) ? 'correct' : 'wrong', 'attempt': x.options.find(y => y.selected) ? true : false, 'selected': x.options.find((y) => { return y.selected } ) }));
+      
+      // Post your data to the server here. answers contains the questionId and the users' answer.
+      const correctAnswerCount = answers.filter(i => i['answered'] === 'correct').length;
+      //console.log('answers', answers);
+      //console.log('correctAnswerCount', correctAnswerCount);
+      let data = {
+        id: this.quiz.id,
+        courseId: this.quiz.courseId,
+        from: this.user,
+        correctAnswerCount: correctAnswerCount,
+        questions: this.quiz.questions, 
+        answers: answers,
+        quiz_by: this.quizBy.userId,
+        created_at: new Date(),
+      };
 
-    this.chatService.submitQuiz(data);
+      this.chatService.submitQuiz(data);
 
-    // post in log table
-    // this.log.postQuizLog(data)
-    //   .subscribe(res => {
-    //     console.log(res);
-    //   }, (err) => {
-    //     console.log(err);
-    //   });
+      // post in log table
+      // this.log.postQuizLog(data)
+      //   .subscribe(res => {
+      //     console.log(res);
+      //   }, (err) => {
+      //     console.log(err);
+      //   });
 
-    // post in log table in QuizAPi Php
-    this.log.postQuizApiPhpLog(data)
-    .subscribe(res => {
-      console.log(res);
-    }, (err) => {
-      console.log(err);
-    });
-    
-    this.mode = 'result';
-    
+      // post in log table in QuizAPi Php
+      this.log.postQuizApiPhpLog(data)
+      .subscribe(res => {
+        console.log(res);
+      }, (err) => {
+        console.log(err);
+      });
+      
+      this.mode = 'result';
+    }
   }
 }

@@ -1,12 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { QuizService } from '../../../services/quiz/quiz.service';
+import { AuthService } from '../../../services/auth/auth.service';
 import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
-import { User } from '../../../models/chat/user';
-import { Event } from '../../../models/chat/event';
-import { Message } from '../../../models/chat/message';
-import { ChatService } from '../../../services/chat.service';
-
 
 @Component({
   selector: 'app-quiz-list',
@@ -16,15 +11,18 @@ import { ChatService } from '../../../services/chat.service';
 export class QuizListComponent implements OnInit {
 
   quizs: any;
-  user: User;
+  onlineUsers: [];
   start: boolean = false;
   ioConnection: any;
   displayedColumns = ['name', 'description', 'status', 'created', 'action'];
   dataSource = new QuizDataSource(this.api);
 
-  constructor(private api: QuizService, private chatService: ChatService) { }
+  constructor(private api: QuizService, private authService: AuthService) { 
+    this.getLastActiveUsers();
+  }
 
   ngOnInit() {
+    
     this.api.getQuizs()
       .subscribe(res => {
         console.log(res);
@@ -32,25 +30,19 @@ export class QuizListComponent implements OnInit {
       }, err => {
         console.log(err);
       });
+    
   }
 
-  /**
-   * [startQuiz description]
-   * @param {string}  quizId [description]
-   * @param {boolean} start  [description]
-   */
-  public startQuiz(quizId: string, start: boolean): void {
-      if (!quizId) {
-        return;
-      }
-
-      this.chatService.startQuiz({
-        id: quizId,
-        from: this.user,
-        start: start,
-        created_at: new Date(),
-      });
+  public getLastActiveUsers() {
+    this.authService.getLastActiveUsers()
+    .subscribe(res => {
+      //console.log(res.last_active);
+      this.onlineUsers = res.last_active;
+    }, err => {
+      console.log(err);
+    });
   }
+
 }
 
 export class QuizDataSource extends DataSource<any> {

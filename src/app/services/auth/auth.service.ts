@@ -66,6 +66,16 @@ export class AuthService {
       
   }
 
+  public setUserLastActive(): Observable<any>{
+    //const url = `${apiUrl}/loggedin`;
+    const url = phpApiUrl + '/set-user-last-active';
+    //console.log(loginUrl);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+      
+  }
+
 	private setSession(authResult) {
 	    const expiresAt = moment().add(authResult.expiresIn,'second');
 
@@ -74,6 +84,7 @@ export class AuthService {
 	}          
 
 	public logout() {
+
 	    localStorage.removeItem("currentUser");
       localStorage.removeItem("id_token");
       localStorage.removeItem("expires_at");
@@ -113,6 +124,27 @@ export class AuthService {
        user = roles;
        return user;
       }));
+  }
+
+  getLiveLectureUrl(): Observable<any> {
+    const url = phpApiUrl +'/live_lecture';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getLastActiveUsers(): Observable<any> {
+    const url = phpApiUrl +'/last-active-users';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getLastActiveUserByCourseId(courseId): Observable<any> {
+    const url = phpApiUrl +'/last-active-users/'+ courseId;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
   }
 
 

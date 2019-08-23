@@ -1,7 +1,6 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quiz-create']"><mat-icon>add</mat-icon></a>
-  <!-- <button mat-raised-button color="primary" (click)="startQuiz('5b69c3322e7c81238cc8afe8', true)"><mat-icon>start</mat-icon> Start</button>
-  <button mat-raised-button color="primary" (click)="startQuiz('5b69c3322e7c81238cc8afe8', false)"><mat-icon>stop</mat-icon> Stop</button> -->
+  <button *ngIf="onlineUsers" mat-raised-button color="primary" [matBadge]="onlineUsers.length" matBadgePosition="after" matBadgeColor="accent" (click)="getLastActiveUsers()"><mat-icon>refresh</mat-icon> Online Users</button>
 </div>
 
 <div class="example-container mat-elevation-z8">
