@@ -1,0 +1,68 @@
+    <div class="button-row">
+        <button *ngIf="totalQuizResponse" mat-raised-button color="primary" [matBadge]="totalQuizResponse.length" matBadgePosition="after" matBadgeColor="accent" (click)="getQuizReport()"><mat-icon>refresh</mat-icon> Total Quiz Response</button>
+    </div>
+    <mat-form-field class="full-width">
+        <mat-select placeholder="Course" [(value)]="courseId">
+          <mat-option *ngFor="let course of courseList" [value]="course.id" (click)="getQuizReport()">{{course.id}}: {{course.fullname}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Select an option</mat-label>
+      <mat-select [(value)]="quizDate">
+        <mat-option value="2019-8-29" (click)="getQuizReport()">2019-8-29</mat-option>
+        <mat-option value="2019-8-28" (click)="getQuizReport()">2019-8-28</mat-option>
+        <mat-option value="2019-8-27" (click)="getQuizReport()">2019-8-27</mat-option>
+        <mat-option value="2019-8-26" (click)="getQuizReport()">2019-8-26</mat-option>
+        <mat-option value="2019-8-23" (click)="getQuizReport()">2019-8-23</mat-option>
+      </mat-select>
+    </mat-form-field>
+  <!-- <mat-divider></mat-divider> -->
+    <mat-form-field>
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Search">
+    </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> ID </th>
+        <td mat-cell *matCellDef="let row"> {{row.id}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.user_name}}  </td>
+      </ng-container>
+
+      <!-- Name Column -->
+      <!-- <ng-container matColumnDef="total_no_question">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Number of Question</th>
+          <td mat-cell *matCellDef="let row"> {{row.total_no_question}} </td>
+        </ng-container> -->
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="total_marks">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Correct Answer </th>
+        <td mat-cell *matCellDef="let row"> {{row.total_marks}} </td>
+      </ng-container>
+  
+      <!-- Color Column -->
+      <ng-container matColumnDef="on_create">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.on_create"> {{row.on_create | date:'h:mm:ss' }} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[10, 25, 50, 100]"></mat-paginator>
+  </div>
+  
+  
+  
+  

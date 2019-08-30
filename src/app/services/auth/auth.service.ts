@@ -133,6 +133,28 @@ export class AuthService {
       catchError(this.handleError));
   }
 
+  getVideoLectureLogById(data): Observable<any> {
+    const url = phpApiUrl +'/video-lecture-log';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  rateThisSession(data): Observable<any> {
+    const url = phpApiUrl +'/rate_session';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  public postRate(data): Observable<any> {
+
+    const url = phpApiUrl + '/rate_session';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getLastActiveUsers(): Observable<any> {
     const url = phpApiUrl +'/last-active-users';
     return this.http.get(url, httpOptions).pipe(

@@ -34,6 +34,7 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
+import { ReportsComponent } from './components/reports/reports.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
 
@@ -88,6 +89,12 @@ const routes : Routes = [
 		component: OnlineUsersComponent,
 		canActivate: [AuthGuard],
 		data: { title: 'Online Users' }
+	},
+	{
+		path: 'reports',
+		component: ReportsComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'offline-session',

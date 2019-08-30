@@ -22,6 +22,8 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatTreeModule } from '@angular/material/tree';
+import { MatNativeDateModule } from '@angular/material/core';
+import { MatDatepickerModule } from '@angular/material/datepicker'; 
 
 @NgModule({
   imports: [
@@ -45,7 +47,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   exports: [
     MatBadgeModule,
@@ -67,7 +71,9 @@ import { MatTreeModule } from '@angular/material/tree';
     MatProgressSpinnerModule,
     MatSortModule,
     MatTableModule,
-    MatFormFieldModule
+    MatFormFieldModule,
+    MatNativeDateModule,
+    MatDatepickerModule
   ],
   declarations: [],
   providers: [

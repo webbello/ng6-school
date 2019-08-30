@@ -1,0 +1,10 @@
+<div>
+    <div class="example-button-row">
+        <button mat-icon-button aria-label="Please Rate This Session"
+        *ngFor="let num of [1,2,3,4,5]"
+        (click)="rate(num)" [ngStyle]="{'color': getColor(num)}"
+        >
+            <mat-icon>star</mat-icon>
+        </button>
+    </div>
+</div>

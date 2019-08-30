@@ -76,6 +76,13 @@ export class QuizService {
       catchError(this.handleError));
   }
 
+  getQuizByCourseId(id: number): Observable<any> {
+    const url = `${apiUrl}/course/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   postQuiz(data): Observable<any> {
     return this.http.post(apiUrl, data, httpOptions)
       .pipe(

@@ -28,7 +28,7 @@ export class LoginComponent implements OnInit {
   }
 
   onFormSubmit(form:NgForm) {
-    //console.log(form.username);
+    //console.log(form);
     this.api.postLogin(form)
       .subscribe(res => {
           let token = res.token;

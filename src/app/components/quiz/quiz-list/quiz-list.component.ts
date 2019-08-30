@@ -1,7 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
+
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { AuthService } from '../../../services/auth/auth.service';
-import { DataSource } from '@angular/cdk/collections';
+
+export interface QuizData {
+  id: string;
+  name: string;
+  description: string;
+  course: string;
+  created: string;
+  action: string;
+}
 
 @Component({
   selector: 'app-quiz-list',
@@ -12,25 +24,43 @@ export class QuizListComponent implements OnInit {
 
   quizs: any;
   onlineUsers: [];
+  courseList: any = [];
+  courseId: number;
   start: boolean = false;
   ioConnection: any;
-  displayedColumns = ['name', 'description', 'status', 'created', 'action'];
-  dataSource = new QuizDataSource(this.api);
+  displayedColumns = ['course', 'name', 'description', 'created'];
+  // dataSource = new QuizDataSource(this.api);
+
+  dataSource: MatTableDataSource<QuizData>;
+
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   constructor(private api: QuizService, private authService: AuthService) { 
     this.getLastActiveUsers();
-  }
-
-  ngOnInit() {
-    
     this.api.getQuizs()
       .subscribe(res => {
         console.log(res);
         this.quizs = res;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }, err => {
         console.log(err);
       });
     
+  }
+
+  ngOnInit() {
+    
+    this.api.getCourses()
+      .subscribe(res => {
+        console.log(res.courses);
+        this.courseList = res.courses;
+      }, err => {
+        console.log(err);
+      });
+
   }
 
   public getLastActiveUsers() {
@@ -43,18 +73,26 @@ export class QuizListComponent implements OnInit {
     });
   }
 
-}
-
-export class QuizDataSource extends DataSource<any> {
-  constructor(private api: QuizService) {
-    super()
+  getQuizByCourseId () {
+    console.log('courseId',this.courseId);
+    this.api.getQuizByCourseId(this.courseId)
+    .subscribe(res => {
+      //console.log((res));
+      this.quizs = res;
+      this.dataSource = new MatTableDataSource(this.quizs);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, err => {
+      console.log(err);
+    });
   }
 
-  connect() {
-    return this.api.getQuizs();
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
   }
 
-  disconnect() {
-
-  }
 }

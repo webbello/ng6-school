@@ -5,7 +5,7 @@ var Quiz = require('../models/quiz.js');
 
 /* GET ALL QUIZ */
 router.get('/', function(req, res, next) {
-  Quiz.find(function (err, products) {
+  Quiz.find({}, null, {sort: '-created'}, function (err, products) {
     if (err) return next(err);
     res.json(products);
   });
@@ -14,6 +14,14 @@ router.get('/', function(req, res, next) {
 /* GET SINGLE QUIZ BY ID */
 router.get('/:id', function(req, res, next) {
   Quiz.findById(req.params.id, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
+/* GET SINGLE QUIZ BY COURSE ID */
+router.get('/course/:id', function(req, res, next) {
+  Quiz.find({courseId: req.params.id}, function (err, post) {
     if (err) return next(err);
     res.json(post);
   });

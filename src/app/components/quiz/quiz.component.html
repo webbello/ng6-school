@@ -6,6 +6,10 @@
       <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
     </div>
   </mat-card-content>
+  <h4>{{live_lecture.presentation}}</h4>
+  <mat-card-actions>
+      <rating [(rating)]="sessionRating" (click)="rateThisSession()"></rating>
+  </mat-card-actions>
   <!-- <mat-card-content>
     <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
     <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
@@ -28,11 +32,13 @@
       <h5 class="color-hindi">क्लास गतिविधि जल्द ही शुरु होगी.</h5>
       <h5 class="color-english">Class activity will start shortly..!</h5>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-button>Quiz Rules</button>
-      <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button>
-    </mat-card-actions> -->
+    <mat-card-actions>
+        <!-- <rating [(rating)]="rating"></rating> -->
+      <!-- <button mat-button>Quiz Rules</button>
+      <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button> -->
+    </mat-card-actions>
   </mat-card>
+  
 </div>
 
 <div *ngIf="start" id="quiz">

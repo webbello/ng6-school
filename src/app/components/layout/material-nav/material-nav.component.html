@@ -30,6 +30,7 @@
       <a mat-list-item routerLink="login" *ngIf="!authService.isLoggedIn()"><i class="material-icons">fingerprint</i> Login</a>
       <a mat-list-item routerLink="online-users" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Online Users</a>
       <!-- <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a> -->
+      <a mat-list-item routerLink="reports" *ngIf="authService.isAdmin()"><i class="material-icons">assessment</i> Reports </a>
       <!-- <a mat-list-item routerLink="chat"><i class="material-icons">chat</i> Chat</a> -->
 
     </mat-nav-list>

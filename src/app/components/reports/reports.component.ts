@@ -2,14 +2,16 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTableDataSource} from '@angular/material/table';
+import {FormControl} from '@angular/forms';
 
-import { AuthService } from '../../services/auth/auth.service';
+import { ReportsService } from '../../services/reports/reports.service';
+import { QuizService } from '../../services/quiz/quiz.service';
 
 export interface UserData {
   id: string;
   name: string;
-  city: string;
-  last_active: string;
+  total_marks: string;
+  on_create: string;
 }
 
 /** Constants used to fill up our data base. */
@@ -23,35 +25,51 @@ const NAMES: string[] = [
 ];
 
 @Component({
-  selector: 'app-online-users',
-  templateUrl: './online-users.component.html',
-  styleUrls: ['./online-users.component.scss']
+  selector: 'app-reports',
+  templateUrl: './reports.component.html',
+  styleUrls: ['./reports.component.scss']
 })
-export class OnlineUsersComponent implements OnInit {
-  onlineUsers: [];
-  displayedColumns: string[] = ['id', 'name', 'city', 'last_active'];
+export class ReportsComponent implements OnInit {
+  totalQuizResponse: [];
+  courseList: any = [];
+  displayedColumns: string[] = ['id', 'name', 'total_marks', 'on_create'];
   dataSource: MatTableDataSource<UserData>;
+  quizDate: string;
+  courseId = 'Any';
 
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor(private authService: AuthService) {
-
-    this.getLastActiveUsers();
+  constructor( private quizService: QuizService, private reportsService: ReportsService) {
+    var dt = new Date();
+    this.quizDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    this.getQuizReport();
+    
     // Assign the data to the data source for the table to render
     //this.dataSource = new MatTableDataSource(users);
   }
 
   ngOnInit() {
-    
+    this.quizService.getCourses()
+      .subscribe(res => {
+        console.log(res.courses);
+        this.courseList = res.courses;
+      }, err => {
+        console.log(err);
+      });
   }
 
-  public getLastActiveUsers() {
-    this.authService.getLastActiveUsers()
+  public getQuizReport() {
+    
+    //this.date = '2019-8-27';
+    console.log('quizDate', this.quizDate);
+    console.log('courseId', this.courseId);
+    
+    this.reportsService.getQuizReport(this.quizDate, this.courseId)
     .subscribe(res => {
-      console.log(res.last_active);
-      this.onlineUsers = res.last_active;
-      this.dataSource = new MatTableDataSource(res.last_active);
+      console.log(res);
+      this.totalQuizResponse = res.reports;
+      this.dataSource = new MatTableDataSource(res.reports);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
     }, err => {
@@ -77,7 +95,7 @@ function createNewUser(id: number): UserData {
   return {
     id: id.toString(),
     name: name,
-    city: Math.round(Math.random() * 100).toString(),
-    last_active: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
+    total_marks: Math.round(Math.random() * 100).toString(),
+    on_create: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
   };
 }

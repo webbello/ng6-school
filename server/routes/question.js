@@ -4,11 +4,11 @@ var mongoose = require('mongoose');
 var Question = require('../models/question.js');
 var Quiz = require('../models/quiz.js');
 
-/* GET ALL BOOKS */
+/* GET ALL Questions */
 router.get('/', function(req, res, next) {
-  Question.find(function (err, products) {
+  Question.find({}, null, {sort: '-created'}, function (err, data) {
     if (err) return next(err);
-    res.json(products);
+    res.json(data);
   });
 });
 

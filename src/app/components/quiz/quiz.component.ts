@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
+import { RatingComponent } from '../../components/rating/rating.component';
+
 import { QuizService } from '../../services/quiz/quiz.service';
 import { LogService } from '../../services/log/log.service';
 import { HelperService } from '../../services/helper/helper.service';
@@ -11,6 +13,14 @@ import { Event } from '../../models/chat/event';
 import { QuizChatModel } from '../../models/chat/quiz';
 import { ChatService } from '../../services/chat.service';
 
+interface LiveLecture {
+  lecture_id: number;
+  course_id: number;
+  presentation: string;
+  rating_status: number;
+  lecture_url: string;
+}
+
 @Component({
   selector: 'app-quiz',
   templateUrl: './quiz.component.html',
@@ -19,10 +29,14 @@ import { ChatService } from '../../services/chat.service';
 })
 export class QuizComponent implements OnInit {
   quizes: any[];
+  sessionRating: number;
+  rating: number;
   user: User;
+  live_lecture: any;
   live_lecture_url: string;
   embedUrl = 'https://www.youtube.com/embed/'
   videoUrl: string;
+  presentation: string;
   numberOfActiveSockets: number;
 
   //quizId: any;
@@ -62,6 +76,7 @@ export class QuizComponent implements OnInit {
   disabled = false;
 
   constructor(private quizService: QuizService, private router: Router, private authService: AuthService, private log: LogService, private chatService: ChatService ) { 
+    //this.rating = 2;
     this.authService.getLoginUser()
       .subscribe(res => {
         //console.log('getLoginUser', res);
@@ -79,19 +94,24 @@ export class QuizComponent implements OnInit {
       }, err => {
         console.log(err);
       });
-
+  
       this.authService.getLiveLectureUrl()
       .subscribe(res => {
-        //console.log('getLiveLacture', res.live_url.lecture_url);
+        console.log('getLiveLacture', res.live_url);
+        this.live_lecture = res.live_url;
         this.live_lecture_url = res.live_url.lecture_url;
         this.videoUrl =  this.embedUrl + this.live_lecture_url;
-        //console.log(this.user);
+
+        this.getVideoLectureLogById();
+
       }, err => {
         console.log(err);
       });
+      
   }
 
   ngOnInit() {
+    
     if (this.authService.isLoggedIn()) {
     this.initIoConnection();
     this.chatService.onEvent(Event.CONNECT)
@@ -133,6 +153,37 @@ export class QuizComponent implements OnInit {
         });
 
   }
+  getVideoLectureLogById() {
+    console.log('this.live_lecture', this.live_lecture)
+    let data = {
+      course_id:  this.live_lecture ? this.live_lecture.course_id : '',
+      lecture_id: this.live_lecture ? this.live_lecture.lecture_id : ''
+    };
+    
+    this.authService.getVideoLectureLogById(data)
+      .subscribe(res => {
+        //console.log('getVideoLectureLogById', res.videoLectureLog.star);
+        this.sessionRating = Number(res.videoLectureLog.star);
+      }, (err) => {
+        console.log(err);
+      });
+  }
+  rateThisSession(){
+    console.log('live_lecture', this.live_lecture);
+    let data = { 
+      userId: this.user.userId,
+      course_id:  this.live_lecture.course_id,
+      lecture_id: this.live_lecture.lecture_id, 
+      sessionRating: this.sessionRating 
+    };
+    
+    this.authService.rateThisSession(data)
+      .subscribe(res => {
+        console.log('rateThiSsession', res);
+      }, (err) => {
+        console.log(err);
+      });
+  }
 
   loadQuiz(quizId: string) {
     //this.playAudio();
@@ -172,7 +223,7 @@ export class QuizComponent implements OnInit {
           //this.mode = 'result';
           this.start = false;
           //this.router.navigate(["/quiz"]);
-        }, 10000);
+        }, 30000);
       }
     }
     this.ellapsedTime = this.parseTime(diff);
@@ -250,12 +301,12 @@ export class QuizComponent implements OnInit {
       this.chatService.submitQuiz(data);
 
       // post in log table
-      // this.log.postQuizLog(data)
-      //   .subscribe(res => {
-      //     console.log(res);
-      //   }, (err) => {
-      //     console.log(err);
-      //   });
+      this.log.postQuizLog(data)
+        .subscribe(res => {
+          console.log(res);
+        }, (err) => {
+          console.log(err);
+        });
 
       // post in log table in QuizAPi Php
       this.log.postQuizApiPhpLog(data)
