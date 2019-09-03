@@ -6,6 +6,14 @@
   overflow: auto;
 }
 
+.button-row {
+  margin: 10px 0;
+}
+.button-row button,
+.button-row a {
+  margin-right: 12px;
+}
+
 .isbn-col {
   flex: 0 0 100px !important;
   white-space: unset !important;
@@ -17,4 +25,17 @@
 
 .example-full-width {
   width: 100%;
+}
+
+table {
+  width: 100%;
+}
+
+.mat-form-field {
+  font-size: 14px;
+  width: 100%;
+}
+
+td, th {
+  width: 25%;
 }

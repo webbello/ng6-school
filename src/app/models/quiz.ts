@@ -4,6 +4,7 @@ import { Question } from './question';
 export class Quiz {
     id: string;
     name: string;
+    courseId: Number;
     description: string;
     config: QuizConfig;
     questions: Question[];
@@ -12,6 +13,7 @@ export class Quiz {
         if (data) {
             this.id = data._id;
             this.name = data.name;
+            this.courseId = data.courseId;
             this.description = data.description;
             this.config = new QuizConfig(data.config);
             this.questions = [];

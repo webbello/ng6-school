@@ -4,9 +4,18 @@ var mongoose = require('mongoose');
 var Log = require('../models/log.js');
 /* GET ALL LOGS */
 router.get('/', function(req, res, next) {
-  Log.find(function (err, products) {
+  Log.find(function (err, logs) {
     if (err) return next(err);
-    res.json(products);
+    res.json(logs);
+  });
+});
+
+/* GET ALL LOGS By Date and Course Id*/
+router.get('/reports/:date/:courseId', function(req, res, next) {
+  var query = { played_at: new Date(req.params.date), course_id: req.params.courseId };
+  Log.find(query, function (err, reports) {
+    if (err) return next(err);
+    res.json(reports);
   });
 });
 
@@ -21,14 +30,16 @@ router.get('/:id', function(req, res, next) {
 
 /* Log Log */
 router.post('/', function(req, res, next) {
-  console.log(req.body);
+  console.log('req.decoded', req.decoded);
+  console.log('req.body', req.body);
     log = new Log({
       _id: new mongoose.Types.ObjectId(),
-      user_id: req.decoded.id,
-      player_id: req.body.from.user_id,
+      user_id: req.decoded.user_id,
+      player_id: req.body.from.userId,
+      course_id: req.body.courseId,
       quiz_id: req.body.id,
       marks: req.body.correctAnswerCount,
-      answered: [req.body.answers],
+      answered: req.body.answers,
       quiz_by: req.body.quiz_by
     });
     log.save(function (err) {

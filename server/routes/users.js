@@ -15,9 +15,10 @@ function createToken(user) {
  	var token = jsonwebtoken.sign({
  		id: user._id,
  		name: user.name,
- 		username: user.username
+ 		username: user.username,
+ 		role: user.role
  	}, secretKey, {
- 		expiresIn: '12h'
+ 		expiresIn: '1h'
  	});
  	return token;
 }

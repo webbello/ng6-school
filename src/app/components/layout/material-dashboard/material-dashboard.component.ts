@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
 import { map } from 'rxjs/operators';
-import { Breakpoints, BreakpointState, BreakpointObserver } from '@angular/cdk/layout';
+import { Breakpoints, BreakpointObserver } from '@angular/cdk/layout';
 
 @Component({
   selector: 'app-material-dashboard',
   templateUrl: './material-dashboard.component.html',
-  styleUrls: ['./material-dashboard.component.scss']
+  styleUrls: ['./material-dashboard.component.scss'],
 })
 export class MaterialDashboardComponent {
   /** Based on the screen size, switch from standard to one column per row */

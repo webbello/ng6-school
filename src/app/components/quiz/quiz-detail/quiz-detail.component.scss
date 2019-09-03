@@ -7,8 +7,22 @@
 }
 .button-row button,
 .button-row a {
-  margin: 12px 12px 12px;
+  margin-right: 12px;
 }
+
+table {
+	width: 100%;
+  }
+  
+  .mat-form-field {
+	font-size: 14px;
+	width: 100%;
+  }
+  
+  td, th {
+	width: 25%;
+  }
+  
 
 dt {
 	float: left;

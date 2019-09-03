@@ -1,7 +1,7 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
-  <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
-  <!-- <button mat-raised-button color="primary" (click)="startQuiz(quiz._id, false)"><mat-icon>stop</mat-icon> Stop Quiz</button> -->
+  <button mat-raised-button color="primary" (click)="startQuiz(quiz.courseId, quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
+  <button *ngIf="onlineUsers" mat-raised-button color="primary" matBadge="{{onlineUsers.length }}" matBadgePosition="after" matBadgeColor="accent" (click)="getLastActiveUserByCourseId(quiz.courseId)"><mat-icon>refresh</mat-icon> Online Users</button>
 </div>
 <mat-accordion class="col-md-12">
   <mat-expansion-panel>
@@ -34,28 +34,54 @@
         </mat-card-actions>
       </div>
       <div class="col">
-        <app-quiz></app-quiz>
+        <!-- <app-quiz></app-quiz> -->
       </div>
     </div>
   </mat-expansion-panel>
 </mat-accordion>
 <!-- {{ quiz.questions | json }} -->
-<div class="row">
-  <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
-    <canvas id="{{ result._id }}"></canvas>
-  </div>
-</div>
-<!-- <div class="row">
-  <div class="col-md-4"><canvas id="canvas"></canvas></div>
-  <div class="col-md-4"><canvas id="canvas1"></canvas></div>
-  <div class="col-md-4"><canvas id="canvas2"></canvas></div>
-</div> -->
-<!-- <div class="row">
-  <div class="col-md-12"><canvas id="bubbleCanvas"></canvas></div>
-</div> -->
-<div class="button-row">
-  <button *ngFor="let result of quizResults; let index = index" mat-raised-button color="primary" matBadge="{{ result.correctAnswerCount }}" matBadgePosition="after" matBadgeColor="accent">
-    {{ result.from.name }}
-  </button>
-</div>
 
+<!-- <mat-list>
+  <mat-list-item>Total Participants: {{quizResults.length}}</mat-list-item>
+  <mat-divider></mat-divider>
+</mat-list> -->
+
+  <mat-form-field>
+    <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+  </mat-form-field>
+  
+  <div class="mat-elevation-z8">
+    <table mat-table [dataSource]="dataSource" matSort>
+  
+      <!-- ID Column -->
+      <ng-container matColumnDef="id">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> # </th>
+        <td mat-cell *matCellDef="let row; let i = index;"> {{i+1}} </td>
+      </ng-container>
+  
+      <!-- Progress Column -->
+      <ng-container matColumnDef="progress">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Correct Answer </th>
+        <td mat-cell *matCellDef="let row"> {{row.progress}} </td>
+      </ng-container>
+  
+      <!-- Name Column -->
+      <ng-container matColumnDef="name">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+        <td mat-cell *matCellDef="let row"> {{row.name}} </td>
+      </ng-container>
+  
+      <!-- Color Column -->
+      <ng-container matColumnDef="color">
+        <th mat-header-cell *matHeaderCellDef mat-sort-header> Time </th>
+        <td mat-cell *matCellDef="let row" [style.color]="row.color"> {{row.color | date:'h:mm:ss' }} </td>
+      </ng-container>
+  
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;">
+      </tr>
+    </table>
+  
+    <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
+  </div>
+  

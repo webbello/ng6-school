@@ -1,5 +1,5 @@
 
-@import "~@angular/material/prebuilt-themes/indigo-pink.css";
+@import "my-theme.scss";
 
 @import "../node_modules/bootstrap/scss/bootstrap";
 
@@ -15,8 +15,16 @@ body {
     -ms-flex: 1 1 auto;
     flex: 1 1 auto;
 }
+.center{
+  margin: 10px auto;
+}
+
 .full {
     display: block;
+}
+
+.full-width {
+    width: 100%;
 }
 
 .half-width {
@@ -33,4 +41,7 @@ body {
 }
 .pb-10 {
     padding-bottom: 10px;
+}
+.live_lecture .mat-card-header-text {
+    margin: 0;
 }

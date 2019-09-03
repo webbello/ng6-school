@@ -1,0 +1,23 @@
+<mat-grid-list [cols]="breakpoint" rowHeight="4:5" (window:resize)="onResize($event)">
+  <!-- {{sessions | json}} -->
+    <mat-grid-tile *ngFor="let session of sessions" >
+      
+        <mat-card class="example-card">
+            <a [routerLink]="['/offline-session/', session.lecture_id]" >
+              <img mat-card-image src="http://img.youtube.com/vi/{{session.off_lecture_url}}/0.jpg" alt="Photo of a Shiba Inu" width="200px">
+            </a>
+            <mat-card-footer>
+              <h5>{{session.session_name}}</h5>
+              <p>{{session.presentation}}</p>
+              <mat-card-subtitle>{{session.date | date}}</mat-card-subtitle>
+            </mat-card-footer>
+        </mat-card>
+       
+    </mat-grid-tile>
+  </mat-grid-list>
+  <div class="fab-container">
+    <button mat-fab color="primary" class="fab-toggler"
+            (click)="openFilterDialog()">
+      <i class="material-icons">filter_list</i>
+    </button>
+  </div>

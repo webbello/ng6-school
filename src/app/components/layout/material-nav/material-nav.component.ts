@@ -10,12 +10,23 @@ import { AuthService } from '../../../services/auth/auth.service';
   styleUrls: ['./material-nav.component.scss']
 })
 export class MaterialNavComponent {
-
+// Initialize isDarkTheme to false
+  public isDarkTheme: boolean = false;
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
     );
     
   constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
-  
-  }
+	changeTheme(): void {
+	this.isDarkTheme = !this.isDarkTheme;
+	const body = document.getElementsByTagName('body')[0];
+	if (this.isDarkTheme) {
+		//this.isDarkTheme = false;
+		body.classList.add('iirs-dark-theme');
+	} else {
+		//this.isDarkTheme = true;
+		body.classList.remove('iirs-dark-theme');
+	}
+	}
+}

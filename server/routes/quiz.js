@@ -5,7 +5,7 @@ var Quiz = require('../models/quiz.js');
 
 /* GET ALL QUIZ */
 router.get('/', function(req, res, next) {
-  Quiz.find(function (err, products) {
+  Quiz.find({}, null, {sort: '-created'}, function (err, products) {
     if (err) return next(err);
     res.json(products);
   });
@@ -19,16 +19,25 @@ router.get('/:id', function(req, res, next) {
   });
 });
 
+/* GET SINGLE QUIZ BY COURSE ID */
+router.get('/course/:id', function(req, res, next) {
+  Quiz.find({courseId: req.params.id}, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
 /* SAVE QUIZ */
 router.post('/', function(req, res, next) {
   console.log(req.body);
     quiz = new Quiz({
       _id: new mongoose.Types.ObjectId(),
       creator: req.decoded.id,
+      courseId: req.body.course,
       name: req.body.name,
       description: req.body.description,
       questionId: [],
-      questions: [req.body.questions],
+      questions: [],
     });
     quiz.save(function (err) {
       if (err) {

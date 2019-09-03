@@ -1,12 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { QuizService } from '../../../services/quiz/quiz.service';
-import { DataSource } from '@angular/cdk/collections';
-import { Observable } from 'rxjs';
-import { User } from '../../../models/chat/user';
-import { Event } from '../../../models/chat/event';
-import { Message } from '../../../models/chat/message';
-import { ChatService } from '../../../services/chat.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import {MatPaginator} from '@angular/material/paginator';
+import {MatSort} from '@angular/material/sort';
+import {MatTableDataSource} from '@angular/material/table';
 
+import { QuizService } from '../../../services/quiz/quiz.service';
+import { AuthService } from '../../../services/auth/auth.service';
+
+export interface QuizData {
+  id: string;
+  name: string;
+  description: string;
+  course: string;
+  created: string;
+  action: string;
+}
 
 @Component({
   selector: 'app-quiz-list',
@@ -16,53 +23,76 @@ import { ChatService } from '../../../services/chat.service';
 export class QuizListComponent implements OnInit {
 
   quizs: any;
-  user: User;
+  onlineUsers: [];
+  courseList: any = [];
+  courseId: number;
   start: boolean = false;
   ioConnection: any;
-  displayedColumns = ['name', 'description', 'status', 'created', 'action'];
-  dataSource = new QuizDataSource(this.api);
+  displayedColumns = ['course', 'name', 'description', 'created'];
+  // dataSource = new QuizDataSource(this.api);
 
-  constructor(private api: QuizService, private chatService: ChatService) { }
+  dataSource: MatTableDataSource<QuizData>;
 
-  ngOnInit() {
+  @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
+  @ViewChild(MatSort, {static: true}) sort: MatSort;
+
+  constructor(private api: QuizService, private authService: AuthService) { 
+    this.getLastActiveUsers();
     this.api.getQuizs()
       .subscribe(res => {
         console.log(res);
         this.quizs = res;
+        this.dataSource = new MatTableDataSource(res);
+        this.dataSource.paginator = this.paginator;
+        this.dataSource.sort = this.sort;
       }, err => {
         console.log(err);
       });
+    
   }
 
-  /**
-   * [startQuiz description]
-   * @param {string}  quizId [description]
-   * @param {boolean} start  [description]
-   */
-  public startQuiz(quizId: string, start: boolean): void {
-      if (!quizId) {
-        return;
-      }
-
-      this.chatService.startQuiz({
-        id: quizId,
-        from: this.user,
-        start: start,
-        created_at: new Date(),
+  ngOnInit() {
+    
+    this.api.getCourses()
+      .subscribe(res => {
+        console.log(res.courses);
+        this.courseList = res.courses;
+      }, err => {
+        console.log(err);
       });
-  }
-}
-
-export class QuizDataSource extends DataSource<any> {
-  constructor(private api: QuizService) {
-    super()
-  }
-
-  connect() {
-    return this.api.getQuizs();
-  }
-
-  disconnect() {
 
   }
+
+  public getLastActiveUsers() {
+    this.authService.getLastActiveUsers()
+    .subscribe(res => {
+      //console.log(res.last_active);
+      this.onlineUsers = res.last_active;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  getQuizByCourseId () {
+    console.log('courseId',this.courseId);
+    this.api.getQuizByCourseId(this.courseId)
+    .subscribe(res => {
+      //console.log((res));
+      this.quizs = res;
+      this.dataSource = new MatTableDataSource(this.quizs);
+      this.dataSource.paginator = this.paginator;
+      this.dataSource.sort = this.sort;
+    }, err => {
+      console.log(err);
+    });
+  }
+
+  applyFilter(filterValue: string) {
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 }

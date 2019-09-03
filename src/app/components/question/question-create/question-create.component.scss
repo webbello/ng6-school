@@ -12,10 +12,14 @@
 	width: 25%;
 }
 
-.example-full-width:nth-last-child() {
+.example-full-width:nth-last-child(n) {
   margin-bottom: 10px;
 }
 
 .button-row {
   margin: 10px 0;
+}
+.button-row button,
+.button-row a {
+  margin-right: 12px;
 }

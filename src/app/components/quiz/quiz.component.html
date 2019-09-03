@@ -1,4 +1,63 @@
+<!-- <h2 *ngIf="numberOfActiveSockets"> {{numberOfActiveSockets}}</h2> -->
+<mat-card *ngIf="(!start && live_lecture_url !== undefined) || mode=='live_lecture'" class="example-card live_lecture">
+  <mat-card-header>
+      
+      <mat-card-title>Presenter: {{live_lecture.presentation}}
+          <!-- <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu" xPosition="before">
+            <button mat-menu-item>Expand</button>
+            <button mat-menu-item>Remove</button>
+          </mat-menu> -->
+      </mat-card-title>
+      <mat-card-subtitle>{{live_lecture.session_name}}</mat-card-subtitle>
+    </mat-card-header>
+  <mat-card-content>
+    <div class="iframe-container">
+      <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
+    </div>
+  </mat-card-content>
+  
+  Please Rate this session:
+  <mat-card-actions>
+      <button mat-stroked-button color="warn" class="live-now-button" ><mat-icon>fiber_manual_record</mat-icon>Live Now</button>
+    <rating [(rating)]="sessionRating" (click)="rateThisSession()"></rating>
+  </mat-card-actions>
+  <!-- <mat-card-content>
+    <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
+    <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
+  </mat-card-content> -->
+  <!-- <mat-card-actions>
+    <a mat-raised-button color="primary" [routerLink]="['/question-edit', session.lecture_id]"><mat-icon>edit</mat-icon></a>
+    <a mat-raised-button color="warn" (click)="deleteSession(session.lecture_id)"><mat-icon>delete</mat-icon></a>
+  </mat-card-actions> -->
+</mat-card>
+<div *ngIf="!start && live_lecture_url === undefined" class="main-div">
+  <mat-card class="card-w-400 center">
+    <!-- <mat-card-header layout-align="center center">
+      <div mat-card-avatar class="example-header-image"></div>
+      <mat-card-title>IIRS</mat-card-title>
+      <mat-card-subtitle>ISRO</mat-card-subtitle>
+    </mat-card-header> -->
+    <img mat-card-image src="assets/iirs-building.jpg" alt="Photo of a Shiba Inu">
+    <div class="caption">IIRS OUTREACH PROGRAMME</div>
+    <mat-card-content>
+      <h5 class="color-hindi">क्लास गतिविधि जल्द ही शुरु होगी.</h5>
+      <h5 class="color-english">Class activity will start shortly..!</h5>
+    </mat-card-content>
+    <mat-card-actions>
+        <!-- <rating [(rating)]="rating"></rating> -->
+      <!-- <button mat-button>Quiz Rules</button>
+      <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button> -->
+    </mat-card-actions>
+  </mat-card>
+  
+</div>
+
 <div *ngIf="start" id="quiz">
+  <!-- <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'" class="btn btn-light" (click)="mode = 'live_lecture'"> <mat-icon>back</mat-icon> Live Lecture</button> -->
+  <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'"  (click)="mode = 'live_lecture'" mat-stroked-button><mat-icon>arrow_back</mat-icon> Live Lecture</button>
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
 
@@ -11,22 +70,19 @@
         <span [innerHTML]="question.name"></span>
       </h3>
       <div class="row text-left options">
-
-        <div class="col-md-6" *ngFor="let option of question.options">
-          <div class="option">
-            <label class="font-weight-normal" [attr.for]="option.id">
-              <input id="{{option.id}}" type="checkbox" [(ngModel)]="option.selected" (change)="onSelect(question, option);" /> {{option.name}}
-            </label>
+          <div class="col-md-6" *ngFor="let option of question.options">
+            <div class="option">
+              <mat-checkbox [disabled]="disabled" id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
+            </div>
           </div>
-        </div>
       </div>
     </div>
     <hr />
     <div class="text-center">
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);">First</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);">Prev</button>
-      <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);">Last</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(0);" [disabled]="disabled">First</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);" [disabled]="disabled">Prev</button>
+      <button class="btn btn-primary" (click)="goTo(pager.index + 1);" [disabled]="disabled">Next</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);" [disabled]="disabled">Last</button>
       <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
     </div>
   </div>
@@ -37,13 +93,16 @@
     </div>
   </div>
   <div class="result" *ngIf="mode=='result'">
+    
     <h2>Quiz Result</h2>
+    
     <div *ngFor="let question of quiz.questions; let index = index">
       <div class="result-question">
         <h5>{{index + 1}}. {{question.name}}</h5>
         <div class="row pl-3">
           <div class="col-md-6" *ngFor="let Option of question.options">
-            <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}}
+            <!-- <input id="{{Option.id}}" type="checkbox" disabled="disabled" [(ngModel)]="Option.selected" /> {{Option.name}} -->
+            <mat-checkbox id="{{Option.id}}" [(ngModel)]="Option.selected || Option.isAnswer" color="{{Option.isAnswer ? 'primary':'warn'}}">{{Option.name}}</mat-checkbox>
           </div>
         </div>
         <div class="p-1 m-2 alert {{ isCorrect(question) == 'correct'? 'alert-success': 'alert-danger'}}">Your answer is {{isCorrect(question)}}.</div>
@@ -53,7 +112,7 @@
   </div>
   <hr />
   <div *ngIf="mode!='result'">
-    <button class="btn btn-default" (click)="mode = 'quiz'">Quiz</button>
+    <button class="btn btn-light" (click)="mode = 'quiz'">Quiz</button>
     <button class="btn btn-info" (click)="mode = 'review'">Review</button>
     <button class="btn btn-primary" (click)="onSubmit();">Submit Quiz</button>
   </div>

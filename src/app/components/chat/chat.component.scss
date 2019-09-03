@@ -13,7 +13,8 @@
 .mat-drawer.mat-drawer-side {
     padding: 0 5px;
 }
-.container /deep/ .mat-tab-label {
+
+.container ::ng-deep .mat-tab-label {
     min-width: 100px;
 }
 
@@ -44,7 +45,7 @@
     height: calc(100% - 144px);
     //overflow-x: scroll;
     position: absolute;
-    width: 98%;
+    width: calc(100% - 30px);
     background: #efe7dd url("https://i.pinimg.com/originals/a5/c2/44/a5c244761a4573da8dd2d55d66ee7b72.jpg") repeat;
     z-index: 0;
 }
@@ -83,11 +84,13 @@
     padding: 0 24px;
     overflow: scroll;
 }
+
+
 .conversation-input {
     position: absolute;
     bottom: 0;
-    width: 98%;
-    background-color: #fafafa;
+    width: calc(100% - 30px);
+    //background-color: #fafafa;
 }
 
 

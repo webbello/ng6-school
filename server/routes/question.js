@@ -4,11 +4,11 @@ var mongoose = require('mongoose');
 var Question = require('../models/question.js');
 var Quiz = require('../models/quiz.js');
 
-/* GET ALL BOOKS */
+/* GET ALL Questions */
 router.get('/', function(req, res, next) {
-  Question.find(function (err, products) {
+  Question.find({}, null, {sort: '-created'}, function (err, data) {
     if (err) return next(err);
-    res.json(products);
+    res.json(data);
   });
 });
 
@@ -22,9 +22,10 @@ router.get('/:id', function(req, res, next) {
 
 /* SAVE BOOK */
 router.post('/', function(req, res, next) {
-  console.log(req.body.choices);
+  //console.log('Irfan Adeeb', req.body.quiz);
     question = new Question({
       _id: new mongoose.Types.ObjectId(),
+      quiz_id: req.body.quiz,
       creator: req.decoded.id,
       name: req.body.question,
       questionTypeId: 1,
@@ -43,7 +44,7 @@ router.post('/', function(req, res, next) {
         return;
       }
       Quiz.update(
-         { _id: '5b69c3322e7c81238cc8afe8' },
+         { _id: req.body.quiz },
          { $addToSet: {questionId: [ question._id ] , questions: [ question ] } }
       ).then(user => {
           res.json('Update done');
