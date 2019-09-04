@@ -1,6 +1,6 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/quizs']"><mat-icon>list</mat-icon></a>
-  <button mat-raised-button color="primary" (click)="startQuiz(quiz.courseId, quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
+  <button mat-raised-button color="primary" [disabled]="start" (click)="startQuiz(quiz.courseId, quiz._id, true)"><mat-icon>start</mat-icon> Start Quiz</button>
   <button *ngIf="onlineUsers" mat-raised-button color="primary" matBadge="{{onlineUsers.length }}" matBadgePosition="after" matBadgeColor="accent" (click)="getLastActiveUserByCourseId(quiz.courseId)"><mat-icon>refresh</mat-icon> Online Users</button>
 </div>
 <mat-accordion class="col-md-12">
@@ -21,15 +21,17 @@
             <dl>
               <dt>Quiz Name:</dt>
               <dd>{{quiz.name}}</dd>
-              <dt>Questions:</dt>
+              <dt>Description:</dt>
+              <dd>{{quiz.description}}</dd>
+              <dt *ngIf="quiz.questions && quiz.questions.length > 0">Questions:</dt>
               <dd *ngFor="let question of quiz.questions">
                 {{question.name}}
               </dd>
-              <dt>Status:</dt>
-              <dd>{{quiz.status}}</dd>
-              <dt>Publish Year:</dt>
-              <dd>{{quiz.created}}</dd>
-              <dt>Update Date:</dt>
+              <dt>Duration:</dt>
+              <dd>{{quiz.duration}}</dd>
+              <dt *ngIf="quiz.last_played">Last Played:</dt>
+              <dd>{{quiz.last_played | date:'dd-mm-yyyy h:mm:ss'}}</dd>
+              <dt>Created Date:</dt>
               <dd>{{quiz.created | date}}</dd>
             </dl>
           </mat-card-content>

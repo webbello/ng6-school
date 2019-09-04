@@ -1,22 +1,16 @@
     <div class="button-row">
         <button *ngIf="totalQuizResponse" mat-raised-button color="primary" [matBadge]="totalQuizResponse.length" matBadgePosition="after" matBadgeColor="accent" (click)="getQuizReport()"><mat-icon>refresh</mat-icon> Total Quiz Response</button>
     </div>
-    <mat-form-field class="full-width">
+    <mat-form-field class="half-width">
         <mat-select placeholder="Course" [(value)]="courseId">
           <mat-option *ngFor="let course of courseList" [value]="course.id" (click)="getQuizReport()">{{course.id}}: {{course.fullname}}</mat-option>
         </mat-select>
     </mat-form-field>
-
-    <mat-form-field>
-      <mat-label>Select an option</mat-label>
-      <mat-select [(value)]="quizDate">
-        <mat-option value="2019-8-30" (click)="getQuizReport()">2019-8-30</mat-option>
-        <mat-option value="2019-8-29" (click)="getQuizReport()">2019-8-29</mat-option>
-        <mat-option value="2019-8-28" (click)="getQuizReport()">2019-8-28</mat-option>
-        <mat-option value="2019-8-27" (click)="getQuizReport()">2019-8-27</mat-option>
-        <mat-option value="2019-8-26" (click)="getQuizReport()">2019-8-26</mat-option>
-        <mat-option value="2019-8-23" (click)="getQuizReport()">2019-8-23</mat-option>
-      </mat-select>
+    <mat-form-field  class="half-width">
+      <input matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker1" [max]="2019-9-5" placeholder="Quiz Date" [formControl]="date" 
+        (dateInput)="addEvent('input', $event)" (dateChange)="addEvent('change', $event)">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
     </mat-form-field>
   <!-- <mat-divider></mat-divider> -->
     <mat-form-field>

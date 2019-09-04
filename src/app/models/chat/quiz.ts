@@ -5,6 +5,7 @@ export interface QuizChatModel {
     id?: string;
     courseId?: number;
     start?: boolean;
+    duration?: number;
     name?: string;
     description?: string;
     from?: User;

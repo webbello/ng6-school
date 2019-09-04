@@ -16,6 +16,7 @@ router.get('/reports/:date/:courseId', function(req, res, next) {
   Log.find(query, function (err, reports) {
     if (err) return next(err);
     res.json(reports);
+    console.log(reports);
   });
 });
 

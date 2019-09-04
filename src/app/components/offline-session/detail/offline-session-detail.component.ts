@@ -30,7 +30,7 @@ export class OfflineSessionDetailComponent implements OnInit {
         //console.log('getOfflineSession', data);
         this.session = data.offlineSessions;
         this.youtubeId = data.offlineSessions.off_lecture_url;
-        this.videoUrl =  this.embedUrl + this.youtubeId;
+        this.videoUrl =  this.embedUrl + this.youtubeId + '?rel=0';
         //console.log(this.session);
         //this.url = "https://www.youtube.com/embed/" + data.offlineSessions.off_lecture_url;
       });

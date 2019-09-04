@@ -40,6 +40,7 @@ export class QuizDetailComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   quiz: any = [];
+  start: boolean = false;
   user: User;
   onlineUsers: [];
   ioConnection: any;
@@ -121,14 +122,33 @@ export class QuizDetailComponent implements OnInit {
       if (!quizId) {
         return;
       }
-
+      this.start = start;
       this.chatService.startQuiz({
         id: quizId,
         courseId: courseId,
         from: this.user,
-        start: start,
+        start: this.start,
+        duration: this.quiz.duration,
         created_at: new Date(),
       });
+      console.log('this.quiz.duration', this.quiz.duration)
+      setTimeout(()=> {
+        //this.mode = 'result';
+        this.start = false;
+        //this.router.navigate(["/quiz"]);
+      }, this.quiz.duration * 1000);
+
+      this.api.updateQuiz(quizId, {last_played: new Date()})
+      .subscribe(res => {
+        if (!res.errors) {
+          let id = res['_id'];
+          this.quiz.last_played = new Date();
+          console.log('id', id);
+        }
+        }, (err) => {
+          console.log(err);
+        }
+      );
   }
 
   deleteQuiz(id) {

@@ -12,6 +12,7 @@ import { User } from '../../models/chat/user';
 import { Event } from '../../models/chat/event';
 import { QuizChatModel } from '../../models/chat/quiz';
 import { ChatService } from '../../services/chat.service';
+import * as moment from "moment";
 
 interface LiveLecture {
   lecture_id: number;
@@ -91,6 +92,16 @@ export class QuizComponent implements OnInit {
           lastActive:res.user.last_active
         }
         //console.log(this.user);
+        this.quizBy = {
+          //id: randomId,
+          userId: 1,
+          name: res.user.name,
+          email:res.user.email
+        }
+        // Playe Quiz if Quiz Already started and you have time to play
+        this.getLastPlayedQuiz();
+        
+        
       }, err => {
         console.log(err);
       });
@@ -100,7 +111,7 @@ export class QuizComponent implements OnInit {
         console.log('getLiveLacture', res.live_url);
         this.live_lecture = res.live_url;
         this.live_lecture_url = res.live_url.lecture_url;
-        this.videoUrl =  this.embedUrl + this.live_lecture_url;
+        this.videoUrl =  this.embedUrl + this.live_lecture_url + '?rel=0';
 
         this.getVideoLectureLogById();
 
@@ -111,29 +122,50 @@ export class QuizComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     if (this.authService.isLoggedIn()) {
-    this.initIoConnection();
-    this.chatService.onEvent(Event.CONNECT)
-      .subscribe((numberOfActiveSockets) => {
-        //this.numberOfActiveSockets = numberOfActiveSockets;
-        console.log('connected', numberOfActiveSockets);
-      });
-      
-    this.chatService.onEvent(Event.DISCONNECT)
-      .subscribe((data) => {
-        console.log('disconnected', data);
-      });
+      //console.log('this.user',this.user);
+      //Start Socket Connection
+      this.initIoConnection();
+      this.chatService.onEvent(Event.CONNECT)
+        .subscribe((numberOfActiveSockets) => {
+          //this.numberOfActiveSockets = numberOfActiveSockets;
+          console.log('connected', numberOfActiveSockets);
+        });
+        
+      this.chatService.onEvent(Event.DISCONNECT)
+        .subscribe((data) => {
+          console.log('disconnected', data);
+        });
     }
   }
-
+  getLastPlayedQuiz() {
+    this.quizService.getLastPlayedQuiz()
+    .subscribe(res => {
+      //console.log('quizService', res);
+      let addDuration = moment(res.last_played).add(res.duration, 'seconds');
+      console.log('this.start moment', moment().isBefore(addDuration));
+      if (this.user.courses.includes(res.courseId) && moment().isBefore(addDuration)) {
+        this.start = true;
+        this.config.duration = res.duration;
+        if (this.start) {
+          this.loadQuiz(res._id);
+        }
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
   private initIoConnection(): void {
-
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
-          //console.log('quiz',quiz);
-          //console.log('this.user',this.user);
+          console.log('quiz',quiz);
+          console.log('this.user',this.user);
           //console.log(this.user.courses.includes(quiz.courseId));
+
+          if (quiz.duration !== undefined) {
+            this.config.duration = quiz.duration
+          }
           
           this.quizBy = {
             //id: randomId,
@@ -192,9 +224,10 @@ export class QuizComponent implements OnInit {
       //console.log(this.startTime);
       this.disabled = false;
       this.quiz = new Quiz(res);
-      //console.log('this.quiz',this.quiz);
+      console.log('this.quiz',this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
+      // this.duration = this.quiz.duration;
       this.ellapsedTime = '00:00';
       this.timer = setInterval(() => { this.tick(); }, 1000);
       this.duration = this.parseTime(this.config.duration);

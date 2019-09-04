@@ -11,6 +11,14 @@ router.get('/', function(req, res, next) {
   });
 });
 
+/* GET ALL QUIZ */
+router.get('/last_played', function(req, res, next) {
+  Quiz.findOne({}, null, {sort: '-last_played'}, function (err, products) {
+    if (err) return next(err);
+    res.json(products);
+  });
+});
+
 /* GET SINGLE QUIZ BY ID */
 router.get('/:id', function(req, res, next) {
   Quiz.findById(req.params.id, function (err, post) {
