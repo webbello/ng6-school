@@ -75,7 +75,7 @@
             <mat-icon>brightness_2</mat-icon>
             <span>Change Theme</span>
           </button>
-          <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="authService.logout()">
+          <button *ngIf="authService.isLoggedIn()" mat-menu-item (click)="logout()">
             <mat-icon>fingerprint</mat-icon>
             <span>Logout</span>
           </button>

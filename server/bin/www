@@ -15,7 +15,7 @@ const https = require('https');
  * Get port from environment and store in Express.
  */
 
-var port = normalizePort(process.env.PORT || '3001');
+var port = normalizePort(process.env.PORT || '3000');
 app.set('port', port);
 
 /**
@@ -25,8 +25,9 @@ app.set('port', port);
 var server = http.createServer(app);
 
 
-const hostname = 'eclass.iirs.gov.in';
-const httpsPort = normalizePort(process.env.PORT || '3000');
+//const hostname = 'eclass.iirs.gov.in';
+const hostname = '192.168.17.35';
+const httpsPort = normalizePort(process.env.PORT || '3001');
 
 const httpsOptions = {
   cert: fs.readFileSync('./../ssl/wildcard_iirs.gov.in.crt'),
@@ -36,7 +37,7 @@ const httpsOptions = {
 
 const httpsServer = https.createServer(httpsOptions, app);
 
-var io = require('socket.io')(httpsServer);
+var io = require('socket.io')(server);
 
 io.on('connect', (socket) => {
 

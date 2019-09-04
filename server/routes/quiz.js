@@ -35,6 +35,7 @@ router.post('/', function(req, res, next) {
       creator: req.decoded.id,
       courseId: req.body.course,
       name: req.body.name,
+      duration: req.body.duration,
       description: req.body.description,
       questionId: [],
       questions: [],

@@ -21,6 +21,7 @@ export class QuizCreateComponent implements OnInit {
     this.quizForm = this.formBuilder.group({
       'course' : [null, Validators.required],
       'name' : [null, Validators.required],
+      'duration' : [60, Validators.required],
       'description' : [null, Validators.required],
       'questions': []
     });

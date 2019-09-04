@@ -27,6 +27,7 @@ export class QuizEditComponent implements OnInit {
     this.quizForm = this.formBuilder.group({
       'course' : [null, Validators.required],
       'name' : [null, Validators.required],
+      'duration' : [null, Validators.required],
       'description' : [null, Validators.required],
       'questions': [],
       // 'creator' : [null, Validators.required],
@@ -49,6 +50,7 @@ export class QuizEditComponent implements OnInit {
       this.quizForm.setValue({
         course: data.courseId,
         name: data.name,
+        duration: data.duration,
         description: data.description,
         questions: data.questions,
         // creator: data.creator,

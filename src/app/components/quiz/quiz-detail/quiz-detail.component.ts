@@ -81,10 +81,9 @@ export class QuizDetailComponent implements OnInit {
         // exclude sender from game
         if (quizResult.from.userId != this.user.userId) {
           this.quizResults.push(quizResult);
+          this.resultsTable.push(createNewUser(quizResult));
         }
-
-        this.resultsTable.push(createNewUser(quizResult));
-        
+    
         this.dataSource = new MatTableDataSource(this.resultsTable);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
@@ -106,7 +105,7 @@ export class QuizDetailComponent implements OnInit {
   getQuizDetails(id) {
     this.api.getQuiz(id)
       .subscribe(data => {
-        //console.log(data);
+        console.log(data);
         this.quiz = data;
         //console.log('this.quiz',this.quiz);
       });

@@ -66,30 +66,24 @@ export class AuthService {
       
   }
 
-  public setUserLastActive(): Observable<any>{
+  public setUserLastActive(status = 1): Observable<any>{
+    
     //const url = `${apiUrl}/loggedin`;
-    const url = phpApiUrl + '/set-user-last-active';
-    //console.log(loginUrl);
+    const url = phpApiUrl + '/set-user-last-active/'+ status;
+    console.log(url);
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
       
-  }
-
-	private setSession(authResult) {
-	    const expiresAt = moment().add(authResult.expiresIn,'second');
-
-	    localStorage.setItem('id_token', authResult.idToken);
-	    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-	}          
+  }       
 
 	public logout() {
 
-	    localStorage.removeItem("currentUser");
-      localStorage.removeItem("id_token");
-      localStorage.removeItem("expires_at");
-      this.router.navigate(['/login']);
-	    
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+    
+    this.router.navigate(['/login']);
 	}
 
 	public isLoggedIn() {

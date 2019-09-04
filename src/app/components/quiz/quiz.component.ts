@@ -141,9 +141,9 @@ export class QuizComponent implements OnInit {
             name: quiz.from.name,
             email:quiz.from.email
           }
-          //console.log(this.start);
+          
           //this.quizId = quiz.id;
-          if (this.user.courses.includes(quiz.courseId)) {
+          if (this.user.courses.includes(quiz.courseId) || this.user.userId == this.quizBy.userId) {
             this.start = quiz.start;
             if (this.start) {
               this.loadQuiz(quiz.id);
@@ -298,23 +298,25 @@ export class QuizComponent implements OnInit {
         created_at: new Date(),
       };
 
-      this.chatService.submitQuiz(data);
+      if (this.user.userId != this.quizBy.userId) {
+        
+        this.chatService.submitQuiz(data);
+        // post in log table
+        this.log.postQuizLog(data)
+          .subscribe(res => {
+            console.log(res);
+          }, (err) => {
+            console.log(err);
+          });
 
-      // post in log table
-      this.log.postQuizLog(data)
+        // post in log table in QuizAPi Php
+        this.log.postQuizApiPhpLog(data)
         .subscribe(res => {
           console.log(res);
         }, (err) => {
           console.log(err);
         });
-
-      // post in log table in QuizAPi Php
-      this.log.postQuizApiPhpLog(data)
-      .subscribe(res => {
-        console.log(res);
-      }, (err) => {
-        console.log(err);
-      });
+      }
       
       this.mode = 'result';
     }
