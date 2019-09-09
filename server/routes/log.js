@@ -12,9 +12,11 @@ router.get('/', function(req, res, next) {
 
 /* GET ALL LOGS By Date and Course Id*/
 router.get('/reports/:date/:courseId', function(req, res, next) {
-  Log.find({played_at: new Date(req.params.date), course_id: req.params.courseId}, function (err, reports) {
+  var query = { played_at: new Date(req.params.date), course_id: req.params.courseId };
+  Log.find(query, function (err, reports) {
     if (err) return next(err);
     res.json(reports);
+    console.log(reports);
   });
 });
 

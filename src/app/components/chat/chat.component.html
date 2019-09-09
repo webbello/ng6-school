@@ -14,7 +14,7 @@
           <!-- <mat-divider></mat-divider> -->
           <!-- {{ createdAt | date:'h:mm a'}} -->
           <mat-list dense class="conversation-history mat-typography">
-            <div class="conversation-container">
+            <div class="conversation-container" id="conv">
               <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
                 <!-- <div class="avatar">
                   <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
@@ -40,7 +40,7 @@
           </mat-list>
 
           <div class="conversation-input">
-            <mat-divider></mat-divider>
+            <!-- <mat-divider></mat-divider> -->
             <mat-form-field class="full-width">
               <!-- <input matInput placeholder="Start chatting..." name="text" [(ngModel)]="text"> -->
               <input matInput 
@@ -52,6 +52,7 @@
               <mat-hint align="end">{{inputMessage.value.length}}/640</mat-hint>
               <mat-icon matSuffix (click)="sendMessage(messageContent)">send</mat-icon>
             </mat-form-field>
+
           </div>
         </section>
     </div>

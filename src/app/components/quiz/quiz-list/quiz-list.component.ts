@@ -11,6 +11,7 @@ export interface QuizData {
   name: string;
   description: string;
   course: string;
+  duration: number;
   created: string;
   action: string;
 }
@@ -28,7 +29,7 @@ export class QuizListComponent implements OnInit {
   courseId: number;
   start: boolean = false;
   ioConnection: any;
-  displayedColumns = ['course', 'name', 'description', 'created'];
+  displayedColumns = ['course', 'name', 'description', 'duration', 'created'];
   // dataSource = new QuizDataSource(this.api);
 
   dataSource: MatTableDataSource<QuizData>;

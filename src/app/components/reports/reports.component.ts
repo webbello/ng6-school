@@ -1,8 +1,9 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTableDataSource} from '@angular/material/table';
-import {FormControl} from '@angular/forms';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatTableDataSource} from '@angular/material/table';
+import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { FormControl } from '@angular/forms';
 
 import { ReportsService } from '../../services/reports/reports.service';
 import { QuizService } from '../../services/quiz/quiz.service';
@@ -37,6 +38,9 @@ export class ReportsComponent implements OnInit {
   quizDate: string;
   courseId = 'Any';
 
+  date = new FormControl(new Date());
+  serializedDate = new FormControl((new Date()).toISOString());
+
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
@@ -44,6 +48,7 @@ export class ReportsComponent implements OnInit {
     var dt = new Date();
     this.quizDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
     this.getQuizReport();
+    console.log(this.date)
     
     // Assign the data to the data source for the table to render
     //this.dataSource = new MatTableDataSource(users);
@@ -58,7 +63,18 @@ export class ReportsComponent implements OnInit {
         console.log(err);
       });
   }
-
+  myFilter = (d: Date): boolean => {
+    let dt = new Date();
+    // Prevent Saturday and Sunday from being selected.
+    return d <= dt ;
+  }
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.quizDate = event.value.getFullYear() + "-" + (event.value.getMonth() + 1) + "-" + event.value.getDate();
+    this.getQuizReport();
+    console.log(`self: ${this.quizDate}`);
+    console.log(`${type}: ${event.value}`);
+  }
+  
   public getQuizReport() {
     
     //this.date = '2019-8-27';

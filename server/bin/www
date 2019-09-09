@@ -25,7 +25,8 @@ app.set('port', port);
 var server = http.createServer(app);
 
 
-const hostname = 'localhost';
+//const hostname = 'eclass.iirs.gov.in';
+const hostname = '192.168.17.35';
 const httpsPort = normalizePort(process.env.PORT || '3001');
 
 const httpsOptions = {
@@ -38,42 +39,29 @@ const httpsServer = https.createServer(httpsOptions, app);
 
 var io = require('socket.io')(server);
 
-let numberOfActiveSockets = 0;
-
 io.on('connect', (socket) => {
 
       socket.removeAllListeners();
-      
+
       console.log('Connected client on port %s.', 3000);
-
-      socket.on('connect', () => {
-        numberOfActiveSockets++;
-        io.emit('numberOfActiveSockets', numberOfActiveSockets);
-        console.log('Client connected on Event.CONNECT %s.', numberOfActiveSockets);
-      });
-      
-      // Log whenever a client disconnects from our websocket server
-      socket.on('disconnect', () => {
-        numberOfActiveSockets--;
-        io.emit('numberOfActiveSockets', numberOfActiveSockets);
-        console.log('Client disconnected');
-      });
-
       socket.on('message', (message) => {
           console.log('[server](message): %s', JSON.stringify(message));
           io.emit('message', message);
       });
 
       socket.on('quiz', (quiz) => {
-          //console.log('[server](quiz): %s', JSON.stringify(quiz));
+          console.log('[server](quiz): %s', JSON.stringify(quiz));
           io.emit('quiz', quiz);
       });
 
       socket.on('quizResult', (quizResult) => {
-          //console.log('[server](quizResult): %s', JSON.stringify(quizResult));
+          console.log('[server](quizResult): %s', JSON.stringify(quizResult));
           io.emit('quizResult', quizResult);
       });
 
+      socket.on('disconnect', () => {
+          console.log('Client disconnected');
+      });
 });
 
 /**
@@ -82,7 +70,7 @@ io.on('connect', (socket) => {
 
 server.listen(port);
 //for https
-httpsServer.listen(httpsPort);
+httpsServer.listen(httpsPort, hostname);
 
 server.on('error', onError);
 server.on('listening', onListening);

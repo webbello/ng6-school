@@ -14,12 +14,14 @@ export class RoleGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       // this will be passed from the route config
       // on the data property
-      const expectedRole = next.data.expectedRole;
-      //console.log('expectedRole', expectedRole)
 
-      if (expectedRole == 'Admin') {
-    		if (this.authService.isAdmin()) {
-          return true;
+      if (this.authService.isLoggedIn()) {
+        const expectedRole = next.data.expectedRole;
+        //console.log('expectedRole', expectedRole)
+        if (expectedRole == 'Admin') {
+          if (this.authService.isAdmin()) {
+            return true;
+          }
         }
       }
       

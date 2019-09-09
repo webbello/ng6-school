@@ -12,6 +12,7 @@ import { User } from '../../models/chat/user';
 import { Event } from '../../models/chat/event';
 import { QuizChatModel } from '../../models/chat/quiz';
 import { ChatService } from '../../services/chat.service';
+import * as moment from "moment";
 
 interface LiveLecture {
   lecture_id: number;
@@ -74,6 +75,8 @@ export class QuizComponent implements OnInit {
   ellapsedTime = '00:00';
   duration = '';
   disabled = false;
+  handRaiseWaiting = false;
+  goToMeeting = false;
 
   constructor(private quizService: QuizService, private router: Router, private authService: AuthService, private log: LogService, private chatService: ChatService ) { 
     //this.rating = 2;
@@ -91,18 +94,32 @@ export class QuizComponent implements OnInit {
           lastActive:res.user.last_active
         }
         //console.log(this.user);
+        this.quizBy = {
+          //id: randomId,
+          userId: 1,
+          name: res.user.name,
+          email:res.user.email
+        }
+        // Playe Quiz if Quiz Already started and you have time to play
+        this.getLastPlayedQuiz();
+        
+        
       }, err => {
         console.log(err);
       });
   
       this.authService.getLiveLectureUrl()
       .subscribe(res => {
-        console.log('getLiveLacture', res.live_url);
+        //console.log('getLiveLacture', res.live_url);
         this.live_lecture = res.live_url;
         this.live_lecture_url = res.live_url.lecture_url;
-        this.videoUrl =  this.embedUrl + this.live_lecture_url;
+        this.videoUrl =  this.embedUrl + this.live_lecture_url + '?rel=0';
 
         this.getVideoLectureLogById();
+        
+        if (this.live_lecture_url !== undefined) {
+          this.submitAttendance();
+        }
 
       }, err => {
         console.log(err);
@@ -111,29 +128,62 @@ export class QuizComponent implements OnInit {
   }
 
   ngOnInit() {
-    
+
     if (this.authService.isLoggedIn()) {
-    this.initIoConnection();
-    this.chatService.onEvent(Event.CONNECT)
-      .subscribe((numberOfActiveSockets) => {
-        //this.numberOfActiveSockets = numberOfActiveSockets;
-        console.log('connected', numberOfActiveSockets);
-      });
-      
-    this.chatService.onEvent(Event.DISCONNECT)
-      .subscribe((data) => {
-        console.log('disconnected', data);
-      });
+      //this.submitAttendance();
+      //console.log('this.user',this.user);
+      //Start Socket Connection
+      this.initIoConnection();
+      this.chatService.onEvent(Event.CONNECT)
+        .subscribe((numberOfActiveSockets) => {
+          //this.numberOfActiveSockets = numberOfActiveSockets;
+          console.log('connected', numberOfActiveSockets);
+        });
+        
+      this.chatService.onEvent(Event.DISCONNECT)
+        .subscribe((data) => {
+          console.log('disconnected', data);
+        });
     }
   }
+  getLastPlayedQuiz() {
+    this.quizService.getLastPlayedQuiz()
+    .subscribe(res => {
+      let dt = new Date(res.last_played);
+      let ut = new Date(this.user.lastActive);
+      let n = new Date();
 
+      console.log('Last quiz Last Played', `${dt.getMinutes()}:${dt.getSeconds()}`);
+      console.log('Last quiz User Active', `${ut.getMinutes()}:${ut.getSeconds()}`);
+      console.log('Last Client Time', `${n.getMinutes()}:${n.getSeconds()}`);
+
+      let addDuration = moment(res.last_played).add((res.duration + 5), 'seconds');
+      //console.log('addDuration', addDuration);
+      //console.log('this.start moment', moment().isBefore(addDuration));
+      let isBetween = moment(this.user.lastActive).isBetween(res.last_played, addDuration);
+      console.log('isBetween', isBetween);
+
+      if (this.user.courses.includes(res.courseId) && isBetween) {
+        this.start = true;
+        this.config.duration = res.duration;
+        if (this.start) {
+          this.loadQuiz(res._id);
+        }
+      }
+    }, (err) => {
+      console.log(err);
+    });
+  }
   private initIoConnection(): void {
-
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
           //console.log('quiz',quiz);
-          //console.log('this.user',this.user);
+          console.log('this.user',this.user);
           //console.log(this.user.courses.includes(quiz.courseId));
+
+          if (quiz.duration !== undefined) {
+            this.config.duration = quiz.duration
+          }
           
           this.quizBy = {
             //id: randomId,
@@ -141,9 +191,9 @@ export class QuizComponent implements OnInit {
             name: quiz.from.name,
             email:quiz.from.email
           }
-          //console.log(this.start);
+          
           //this.quizId = quiz.id;
-          if (this.user.courses.includes(quiz.courseId)) {
+          if (this.user.courses.includes(quiz.courseId) || this.user.userId == this.quizBy.userId) {
             this.start = quiz.start;
             if (this.start) {
               this.loadQuiz(quiz.id);
@@ -153,8 +203,19 @@ export class QuizComponent implements OnInit {
         });
 
   }
+  submitAttendance() {
+    let data = {
+      course_id: this.live_lecture.course_id
+    }
+    this.authService.submitAttendance(data)
+      .subscribe(res => {
+        console.log('submitAttendance', res);
+      }, err => {
+        console.log(err);
+      });
+  }
   getVideoLectureLogById() {
-    console.log('this.live_lecture', this.live_lecture)
+    //console.log('this.live_lecture', this.live_lecture)
     let data = {
       course_id:  this.live_lecture ? this.live_lecture.course_id : '',
       lecture_id: this.live_lecture ? this.live_lecture.lecture_id : ''
@@ -185,6 +246,52 @@ export class QuizComponent implements OnInit {
       });
   }
 
+  handRaise(){
+    console.log('this.user', this.user);
+    let data = { 
+      userId: this.user.userId,
+      name:  this.user.name
+    };
+    console.log('this.live_lecture hand raise', this.live_lecture);
+    this.authService.handRaise(data)
+      .subscribe(res => {
+        console.log('handRaise', res);
+        
+        if (res.success) {
+          this.handRaiseWaiting = true;
+          if (this.handRaiseWaiting) {
+            setTimeout(()=> {
+              //this.mode = 'result';
+              this.handRaiseWaiting = false;
+              //this.router.navigate(["/quiz"]);
+            }, 60 * 1000);
+          }
+        }
+        if (this.handRaiseWaiting) {
+          var refreshId = setInterval(() => { 
+            this.authService.getLoginInfoFromEdusatLms()
+              .subscribe(res => {
+                console.log('goMeetStatus', res.hand_raise.goMeetStatus);
+                if (res.hand_raise.goMeetStatus == 1) {
+                  this.goToMeeting = true;
+                  this.handRaiseWaiting = false;
+                  clearInterval(refreshId);
+                }
+                if (res.hand_raise.handraiseStatus == 0 || res.hand_raise.handraiseStatus == undefined) {
+                  this.handRaiseWaiting = false;
+                  clearInterval(refreshId);
+                }
+              }, (err) => {
+                console.log(err);
+              });
+
+          }, 1000);
+        }
+      }, (err) => {
+        console.log(err);
+      });
+  }
+
   loadQuiz(quizId: string) {
     //this.playAudio();
     this.quizService.getQuiz(quizId).subscribe(res => {
@@ -192,9 +299,10 @@ export class QuizComponent implements OnInit {
       //console.log(this.startTime);
       this.disabled = false;
       this.quiz = new Quiz(res);
-      //console.log('this.quiz',this.quiz);
+      console.log('this.quiz',this.quiz);
       this.pager.count = this.quiz.questions.length;
       this.startTime = new Date();
+      // this.duration = this.quiz.duration;
       this.ellapsedTime = '00:00';
       this.timer = setInterval(() => { this.tick(); }, 1000);
       this.duration = this.parseTime(this.config.duration);
@@ -298,23 +406,25 @@ export class QuizComponent implements OnInit {
         created_at: new Date(),
       };
 
-      this.chatService.submitQuiz(data);
+      if (this.user.userId != this.quizBy.userId) {
+        
+        this.chatService.submitQuiz(data);
+        // post in log table
+        this.log.postQuizLog(data)
+          .subscribe(res => {
+            console.log(res);
+          }, (err) => {
+            console.log(err);
+          });
 
-      // post in log table
-      this.log.postQuizLog(data)
+        // post in log table in QuizAPi Php
+        this.log.postQuizApiPhpLog(data)
         .subscribe(res => {
           console.log(res);
         }, (err) => {
           console.log(err);
         });
-
-      // post in log table in QuizAPi Php
-      this.log.postQuizApiPhpLog(data)
-      .subscribe(res => {
-        console.log(res);
-      }, (err) => {
-        console.log(err);
-      });
+      }
       
       this.mode = 'result';
     }

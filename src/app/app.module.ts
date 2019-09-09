@@ -55,7 +55,7 @@ import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
+import { OfflineSessionComponent, OfflineSessionDialog } from './components/offline-session/list/offline-session.component';
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
@@ -89,6 +89,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     QuestionEditComponent,
     ChatComponent,
     OfflineSessionComponent,
+    OfflineSessionDialog,
     OfflineSessionDetailComponent,
     SafeUrlPipe,
     OnlineUsersComponent,
@@ -108,6 +109,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     MatIconModule,
     MatButtonModule
   ],
+  entryComponents: [OfflineSessionDialog],
   providers: [
     BookService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

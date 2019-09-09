@@ -1,20 +1,21 @@
 <div class="button-row">
   <a mat-raised-button color="primary" [routerLink]="['/offline-session']"><mat-icon>list</mat-icon></a>
 </div>
+<!-- <div id="player"></div> -->
+
 <mat-card class="example-card" *ngIf="session">
   
   <mat-card-content>
     <div class="iframe-container">
-      <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
+      <iframe id="player" width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
     </div>
   </mat-card-content>
   <mat-card-content>
-    <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
+    <mat-card-title><h5>{{session.session_name}}</h5></mat-card-title>
     <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
   </mat-card-content>
   <!-- <mat-card-actions>
     <a mat-raised-button color="primary" [routerLink]="['/question-edit', session.lecture_id]"><mat-icon>edit</mat-icon></a>
-    <a mat-raised-button color="warn" (click)="deleteSession(session.lecture_id)"><mat-icon>delete</mat-icon></a>
   </mat-card-actions> -->
 </mat-card>
   

@@ -5,7 +5,7 @@ import { MatBadgeModule } from '@angular/material/badge';
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { MatDialog } from '@angular/material/dialog';
+import { MatDialogModule } from '@angular/material';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatGridListModule } from '@angular/material/grid-list';
@@ -49,7 +49,8 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatTableModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDialogModule
   ],
   exports: [
     MatBadgeModule,
@@ -73,11 +74,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
     MatTableModule,
     MatFormFieldModule,
     MatNativeDateModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    MatDialogModule
   ],
-  declarations: [],
-  providers: [
-    MatDialog
-  ]
+  declarations: []
 })
 export class MaterialModule { }
