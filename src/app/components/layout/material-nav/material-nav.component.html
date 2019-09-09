@@ -23,18 +23,18 @@
     </mat-nav-list>
     
     <mat-nav-list *ngIf="authService.isLoggedIn()">
-      <a mat-list-item routerLink="quiz" *ngIf="authService.isLoggedIn()"><i class="material-icons">query_builder</i> Play</a>
-      <a mat-list-item routerLink="offline-session" *ngIf="authService.isLoggedIn()"><i class="material-icons">video_library</i> Offline Session</a>
-      <a mat-list-item routerLink="quizs" *ngIf="authService.isAdmin()"><i class="material-icons">import_contacts</i> Quiz</a>
+      <a mat-list-item routerLink="quiz" routerLinkActive="active-list-item"><i class="material-icons">query_builder</i> Play</a>
+      <a mat-list-item routerLink="offline-session" routerLinkActive="active-list-item"><i class="material-icons">video_library</i> Offline Session</a>
+      <a mat-list-item routerLink="quizs" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">import_contacts</i> Quiz</a>
       <!-- <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a> -->
-      <a mat-list-item routerLink="questions" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question </a>
+      <a mat-list-item routerLink="questions" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question </a>
       <!-- <a mat-list-item routerLink="faculty"><i class="material-icons">supervised_user_circle</i> Faculty</a>
       <a mat-list-item routerLink="student"><i class="material-icons">school</i> Student</a> -->
       
-      <a mat-list-item routerLink="online-users" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Online Users</a>
+      <a mat-list-item routerLink="online-users" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Online Users</a>
       <!-- <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a> -->
-      <a mat-list-item routerLink="reports" *ngIf="authService.isAdmin()"><i class="material-icons">assessment</i> Reports </a>
-      <!-- <a mat-list-item routerLink="chat"><i class="material-icons">chat</i> Chat</a> -->
+      <a mat-list-item routerLink="reports" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">assessment</i> Reports </a>
+      <a mat-list-item routerLink="chat" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">chat</i> Ask Question </a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>

@@ -45,7 +45,9 @@ export class ChatComponent implements OnInit {
 
 	    this.ioConnection = this.chatService.onMessage()
 	      .subscribe((message: Message) => {
-	        this.messages.push(message);
+			this.messages.push(message);
+			let scrollElem = document.getElementById('conv');
+			scrollElem.scrollTop = scrollElem.scrollHeight;
 	      });
 
 	    this.chatService.onEvent(Event.CONNECT)

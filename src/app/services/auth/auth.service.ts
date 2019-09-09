@@ -139,6 +139,19 @@ export class AuthService {
       catchError(this.handleError));
   }
 
+  getLoginInfoFromEdusatLms(): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  handRaise(data): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
   public postRate(data): Observable<any> {
 
     const url = phpApiUrl + '/rate_session';
@@ -161,6 +174,15 @@ export class AuthService {
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
+  }
+
+  submitAttendance(data) {
+    const url = phpApiUrl + '/submit_attendance';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 

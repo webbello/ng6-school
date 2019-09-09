@@ -59,6 +59,10 @@ router.post('/', function(req, res, next) {
 
 /* UPDATE QUIZ */
 router.put('/:id', function(req, res, next) {
+  console.log('req.body', req.body);
+  if (req.body.last_played) {
+    req.body.last_played = new Date();
+  }
   Quiz.findByIdAndUpdate(req.params.id, req.body, function (err, post) {
     if (err) return next(err);
     res.json(post);

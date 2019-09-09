@@ -47,3 +47,9 @@
       height: 100%;
       border: 0;
   }
+  .card-body {
+    padding: 0;
+  }
+  .live-lecture-container .btn-sm, .btn-group-sm > .btn {
+    padding: 0.05rem 0.5rem;
+  }
