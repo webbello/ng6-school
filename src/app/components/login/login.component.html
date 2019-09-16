@@ -1,37 +1,48 @@
 <div class="main-div">
 
   	<mat-card class="example-card center">
-	  <mat-card-header layout-align="center center">
-	    <div mat-card-avatar class="example-header-image"></div>
-	    <mat-card-title>IIRS</mat-card-title>
-	    <mat-card-subtitle>ISRO</mat-card-subtitle>
-	  </mat-card-header>
-	  <img mat-card-image src="assets/isro.jpg" alt="Photo of a Shiba Inu">
-	  <mat-card-content>
+		<div style="text-align:center">
+			<b>Indian Institute of Remote Sensing</b>
+		</div>
+		<img mat-card-image src="https://www.iirs.gov.in/img_elearn/quiz-assets/e-class.png" alt="Logo of E Class"  class="center" style="width: 200px; margin: 5px auto;">
+	  
+		<img mat-card-image src="https://www.iirs.gov.in/img_elearn/quiz-assets/distance_learning.png" alt="Photo of ISRO">
+		<div style="text-align:center">
+			<b>Login to your account</b>
+		</div>
+		<p *ngIf="!alert" >
+			<mat-card style="color:red;">{{message}}</mat-card>
+		</p>
+
+	  	<mat-card-content>
       	<form [formGroup]="loginForm" (ngSubmit)="onFormSubmit(loginForm.value)">
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Username/Email" formControlName="username" >
+		    <input matInput placeholder="Username or Registraion Number" formControlName="username" >
 		    <mat-error>
-		      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter username/email</span>
+		      <span *ngIf="!loginForm.get('username').valid && loginForm.get('username').touched">Please enter Username or Registraion Number</span>
 		    </mat-error>
 		  </mat-form-field>
 
 		  <mat-form-field class="login-full-width">
-		    <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" >
+		    <input matInput placeholder="Password" formControlName="password" [type]="hide ? 'password' : 'text'" autocomplete="off">
 		    <mat-icon matSuffix (click)="hide = !hide">{{hide ? 'visibility' : 'visibility_off'}}</mat-icon>
 		    <mat-error>
 		      <span *ngIf="!loginForm.get('password').valid && loginForm.get('password').touched">Please enter password</span>
 		    </mat-error>
 		  </mat-form-field>
 		  <div class="button-row">
-		    <button type="submit" [disabled]="!loginForm.valid" mat-raised-button color="primary"><mat-icon>save</mat-icon> Login</button>
+			<button type="submit" [disabled]="!loginForm.valid && loading" mat-raised-button color="primary">
+				<mat-icon>save</mat-icon> 
+				<!-- <span *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span>  -->
+				Login
+			</button>
+			<a mat-button href="https://elearning.iirs.gov.in/mdl/login/forgot_password.php" target="_blank">Forgot Password?</a>
 		  </div>
 		  <hr>
 		</form>
 	  </mat-card-content>
 	  <mat-card-actions>
-	    <button mat-button>T&C</button>
-	    <button mat-button [routerLink]="['/signup']">SIGNUP</button>
+	    <a mat-raised-button href="https://elearning.iirs.gov.in/edusatregistration/student" color="teal" target="_blank">Register</a>
 	  </mat-card-actions>
 	</mat-card>
 

@@ -4,6 +4,11 @@
 <form [formGroup]="quizForm" (ngSubmit)="onFormSubmit(quizForm.value)">
   <!-- Value: {{ quizForm.value | json }} -->
   <mat-form-field class="full-width">
+    <mat-select placeholder="Course" formControlName="course">
+      <mat-option *ngFor="let course of courseList" [value]="course.id">{{course.id}}: {{course.fullname}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+  <mat-form-field class="full-width">
     <input matInput placeholder="Quiz Name" formControlName="name">
     <mat-error>
       <span *ngIf="!quizForm.get('name').valid && quizForm.get('name').touched">Please enter Quiz Name</span>
@@ -13,6 +18,12 @@
     <textarea matInput placeholder="Description" formControlName="description"></textarea>
     <mat-error>
       <span *ngIf="!quizForm.get('description').valid && quizForm.get('description').touched">Please enter Quiz Description</span>
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="full-width">
+    <input matInput placeholder="Quiz Duration in Seconds" formControlName="duration">
+    <mat-error>
+      <span *ngIf="!quizForm.get('duration').valid && quizForm.get('duration').touched">Please enter Quiz Duration</span>
     </mat-error>
   </mat-form-field>
   <!-- <mat-form-field class="full-width">

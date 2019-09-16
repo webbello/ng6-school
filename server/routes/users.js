@@ -18,7 +18,7 @@ function createToken(user) {
  		username: user.username,
  		role: user.role
  	}, secretKey, {
- 		expiresIn: '12h'
+ 		expiresIn: '1h'
  	});
  	return token;
 }

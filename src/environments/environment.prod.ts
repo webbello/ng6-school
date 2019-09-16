@@ -1,5 +1,7 @@
 export const environment = {
   production: true,
   // URL of production API
-  apiUrl: 'http://localhost:3000'
+  apiUrl: 'https://eclass.iirs.gov.in:3000',
+  phpApiUrl: 'https://eclass.iirs.gov.in/quizApi/public/api'
+
 };

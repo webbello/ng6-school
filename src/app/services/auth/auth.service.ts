@@ -13,6 +13,7 @@ const httpOptions = {
 };
 
 const apiUrl = `${environment.apiUrl}/users`;
+const phpApiUrl = `${environment.phpApiUrl}`;
 
 @Injectable({
   providedIn: 'root'
@@ -27,7 +28,7 @@ export class AuthService {
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred client-side:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
@@ -45,7 +46,9 @@ export class AuthService {
   }
 
   public postLogin(data): Observable<any> {
-  	const loginUrl = `${apiUrl}/login`;
+    //console.log(data)
+  	//const loginUrl = `${apiUrl}/login`;
+    const loginUrl = phpApiUrl + '/login';
   	//console.log(loginUrl);
     return this.http.post(loginUrl, data, httpOptions)
       .pipe(
@@ -54,7 +57,8 @@ export class AuthService {
   }
 
   public getLoginUser(): Observable<any>{
-    const url = `${apiUrl}/loggedin`;
+    //const url = `${apiUrl}/loggedin`;
+    const url = phpApiUrl + '/loggedin';
     //console.log(loginUrl);
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
@@ -62,19 +66,24 @@ export class AuthService {
       
   }
 
-	private setSession(authResult) {
-	    const expiresAt = moment().add(authResult.expiresIn,'second');
-
-	    localStorage.setItem('id_token', authResult.idToken);
-	    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-	}          
+  public setUserLastActive(status = 1): Observable<any>{
+    
+    //const url = `${apiUrl}/loggedin`;
+    const url = phpApiUrl + '/set-user-last-active/'+ status;
+    console.log(url);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+      
+  }       
 
 	public logout() {
-	    localStorage.removeItem("currentUser");
-      localStorage.removeItem("id_token");
-      localStorage.removeItem("expires_at");
-      this.router.navigate(['/login']);
-	    
+
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+    
+    this.router.navigate(['/login']);
 	}
 
 	public isLoggedIn() {
@@ -94,12 +103,12 @@ export class AuthService {
 
 
   isAdmin(){
-    this.http.get(apiUrl + '/loggedin', httpOptions).pipe(
-      map(response => {
-        console.log(response);
-        return response;
-      }),
-      catchError(this.handleError));
+    var curentUser = JSON.parse( localStorage.getItem("currentUser") );
+    // console.log('curentUser.admin', curentUser);
+    if (curentUser) {
+      return curentUser.admin;
+    }
+    return false;
   }
 
   getUserRoles(user: User): Observable<User> {
@@ -109,6 +118,71 @@ export class AuthService {
        user = roles;
        return user;
       }));
+  }
+
+  getLiveLectureUrl(): Observable<any> {
+    const url = phpApiUrl +'/live_lecture';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getVideoLectureLogById(data): Observable<any> {
+    const url = phpApiUrl +'/video-lecture-log';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  rateThisSession(data): Observable<any> {
+    const url = phpApiUrl +'/rate_session';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  getLoginInfoFromEdusatLms(): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  handRaise(data): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  public postRate(data): Observable<any> {
+
+    const url = phpApiUrl + '/rate_session';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getLastActiveUsers(): Observable<any> {
+    const url = phpApiUrl +'/last-active-users';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getLastActiveUserByCourseId(courseId): Observable<any> {
+    const url = phpApiUrl +'/last-active-users/'+ courseId;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  submitAttendance(data) {
+    const url = phpApiUrl + '/submit_attendance';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 

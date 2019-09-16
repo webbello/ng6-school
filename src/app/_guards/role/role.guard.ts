@@ -14,16 +14,26 @@ export class RoleGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       // this will be passed from the route config
       // on the data property
-      const expectedRole = next.data.expectedRole;
-      const token = localStorage.getItem('id_token');
+
+      if (this.authService.isLoggedIn()) {
+        const expectedRole = next.data.expectedRole;
+        //console.log('expectedRole', expectedRole)
+        if (expectedRole == 'Admin') {
+          if (this.authService.isAdmin()) {
+            return true;
+          }
+        }
+      }
+      
+      // const token = localStorage.getItem('id_token');
       // decode the token to get its payload
-      //const tokenPayload = decode(token);
-      //console.log(tokenPayload.role)
+      // const tokenPayload = decode(token);
+      // console.log(tokenPayload.role)
     	// if (!this.authService.isLoggedIn() || tokenPayload.role !== expectedRole) {
-     //    this.router.navigate(['login']);
-     //    return false;
+      //   this.router.navigate(['login']);
+      //   return false;
     	// }
 
-      return true;
+      return false;
     }
 }

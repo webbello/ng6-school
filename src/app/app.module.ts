@@ -13,11 +13,6 @@ import { SharedModule } from './shared/shared.module';
 
 import { JwtInterceptor, ErrorInterceptor } from './_interceptor';
 
-// Services
-import { AuthService } from './services/auth/auth.service';
-import { UserService } from './services/user/user.service';
-import { StudentService } from './services/student/student.service';
-
 
 // Components
 import { AppComponent } from './components/index/app.component';
@@ -39,6 +34,8 @@ import { BookComponent } from './components/book/book/book.component';
 import { BookCreateComponent } from './components/book/book-create/book-create.component';
 import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
+// Rating
+import { RatingComponent } from './components/rating/rating.component';
 // Quiz
 import { QuizComponent } from './components/quiz/quiz.component';
 import { QuizListComponent } from './components/quiz/quiz-list/quiz-list.component';
@@ -52,6 +49,17 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
+// Added
+import { MatButtonModule } from '@angular/material/button';
+import { MatCardModule } from '@angular/material/card';
+import { MatGridListModule } from '@angular/material/grid-list';
+import { MatIconModule } from '@angular/material/icon';
+import { MatMenuModule } from '@angular/material/menu';
+import { OfflineSessionComponent, OfflineSessionDialog } from './components/offline-session/list/offline-session.component';
+import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
+import { SafeUrlPipe } from './pipe/safe-url.pipe';
+import { OnlineUsersComponent } from './components/online-users/online-users.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +77,7 @@ import { ChatComponent } from './components/chat/chat.component';
     BookCreateComponent,
     BookDetailComponent,
     BookEditComponent,
+    RatingComponent,
     QuizComponent,
     QuizListComponent,
     QuizDetailComponent,
@@ -78,7 +87,13 @@ import { ChatComponent } from './components/chat/chat.component';
     QuestionCreateComponent,
     QuestionDetailComponent,
     QuestionEditComponent,
-    ChatComponent
+    ChatComponent,
+    OfflineSessionComponent,
+    OfflineSessionDialog,
+    OfflineSessionDetailComponent,
+    SafeUrlPipe,
+    OnlineUsersComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -87,8 +102,14 @@ import { ChatComponent } from './components/chat/chat.component';
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
-    SharedModule
+    SharedModule,
+    MatGridListModule,
+    MatCardModule,
+    MatMenuModule,
+    MatIconModule,
+    MatButtonModule
   ],
+  entryComponents: [OfflineSessionDialog],
   providers: [
     BookService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

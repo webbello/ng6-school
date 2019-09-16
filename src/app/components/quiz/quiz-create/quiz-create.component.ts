@@ -12,25 +12,34 @@ import { FormControl, FormGroupDirective, FormBuilder, FormGroup, FormArray, NgF
 export class QuizCreateComponent implements OnInit {
 
   quizForm: FormGroup;
-
+  courseList: any = [];
   questionList: any = [];
 
   constructor(private router: Router, private api: QuizService, private questionService: QuestionService, private formBuilder: FormBuilder) { }
 
   ngOnInit() {
     this.quizForm = this.formBuilder.group({
+      'course' : [null, Validators.required],
       'name' : [null, Validators.required],
+      'duration' : [60, Validators.required],
       'description' : [null, Validators.required],
       'questions': []
     });
-    
-    this.questionService.getQuestions()
+    this.api.getCourses()
       .subscribe(res => {
-        console.log(res);
-        this.questionList = res;
+        console.log(res.courses);
+        this.courseList = res.courses;
       }, err => {
         console.log(err);
       });
+    
+    // this.questionService.getQuestions()
+    //   .subscribe(res => {
+    //     console.log(res);
+    //     this.questionList = res;
+    //   }, err => {
+    //     console.log(err);
+    //   });
   }
 
   onFormSubmit(form:NgForm) {

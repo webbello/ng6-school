@@ -2,11 +2,34 @@
   height: 100%;
 }
 
+.app-name {
+  padding-top: .1rem;
+  font-family: Roboto,"Helvetica Neue",sans-serif;
+  line-height: normal;
+  .color1 {
+    color: orange;
+  }
+  .color2 {
+    color: #008CDB;
+    font-size: 1rem;
+    font-weight: 400;
+  }
+}
+
+.active-list-item {
+  color: #3F51B5 !important; /* Note: You could also use a custom theme */
+  background-color: #b51a1a00 !important;
+}
+
+
 .sidenav {
   width: 200px;
   box-shadow: 3px 0 6px rgba(0,0,0,.24);
 }
-
+.sidenav-right {
+  width: 300px;
+  box-shadow: 3px 0 6px rgba(0,0,0,.24);
+}
 .mat-toolbar.mat-primary {
   position: sticky;
   top: 0;

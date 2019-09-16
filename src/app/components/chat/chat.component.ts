@@ -31,8 +31,8 @@ export class ChatComponent implements OnInit {
 	        this.loginUser = res;
 	        this.user = {
 		      id: randomId,
-		      userId: res._id,
-		      name: res.name,
+		      userId: res.user.id,
+		      name: res.user.name,
 		      avatar: `${AVATAR_URL}/${randomId}.png`
 		    };
 	      }, err => {
@@ -45,7 +45,9 @@ export class ChatComponent implements OnInit {
 
 	    this.ioConnection = this.chatService.onMessage()
 	      .subscribe((message: Message) => {
-	        this.messages.push(message);
+			this.messages.push(message);
+			let scrollElem = document.getElementById('conv');
+			scrollElem.scrollTop = scrollElem.scrollHeight;
 	      });
 
 	    this.chatService.onEvent(Event.CONNECT)

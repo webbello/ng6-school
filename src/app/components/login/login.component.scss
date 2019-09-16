@@ -12,6 +12,12 @@
   max-width: 400px;
 }
 
+img.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 .example-header-image {
   background-image: url('https://blog.wonderslate.com/wp-content/uploads/2018/04/isro.jpg');
   background-size: cover;
