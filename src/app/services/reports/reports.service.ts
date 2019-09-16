@@ -48,6 +48,13 @@ export class ReportsService {
       catchError(this.handleError));
   }
 
+  getQuizReportFromMongo(date, courseId): Observable<any> {
+    const url = apiUrl +'/reports/' + date + '/' + courseId;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   getLastActiveUserByCourseId(courseId): Observable<any> {
     const url = phpApiUrl +'/last-active-users/'+ courseId;
     return this.http.get(url, httpOptions).pipe(

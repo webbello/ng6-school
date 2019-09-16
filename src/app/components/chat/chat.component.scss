@@ -42,7 +42,7 @@
 }
 
 .conversation-history.mat-list {
-    height: calc(100% - 114px);
+    height: calc(100% - 144px);
     //overflow-x: scroll;
     position: absolute;
     width: 100%;
@@ -89,10 +89,10 @@
 .conversation-input {
     position: absolute;
     bottom: 0.1em;
-    width: calc(100% - 5px);
+    width: 100%;
+    padding: 5px;
     //background-color: #fafafa;
 }
-
 
 section .mat-list .mat-list-avatar{
     width: 25px;

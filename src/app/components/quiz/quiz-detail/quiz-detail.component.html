@@ -48,12 +48,16 @@
   </mat-expansion-panel>
 </mat-accordion>
 <!-- {{ quiz.questions | json }} -->
-
+<div class="row" *ngIf="chart">
+  <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
+    <canvas id="{{ result._id }}"></canvas>
+  </div>
+</div>
 <!-- <mat-list>
   <mat-list-item>Total Participants: {{quizResults.length}}</mat-list-item>
   <mat-divider></mat-divider>
 </mat-list> -->
-
+<div class="quiz-result-table">
   <mat-form-field>
     <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
   </mat-form-field>
@@ -92,4 +96,5 @@
   
     <mat-paginator [pageSizeOptions]="[5, 10, 25, 100]"></mat-paginator>
   </div>
+</div>
   

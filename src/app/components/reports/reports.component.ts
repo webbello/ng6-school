@@ -48,6 +48,7 @@ export class ReportsComponent implements OnInit {
     var dt = new Date();
     this.quizDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
     this.getQuizReport();
+    //this.getQuizReportFromMongo();
     console.log(this.date)
     
     // Assign the data to the data source for the table to render
@@ -71,8 +72,9 @@ export class ReportsComponent implements OnInit {
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.quizDate = event.value.getFullYear() + "-" + (event.value.getMonth() + 1) + "-" + event.value.getDate();
     this.getQuizReport();
-    console.log(`self: ${this.quizDate}`);
-    console.log(`${type}: ${event.value}`);
+    //this.getQuizReportFromMongo();
+    //console.log(`self: ${this.quizDate}`);
+    //console.log(`${type}: ${event.value}`);
   }
   
   public getQuizReport() {
@@ -88,6 +90,21 @@ export class ReportsComponent implements OnInit {
       this.dataSource = new MatTableDataSource(res.reports);
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
+    }, err => {
+      console.log(err);
+    });
+    
+  }
+  public getQuizReportFromMongo() {
+    
+    //this.date = '2019-8-27';
+    console.log('quizDate', this.quizDate);
+    console.log('courseId', this.courseId);
+    
+    this.reportsService.getQuizReportFromMongo(this.quizDate, this.courseId)
+    .subscribe(res => {
+      console.log('getQuizReportFromMongo',res);
+      //this.prepareChart(res);
     }, err => {
       console.log(err);
     });

@@ -11,12 +11,28 @@ router.get('/', function(req, res, next) {
 });
 
 /* GET ALL LOGS By Date and Course Id*/
-router.get('/reports/:date/:courseId', function(req, res, next) {
-  var query = { played_at: new Date(req.params.date), course_id: req.params.courseId };
+router.get('/reports/:date/:courseId?', function(req, res, next) {
+  let d = new Date(req.params.date);
+  let start = new Date(d.getFullYear(),d.getMonth(),d.getDate());
+  let end = new Date(d.getFullYear(),d.getMonth(),d.getDate()+1);
+
+  console.log('start', start);
+  console.log('end', end);
+  console.log('courseId', req.params.courseId);
+  var query = { 
+    "played_at": {"$gte": start, "$lte": end},
+    course_id: req.params.courseId };
+
+  if (req.params.courseId == undefined || req.params.courseId === 'Any') {
+    query = { 
+      "played_at": {"$gte": start, "$lte": end} 
+    };
+  }
+  
   Log.find(query, function (err, reports) {
     if (err) return next(err);
     res.json(reports);
-    console.log(reports);
+    //console.log(reports);
   });
 });
 

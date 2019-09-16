@@ -3,7 +3,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../models/chat/user';
-import { QuizChatModel } from '../../../models/chat/quiz';
+import { Chart } from 'chart.js';
 import { QuizResultModel } from '../../../models/socket/quiz';
 import { ChatService } from '../../../services/chat.service';
 
@@ -46,6 +46,31 @@ export class QuizDetailComponent implements OnInit {
   ioConnection: any;
   quizResults: any = [];
   resultsTable: any = [];
+  //chart data
+  numToChar = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+  chart: any = [];
+  canvasId: any;
+  type: any;
+  labels: any = [];
+  label: any;
+  datasets: any = {'label': '', 'data': [], 'backgroundColor': [], 'correctAnswer': []};
+  data: any = {'labels': [],'datasets': [this.datasets], 'type': ''};
+  backgroundColor: any = [
+      'rgba(255, 99, 132, 0.8)',
+      'rgba(54, 162, 235, 0.8)',
+      'rgba(255, 206, 86, 0.8)',
+      'rgba(75, 192, 192, 0.8)',
+      'rgba(153, 102, 255, 0.8)',
+      'rgba(255, 159, 64, 0.8)'
+  ];
+  borderColor: any = [
+      'rgba(255,99,132,1)',
+      'rgba(54, 162, 235, 1)',
+      'rgba(255, 206, 86, 1)',
+      'rgba(75, 192, 192, 1)',
+      'rgba(153, 102, 255, 1)',
+      'rgba(255, 159, 64, 1)'
+  ];
   
   constructor(private route: ActivatedRoute, private authService: AuthService, private api: QuizService, private chatService: ChatService, private router: Router) { 
 
@@ -89,10 +114,114 @@ export class QuizDetailComponent implements OnInit {
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
-        console.log('quizResults', this.resultsTable);
+        console.log('quizResults', this.quizResults);
+        this.prepareChart(this.quizResults);
         
       });
       
+  }
+  public prepareChart(quizResults) {
+    let labelsChart = [];
+    let dataChart = [];
+    let qOption = [];
+    quizResults.forEach((items, indexes) => {
+
+      items.questions.forEach((question, qi) => {
+          if (typeof dataChart[qi] === 'undefined') {
+          labelsChart[qi] = [];
+          dataChart[qi] = [];
+          qOption[qi] = [];
+          }
+          question.options.forEach((item, index) => {
+
+          labelsChart[qi][index] = this.numToChar[index];
+          qOption[qi][index] = item.name;
+          // Index of correct Answer
+          if(item.isAnswer){
+              labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
+          }
+
+          if (dataChart[qi][index] == null){
+              dataChart[qi][index] = 0;
+          }
+
+          if(item.selected){
+              dataChart[qi][index] += 1;
+          }
+          });
+
+          this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
+
+      });
+      //console.log('Question Option', qOption);
+
+      //console.log('i = ', dataChart)
+    })
+  }
+  public getChart(canvasId, type, labels, label, data, qOption, numOfStudent) {
+    //console.log(labels);
+    this.chart = new Chart(canvasId, {
+        type: type,
+        data: {
+            labels: labels,
+            qOption: qOption,
+            datasets: [{
+                label: label,
+                data: data,
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.8)',
+                    'rgba(54, 162, 235, 0.8)',
+                    'rgba(255, 206, 86, 0.8)',
+                    'rgba(75, 192, 192, 0.8)',
+                    'rgba(153, 102, 255, 0.8)',
+                    'rgba(255, 159, 64, 0.8)'
+                ],
+                borderColor: [
+                    'rgba(255,99,132,1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)',
+                    'rgba(153, 102, 255, 1)',
+                    'rgba(255, 159, 64, 1)'
+                ],
+                borderWidth: 1
+            }]
+        },
+        options: {
+          responsive: true,
+          legend: {
+            position: 'top',
+          },
+          scales: {
+            
+            yAxes: [{
+              scaleLabel: {
+                display: true,
+                labelString: 'Participant: '+ numOfStudent
+              },
+              ticks: {
+                  //min: 0,
+                  beginAtZero:true,
+                  // forces step size to be 5 units
+                  //stepSize: 2
+              }
+            }]
+          },
+          tooltips: {
+          mode: 'index',
+          callbacks: {
+            // Use the footer callback to display the sum of the items showing in the tooltip
+            title: function(tooltipItem, data) {
+              
+                var label = data.qOption[tooltipItem[0].index] || '';
+                return label
+            }
+          },
+          footerFontStyle: 'normal'
+        },
+        }
+    });
+    
   }
   public getLastActiveUserByCourseId(courseId) {
     this.authService.getLastActiveUserByCourseId(courseId)
