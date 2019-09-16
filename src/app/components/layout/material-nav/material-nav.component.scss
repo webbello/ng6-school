@@ -16,6 +16,12 @@
   }
 }
 
+.active-list-item {
+  color: #3F51B5 !important; /* Note: You could also use a custom theme */
+  background-color: #b51a1a00 !important;
+}
+
+
 .sidenav {
   width: 200px;
   box-shadow: 3px 0 6px rgba(0,0,0,.24);

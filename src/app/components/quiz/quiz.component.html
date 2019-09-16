@@ -1,4 +1,42 @@
-<div *ngIf="!start" class="main-div">
+<div class="live-lecture-container" *ngIf="(!start && live_lecture_url !== undefined) || mode=='live_lecture'">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="card h-100">
+                
+                <div class="card-header">
+                    <button type="button" class="btn btn-outline-danger btn-sm float-right">Live Now</button>
+                  Presenter: {{live_lecture.presentation}}
+                </div>
+                <!-- <mat-card-subtitle>{{live_lecture.session_name}}</mat-card-subtitle> -->
+                <div class="card-body">
+                  <div class="iframe-container">
+                    <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
+                  </div>
+                  <mat-card-content class="live-now-button" *ngIf="live_lecture && live_lecture.gotomeeting_url !== ''" >
+                    <a *ngIf="!handRaiseWaiting && goToMeeting" mat-raised-button color="primary" [href]="live_lecture.gotomeeting_url" target="_blank"><mat-icon>video_call</mat-icon>Join Interaction</a>
+                    <button *ngIf="!handRaiseWaiting  && !goToMeeting" mat-raised-button color="primary" (click)="handRaise()"><mat-icon>emoji_people</mat-icon>Hand Raise</button>
+                    <button *ngIf="handRaiseWaiting  && !goToMeeting" mat-raised-button color="warn" (click)="handRaise()"><span class="spinner-border spinner-border-sm mr-1"></span>Waiting</button>
+                  </mat-card-content>
+                  Please Rate this session:
+                  <mat-card-actions>
+                    <!-- <button mat-stroked-button color="warn" class="live-now-button" ><mat-icon>fiber_manual_record</mat-icon>Live Now</button> -->
+                    <rating [(rating)]="sessionRating" (click)="rateThisSession()"></rating>
+                  </mat-card-actions>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card h-100">
+                <div class="card-header">Ask Question</div>
+                <div class="card-body">
+                  <app-chat></app-chat>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!start && live_lecture_url === undefined" class="main-div">
   <mat-card class="card-w-400 center">
     <!-- <mat-card-header layout-align="center center">
       <div mat-card-avatar class="example-header-image"></div>
@@ -11,14 +49,18 @@
       <h5 class="color-hindi">क्लास गतिविधि जल्द ही शुरु होगी.</h5>
       <h5 class="color-english">Class activity will start shortly..!</h5>
     </mat-card-content>
-    <!-- <mat-card-actions>
-      <button mat-button>Quiz Rules</button>
-      <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button>
-    </mat-card-actions> -->
+    <mat-card-actions>
+        <!-- <rating [(rating)]="rating"></rating> -->
+      <!-- <button mat-button>Quiz Rules</button>
+      <button *ngIf="!authService.isLoggedIn" mat-raised-button color="primary" [routerLink]="['/signup']">Join Quiz</button> -->
+    </mat-card-actions>
   </mat-card>
+  
 </div>
 
 <div *ngIf="start" id="quiz">
+  <!-- <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'" class="btn btn-light" (click)="mode = 'live_lecture'"> <mat-icon>back</mat-icon> Live Lecture</button> -->
+  <button *ngIf="live_lecture_url !== undefined && mode === 'quiz'"  (click)="mode = 'live_lecture'" mat-stroked-button><mat-icon>arrow_back</mat-icon> Live Lecture</button>
   <h2 class="text-center font-weight-normal">{{quiz.name}}</h2>
   <hr />
 
@@ -33,17 +75,17 @@
       <div class="row text-left options">
           <div class="col-md-6" *ngFor="let option of question.options">
             <div class="option">
-              <mat-checkbox id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
+              <mat-checkbox [disabled]="disabled" id="{{option.id}}" [(ngModel)]="option.selected" (change)="onSelect(question, option);">{{option.name}}</mat-checkbox>
             </div>
           </div>
       </div>
     </div>
     <hr />
     <div class="text-center">
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(0);">First</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);">Prev</button>
-      <button class="btn btn-primary" (click)="goTo(pager.index + 1);">Next</button>
-      <button class="btn btn-default" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);">Last</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(0);" [disabled]="disabled">First</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.index - 1);" [disabled]="disabled">Prev</button>
+      <button class="btn btn-primary" (click)="goTo(pager.index + 1);" [disabled]="disabled">Next</button>
+      <button class="btn btn-light" *ngIf="config.allowBack" (click)="goTo(pager.count - 1);" [disabled]="disabled">Last</button>
       <!--<pagination *ngIf="config.showPager" direction-links="false" total-items="totalItems" items-per-page="itemsPerPage" ng-model="currentPage" ng-change="pageChanged()"></pagination>-->
     </div>
   </div>
@@ -73,7 +115,7 @@
   </div>
   <hr />
   <div *ngIf="mode!='result'">
-    <button class="btn btn-default" (click)="mode = 'quiz'">Quiz</button>
+    <button class="btn btn-light" (click)="mode = 'quiz'">Quiz</button>
     <button class="btn btn-info" (click)="mode = 'review'">Review</button>
     <button class="btn btn-primary" (click)="onSubmit();">Submit Quiz</button>
   </div>

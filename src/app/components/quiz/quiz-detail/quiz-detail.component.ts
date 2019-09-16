@@ -3,10 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { QuizService } from '../../../services/quiz/quiz.service';
 import { AuthService } from '../../../services/auth/auth.service';
 import { User } from '../../../models/chat/user';
-import { QuizChatModel } from '../../../models/chat/quiz';
+import { Chart } from 'chart.js';
 import { QuizResultModel } from '../../../models/socket/quiz';
 import { ChatService } from '../../../services/chat.service';
-import { Chart } from 'chart.js';
 
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -41,13 +40,15 @@ export class QuizDetailComponent implements OnInit {
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
   quiz: any = [];
+  start: boolean = false;
   user: User;
+  onlineUsers: [];
   ioConnection: any;
   quizResults: any = [];
   resultsTable: any = [];
+  //chart data
   numToChar = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
   chart: any = [];
-  //chart data
   canvasId: any;
   type: any;
   labels: any = [];
@@ -90,120 +91,72 @@ export class QuizDetailComponent implements OnInit {
         console.log(err);
       });
     this.getQuizDetails(this.route.snapshot.params['id']);
+    this.getLastActiveUserByCourseId(this.quiz.courseId);
 
-    this.initIoConnection();
+    if (this.authService.isLoggedIn() && this.authService.isAdmin()) {
+      this.initIoConnection();
+    }
 
   }
   private initIoConnection(): void {
      
     this.ioConnection = this.chatService.onQuizSubmit()
       .subscribe((quizResult: QuizResultModel) => {
-        //console.log('quizResult', quizResult);
+        console.log('quizResult', quizResult);
         //console.log('this.user',this.user);
         // exclude sender from game
         if (quizResult.from.userId != this.user.userId) {
           this.quizResults.push(quizResult);
+          this.resultsTable.push(createNewUser(quizResult));
         }
-
-        this.resultsTable.push(createNewUser(quizResult));
-        
+    
         this.dataSource = new MatTableDataSource(this.resultsTable);
         this.dataSource.paginator = this.paginator;
         this.dataSource.sort = this.sort;
 
-        console.log('quizResults', this.resultsTable);
-        let labelsChart = [];
-        let dataChart = [];
-        let qOption = [];
-        this.quizResults.forEach((items, indexes) => {
-
-          items.questions.forEach((question, qi) => {
-            if (typeof dataChart[qi] === 'undefined') {
-              labelsChart[qi] = [];
-              dataChart[qi] = [];
-              qOption[qi] = [];
-            }
-            question.options.forEach((item, index) => {
-
-              labelsChart[qi][index] = this.numToChar[index];
-              qOption[qi][index] = item.name;
-              // Index of correct Answer
-              if(item.isAnswer){
-                labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
-              }
-
-              if (dataChart[qi][index] == null){
-                  dataChart[qi][index] = 0;
-              }
-
-              if(item.selected){
-                dataChart[qi][index] += 1;
-              }
-            });
-
-            this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
-
-          });
-          //console.log('Question Option', qOption);
-
-          //console.log('i = ', dataChart)
-        })
-        //console.log('data', dataChart)
+        console.log('quizResults', this.quizResults);
+        this.prepareChart(this.quizResults);
+        
       });
       
   }
-  public makeChart(canvasId, data) {
-    this.chart = new Chart(canvasId, {
-      type: 'bar',
-      data: data,
-      options: {
-        responsive: true,
-        legend: {
-          position: 'top',
-        },
-          scales: {
-              yAxes: [{
-                  ticks: {
-                      beginAtZero:true
-                  }
-              }]
+  public prepareChart(quizResults) {
+    let labelsChart = [];
+    let dataChart = [];
+    let qOption = [];
+    quizResults.forEach((items, indexes) => {
+
+      items.questions.forEach((question, qi) => {
+          if (typeof dataChart[qi] === 'undefined') {
+          labelsChart[qi] = [];
+          dataChart[qi] = [];
+          qOption[qi] = [];
           }
-      }
-    });
+          question.options.forEach((item, index) => {
 
-    // Define a plugin to provide data labels
-    Chart.plugins.register({
-      afterDatasetsDraw: function(chart) {
-        var ctx = chart.ctx;
-        chart.data.datasets.forEach(function(dataset, i) {
-          
-          var meta = chart.getDatasetMeta(i);
-          if (!meta.hidden) {
-            meta.data.forEach(function(element, index) {
-              // Draw the text in black, with the specified font
-              ctx.fillStyle = 'rgb(0, 0, 0)';
-
-              var fontSize = 16;
-              var fontStyle = 'normal';
-              var fontFamily = 'Helvetica Neue';
-              ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-
-              // Just naively convert to string for now
-              var dataString = dataset.data[index].toString();
-
-
-              // Make sure alignment settings are correct
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'middle';
-
-              var padding = 5;
-              var position = element.tooltipPosition();
-              ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-            });
+          labelsChart[qi][index] = this.numToChar[index];
+          qOption[qi][index] = item.name;
+          // Index of correct Answer
+          if(item.isAnswer){
+              labelsChart[qi][index] = [this.numToChar[index], 'Correct'];
           }
-        });
-      }
-    });
+
+          if (dataChart[qi][index] == null){
+              dataChart[qi][index] = 0;
+          }
+
+          if(item.selected){
+              dataChart[qi][index] += 1;
+          }
+          });
+
+          this.getChart(question.id, 'bar', labelsChart[qi], question.name, dataChart[qi], qOption[qi], this.quizResults.length);
+
+      });
+      //console.log('Question Option', qOption);
+
+      //console.log('i = ', dataChart)
+    })
   }
   public getChart(canvasId, type, labels, label, data, qOption, numOfStudent) {
     //console.log(labels);
@@ -268,46 +221,23 @@ export class QuizDetailComponent implements OnInit {
         },
         }
     });
-    Chart.plugins.register({
-      afterDatasetsDraw: function(chart) {
-        var ctx = chart.ctx;
-        chart.data.datasets.forEach(function(dataset, i) {
-          //console.log(dataset)
-          var meta = chart.getDatasetMeta(i);
-          if (!meta.hidden) {
-            meta.data.forEach(function(element, index) {
-              // Draw the text in black, with the specified font
-              ctx.fillStyle = 'rgb(0, 0, 0)';
-
-              var fontSize = 16;
-              var fontStyle = 'normal';
-              var fontFamily = 'Helvetica Neue';
-              ctx.font = Chart.helpers.fontString(fontSize, fontStyle, fontFamily);
-
-              // Just naively convert to string for now
-              
-              var dataString = dataset.data[index].toString();
-              
-
-              // Make sure alignment settings are correct
-              ctx.textAlign = 'center';
-              ctx.textBaseline = 'middle';
-
-              var padding = 5;
-              var position = element.tooltipPosition();
-              ctx.fillText(dataString, position.x, position.y - (fontSize / 2) - padding);
-            });
-          }
-        });
-      }
+    
+  }
+  public getLastActiveUserByCourseId(courseId) {
+    this.authService.getLastActiveUserByCourseId(courseId)
+    .subscribe(res => {
+      //console.log('last_active within 3 minute', res.last_active);
+      this.onlineUsers = res.last_active;
+    }, err => {
+      console.log(err);
     });
   }
   getQuizDetails(id) {
     this.api.getQuiz(id)
       .subscribe(data => {
-        //console.log(data);
+        console.log(data);
         this.quiz = data;
-        console.log('this.quiz',this.quiz);
+        //console.log('this.quiz',this.quiz);
       });
 
   }
@@ -321,14 +251,33 @@ export class QuizDetailComponent implements OnInit {
       if (!quizId) {
         return;
       }
-
+      this.start = start;
       this.chatService.startQuiz({
         id: quizId,
         courseId: courseId,
         from: this.user,
-        start: start,
+        start: this.start,
+        duration: this.quiz.duration,
         created_at: new Date(),
       });
+      console.log('this.quiz.duration', this.quiz.duration)
+      setTimeout(()=> {
+        //this.mode = 'result';
+        this.start = false;
+        //this.router.navigate(["/quiz"]);
+      }, this.quiz.duration * 1000);
+
+      this.api.updateQuiz(quizId, {last_played: new Date()})
+      .subscribe(res => {
+        if (!res.errors) {
+          let id = res['_id'];
+          this.quiz.last_played = new Date();
+          console.log('id', id);
+        }
+        }, (err) => {
+          console.log(err);
+        }
+      );
   }
 
   deleteQuiz(id) {

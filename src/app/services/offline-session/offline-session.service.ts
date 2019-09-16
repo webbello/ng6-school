@@ -53,6 +53,15 @@ export class OfflineSessionService {
       catchError(this.handleError));
   }
 
+  getOfflineSessionFilter(data) {
+    const url = phpApiUrl +'/offline-session';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   deleteSession(id: string): Observable<{}> {
     const url = `${apiUrl}/${id}`;
     return this.http.delete(url, httpOptions)

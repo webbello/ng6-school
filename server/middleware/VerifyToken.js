@@ -3,7 +3,7 @@ var secretKey = config.secretKey;
 var jwt = require('jsonwebtoken');
 
 function verifyToken(req, res, next) {
-	console.log('Token:', req.headers);
+	//console.log('Token:', req.headers);
   	console.log('Somebody just came to our app');
   	if (!req.headers.authorization) {
   		return res.status(401).send('Unauthorized request');

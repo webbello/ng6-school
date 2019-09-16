@@ -34,6 +34,8 @@ import { BookComponent } from './components/book/book/book.component';
 import { BookCreateComponent } from './components/book/book-create/book-create.component';
 import { BookDetailComponent } from './components/book/book-detail/book-detail.component';
 import { BookEditComponent } from './components/book/book-edit/book-edit.component';
+// Rating
+import { RatingComponent } from './components/rating/rating.component';
 // Quiz
 import { QuizComponent } from './components/quiz/quiz.component';
 import { QuizListComponent } from './components/quiz/quiz-list/quiz-list.component';
@@ -47,14 +49,17 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
+// Added
 import { MatButtonModule } from '@angular/material/button';
 import { MatCardModule } from '@angular/material/card';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
-import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
+import { OfflineSessionComponent, OfflineSessionDialog } from './components/offline-session/list/offline-session.component';
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
+import { OnlineUsersComponent } from './components/online-users/online-users.component';
+import { ReportsComponent } from './components/reports/reports.component';
 
 @NgModule({
   declarations: [
@@ -72,6 +77,7 @@ import { SafeUrlPipe } from './pipe/safe-url.pipe';
     BookCreateComponent,
     BookDetailComponent,
     BookEditComponent,
+    RatingComponent,
     QuizComponent,
     QuizListComponent,
     QuizDetailComponent,
@@ -83,8 +89,11 @@ import { SafeUrlPipe } from './pipe/safe-url.pipe';
     QuestionEditComponent,
     ChatComponent,
     OfflineSessionComponent,
+    OfflineSessionDialog,
     OfflineSessionDetailComponent,
-    SafeUrlPipe
+    SafeUrlPipe,
+    OnlineUsersComponent,
+    ReportsComponent
   ],
   imports: [
     BrowserModule,
@@ -100,6 +109,7 @@ import { SafeUrlPipe } from './pipe/safe-url.pipe';
     MatIconModule,
     MatButtonModule
   ],
+  entryComponents: [OfflineSessionDialog],
   providers: [
     BookService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

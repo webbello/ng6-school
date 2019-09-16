@@ -69,8 +69,22 @@ export class QuizService {
       catchError(this.handleError));
   }
 
+  getLastPlayedQuiz(): Observable<any> {
+    const url = `${apiUrl}/last_played`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
   getQuiz(id: string): Observable<any> {
     const url = `${apiUrl}/${id}`;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getQuizByCourseId(id: number): Observable<any> {
+    const url = `${apiUrl}/course/${id}`;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
