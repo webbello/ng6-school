@@ -132,6 +132,11 @@ export class AuthService {
     return this.http.post(url, data, httpOptions).pipe(
       catchError(this.handleError));
   }
+  getStudyMaterialByCourseList(data): Observable<any> {
+    const url = phpApiUrl +'/study-material';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
 
   rateThisSession(data): Observable<any> {
     const url = phpApiUrl +'/rate_session';
@@ -142,6 +147,21 @@ export class AuthService {
   getLoginInfoFromEdusatLms(): Observable<any> {
     const url = phpApiUrl +'/hand_raise';
     return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+  getPublishedLectureByCourseId(course_id: number): Observable<any> {
+    
+    const url = phpApiUrl +'/lecture/' + course_id;
+    console.log(url);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getChatHistory(lecture_id: number, course_id: number): Observable<any> {
+    const chatApiUrl = `${environment.apiUrl}/chat/${lecture_id}/${course_id}`;
+    return this.http.get(chatApiUrl, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
   }

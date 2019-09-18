@@ -17,6 +17,7 @@ export class ChatComponent implements OnInit {
 	action = Action;
 	loginUser: any;
 	user: User;
+	live_lecture: any;
 	messages: Message[] = [];
 	messageContent: string;
 	ioConnection: any;
@@ -37,7 +38,15 @@ export class ChatComponent implements OnInit {
 		    };
 	      }, err => {
 	        console.log(err);
-	      });
+		  });
+		  this.authService.getLiveLectureUrl()
+			.subscribe(res => {
+				//console.log('getLiveLacture', res.live_url);
+				this.live_lecture = res.live_url;
+				this.getChatHistory(this.live_lecture.lecture_id, this.live_lecture.course_id);
+			}, err => {
+				console.log(err);
+			});
 	  	this.initIoConnection();
 	}
 
@@ -45,6 +54,7 @@ export class ChatComponent implements OnInit {
 
 	    this.ioConnection = this.chatService.onMessage()
 	      .subscribe((message: Message) => {
+			console.log('message', message)
 			this.messages.push(message);
 			let scrollElem = document.getElementById('conv');
 			scrollElem.scrollTop = scrollElem.scrollHeight;
@@ -61,6 +71,20 @@ export class ChatComponent implements OnInit {
 	      });
 	}
 
+	getChatHistory(lecture_id: number, course_id: number){
+		this.authService.getChatHistory(lecture_id, course_id)
+			.subscribe(res => {
+				console.log('getChatHistory', res);
+				if (res.message) {
+					this.messages = res.message;
+				}
+				console.log('getChatHistory', this.messages);
+
+			}, err => {
+				console.log(err);
+			});
+	}
+
 	private getRandomId(): number {
 	    return Math.floor(Math.random() * (1000000)) + 1;
 	}
@@ -69,10 +93,12 @@ export class ChatComponent implements OnInit {
 	    if (!message) {
 	      return;
 	    }
-
+		console.log('this.live_lecture ', this.live_lecture.lecture_id );
 	    this.chatService.send({
 	      from: this.user,
-	      content: message,
+		  content: message,
+		  lecture_id: this.live_lecture.lecture_id,
+		  course_id: this.live_lecture.course_id,
 	      created_at: new Date(),
 	    });
 	    this.messageContent = null;

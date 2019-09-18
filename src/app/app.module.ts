@@ -60,6 +60,8 @@ import { OfflineSessionDetailComponent } from './components/offline-session/deta
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ChatHistoryComponent } from './components/chat-history/chat-history.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +95,9 @@ import { ReportsComponent } from './components/reports/reports.component';
     OfflineSessionDetailComponent,
     SafeUrlPipe,
     OnlineUsersComponent,
-    ReportsComponent
+    ReportsComponent,
+    UserProfileComponent,
+    ChatHistoryComponent
   ],
   imports: [
     BrowserModule,

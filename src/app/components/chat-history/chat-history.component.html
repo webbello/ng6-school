@@ -1,18 +1,21 @@
+<mat-form-field class="full-width">
+    <mat-select placeholder="Course" [(value)]="courseId">
+      <mat-option *ngFor="let course of courseList" [value]="course.id" (click)="getLecturesByCourseId()">{{course.id}}: {{course.fullname}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field class="full-width">
+    <mat-select placeholder="Lecture" [(value)]="lectureId">
+      <mat-option *ngFor="let lecture of lectureList" [value]="lecture.lecture_id" (click)="getChatHistory()">{{lecture.session_name}}</mat-option>
+    </mat-select>
+</mat-form-field>
 
+<!-- <mat-divider></mat-divider> -->
+
+<div class="chat-history-container">
     <div class="conversation">
       
         <section *ngIf="true">
-          <!-- <div class="mat-typography conversation-header">
-            <h2>
-              <mat-icon>forum</mat-icon>
-              selectedConversation.display_name</h2>
-            <p>
-              <mat-icon>account_circle</mat-icon>
-              (selectedConversation.members | keys).length Members</p>
-          </div> -->
 
-          <!-- <mat-divider></mat-divider> -->
-          <!-- {{ createdAt | date:'h:mm a'}} -->
           <mat-list dense class="conversation-history mat-typography">
             <div class="conversation-container" id="conv" *ngIf="messages">
               <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
@@ -38,22 +41,6 @@
             </div>
             
           </mat-list>
-
-          <div class="conversation-input">
-            <!-- <mat-divider></mat-divider> -->
-            <mat-form-field class="full-width">
-              <!-- <input matInput placeholder="Start chatting..." name="text" [(ngModel)]="text"> -->
-              <input matInput 
-                     #inputMessage 
-                     maxlength="1640" 
-                     placeholder="Type your message" 
-                     [(ngModel)]="messageContent" 
-                     (keyup.enter)="sendMessage(messageContent)">
-              <mat-hint align="end">{{inputMessage.value.length}}/640</mat-hint>
-              <mat-icon matSuffix (click)="sendMessage(messageContent)">send</mat-icon>
-            </mat-form-field>
-
-          </div>
         </section>
     </div>
-
+</div>

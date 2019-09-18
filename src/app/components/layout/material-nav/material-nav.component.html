@@ -25,6 +25,7 @@
     <mat-nav-list *ngIf="authService.isLoggedIn()">
       <a mat-list-item routerLink="quiz" routerLinkActive="active-list-item"><i class="material-icons">query_builder</i> Play</a>
       <a mat-list-item routerLink="offline-session" routerLinkActive="active-list-item"><i class="material-icons">video_library</i> Offline Session</a>
+      <a mat-list-item routerLink="profile" routerLinkActive="active-list-item"><i class="material-icons">account_circle</i> Study Material</a>
       <a mat-list-item routerLink="quizs" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">import_contacts</i> Quiz</a>
       <!-- <a mat-list-item routerLink="questions"><i class="material-icons">question_answer</i> Question</a> -->
       <a mat-list-item routerLink="questions" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">question_answer</i> Question </a>
@@ -34,7 +35,8 @@
       <a mat-list-item routerLink="online-users" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">timer</i> Online Users</a>
       <!-- <a mat-list-item routerLink="books"><i class="material-icons">book</i> Book</a> -->
       <a mat-list-item routerLink="reports" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">assessment</i> Reports </a>
-      <a mat-list-item routerLink="chat" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">chat</i> Ask Question </a>
+      <a mat-list-item routerLink="chat-history" routerLinkActive="active-list-item" *ngIf="authService.isAdmin()"><i class="material-icons">chat</i> Chat History </a>
+
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -63,9 +65,9 @@
             <mat-icon>fingerprint</mat-icon>
             <span>Login</span>
           </button>
-          <button mat-menu-item disabled>
-            <mat-icon>announcement</mat-icon>
-            <span>Issues</span>
+          <button mat-menu-item *ngIf="authService.isLoggedIn()" mat-menu-item [routerLink]="['/profile']">
+            <mat-icon>account_circle</mat-icon>
+            <span>Profile</span>
           </button>
           <button mat-menu-item>
             <mat-icon>notifications_off</mat-icon>

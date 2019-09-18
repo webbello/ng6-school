@@ -35,20 +35,20 @@ export class AuthenticationService {
   public login(username: string, password: string) {
     const loginUrl = phpApiUrl + '/login';
     return this.http.post<any>(loginUrl, { username, password })
-        .pipe(map(user => {
-            // login successful if there's a jwt token in the response
-            if (user && user.token) {
-              const expiresAt = moment().utcOffset("+05:30").add(user.expiresIn,'hours');
-              // store user details and jwt token in local storage to keep user logged in between page refreshes
-              localStorage.setItem('currentUser', JSON.stringify(user));
-              localStorage.setItem('id_token', user.token);
-              localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-              this.currentUserSubject.next(user);
-            }
+      .pipe(map(user => {
+          // login successful if there's a jwt token in the response
+          if (user && user.token) {
+            const expiresAt = moment().utcOffset("+05:30").add(user.expiresIn,'hours');
+            // store user details and jwt token in local storage to keep user logged in between page refreshes
+            localStorage.setItem('currentUser', JSON.stringify(user));
+            localStorage.setItem('id_token', user.token);
+            localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
+            this.currentUserSubject.next(user);
+          }
 
-            return user;
-        }));
-    }
+          return user;
+      }));
+  }
 
 	public logout() {
 
