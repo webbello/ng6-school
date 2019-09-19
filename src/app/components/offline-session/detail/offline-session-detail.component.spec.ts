@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { OfflineSessionComponent } from './offline-session-detail.component';
+import { OfflineSessionDetailComponent } from './offline-session-detail.component';
 
 describe('OfflineSessionDetailComponent', () => {
-  let component: OfflineSessionComponent;
-  let fixture: ComponentFixture<OfflineSessionComponent>;
+  let component: OfflineSessionDetailComponent;
+  let fixture: ComponentFixture<OfflineSessionDetailComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ OfflineSessionComponent ]
+      declarations: [ OfflineSessionDetailComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(OfflineSessionComponent);
+    fixture = TestBed.createComponent(OfflineSessionDetailComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
