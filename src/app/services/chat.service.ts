@@ -8,13 +8,16 @@ import { QuizChatModel } from '../models/chat/quiz';
 import { QuizResultModel } from '../models/socket/quiz';
 import { Event } from '../models/chat/event';
 
+const apiUrl = `${environment.apiUrl}/chat`;
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class ChatService {
 
-	private url = environment.apiUrl;
+    private url = environment.apiUrl;
+    private chatUrl = `${environment.apiUrl}/chat`;
     private socket;
 
     constructor() {
@@ -22,6 +25,7 @@ export class ChatService {
 	}
 
 	public send(message: Message): void {
+        console.log(message);
         this.socket.emit('message', message);
     }
     public startQuiz(quiz: QuizChatModel): void {

@@ -50,16 +50,13 @@ import { QuestionEditComponent } from './components/question/question-edit/quest
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
 // Added
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatGridListModule } from '@angular/material/grid-list';
-import { MatIconModule } from '@angular/material/icon';
-import { MatMenuModule } from '@angular/material/menu';
 import { OfflineSessionComponent, OfflineSessionDialog } from './components/offline-session/list/offline-session.component';
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ChatHistoryComponent } from './components/chat-history/chat-history.component';
 
 @NgModule({
   declarations: [
@@ -93,7 +90,9 @@ import { ReportsComponent } from './components/reports/reports.component';
     OfflineSessionDetailComponent,
     SafeUrlPipe,
     OnlineUsersComponent,
-    ReportsComponent
+    ReportsComponent,
+    UserProfileComponent,
+    ChatHistoryComponent
   ],
   imports: [
     BrowserModule,
@@ -102,12 +101,7 @@ import { ReportsComponent } from './components/reports/reports.component';
     AppRoutingModule,
     LayoutModule,
     BrowserAnimationsModule,
-    SharedModule,
-    MatGridListModule,
-    MatCardModule,
-    MatMenuModule,
-    MatIconModule,
-    MatButtonModule
+    SharedModule
   ],
   entryComponents: [OfflineSessionDialog],
   providers: [

@@ -129,9 +129,9 @@ section .mat-list .mat-list-avatar{
   padding: 8px;
   position: relative;
   margin: 8px 0;
-  max-width: 85%;
-  word-wrap: break-word;
-  z-index: -1;
+  max-width: 90%;
+  // word-wrap: break-word;
+  // z-index: -1;
 }
 
 .message:after {
@@ -204,6 +204,21 @@ section .mat-list .mat-list-avatar{
   border-radius: 0px 5px 5px 5px;
   float: left;
 }
+.parent-container .parent-quoted{
+  width: 100%;
+  clear: both;
+  background: rgba(124, 122, 122, 0.3);
+  padding:  0 3px;
+  padding-bottom: 3px;
+  border-left: 2px solid rgba(124, 122, 122, 0.9);
+  border-radius: 3px 3px 3px 3px;
+}
+.parent-container .message.received {
+  background: rgb(124, 122, 122);
+  border-radius: 5px 5px 0px 0px;
+  width: 100%;
+  float: left;
+}
 
 .message.received .metadata {
   padding: 0 0 0 16px;
@@ -270,7 +285,6 @@ section .mat-list .mat-list-avatar{
     border-top-color: transparent;
     box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
 }
-
 
 // Small devices (landscape phones, 576px and up)
 @media (max-width: 767px) { 

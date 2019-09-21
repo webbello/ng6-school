@@ -1,0 +1,46 @@
+<mat-form-field class="full-width">
+    <mat-select placeholder="Course" [(value)]="courseId">
+      <mat-option *ngFor="let course of courseList" [value]="course.id" (click)="getLecturesByCourseId()">{{course.id}}: {{course.fullname}}</mat-option>
+    </mat-select>
+</mat-form-field>
+<mat-form-field class="full-width">
+    <mat-select placeholder="Lecture" [(value)]="lectureId">
+      <mat-option *ngFor="let lecture of lectureList" [value]="lecture.lecture_id" (click)="getChatHistory()">{{lecture.session_name}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<!-- <mat-divider></mat-divider> -->
+
+<div class="chat-history-container">
+    <div class="conversation">
+      
+        <section *ngIf="true">
+
+          <mat-list dense class="conversation-history mat-typography">
+            <div class="conversation-container" id="conv" *ngIf="messages">
+              <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
+                <!-- <div class="avatar">
+                  <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
+                </div> -->
+                <h5 *ngIf="message.action === undefined"><b>{{message.from.name}}</b></h5>
+                <span *ngIf="message.action === undefined">
+                  {{message.content}}
+                </span>
+                <!-- {{message.content}} -->
+                <span class="metadata">
+                    <span class="time">{{ message.created_at | date:'h:mm a'}}</span>
+                    <span *ngIf="message.from.userId === loginUser.user.id" class="tick"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7"/></svg></span>
+                </span>
+                <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">
+                  <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
+                </p>
+                <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">
+                  <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
+                </p>
+              </mat-list-item>
+            </div>
+            
+          </mat-list>
+        </section>
+    </div>
+</div>

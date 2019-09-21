@@ -17,8 +17,12 @@ export class ChatComponent implements OnInit {
 	action = Action;
 	loginUser: any;
 	user: User;
+	live_lecture: any;
 	messages: Message[] = [];
 	messageContent: string;
+	parent_id: any;
+	parent_name: string;
+	parent_content: any;
 	ioConnection: any;
 
   	constructor(private chatService: ChatService, private authService: AuthService) { }
@@ -37,7 +41,15 @@ export class ChatComponent implements OnInit {
 		    };
 	      }, err => {
 	        console.log(err);
-	      });
+		  });
+		  this.authService.getLiveLectureUrl()
+			.subscribe(res => {
+				//console.log('getLiveLacture', res.live_url);
+				this.live_lecture = res.live_url;
+				this.getChatHistory(this.live_lecture.lecture_id, this.live_lecture.course_id);
+			}, err => {
+				console.log(err);
+			});
 	  	this.initIoConnection();
 	}
 
@@ -45,6 +57,7 @@ export class ChatComponent implements OnInit {
 
 	    this.ioConnection = this.chatService.onMessage()
 	      .subscribe((message: Message) => {
+			console.log('message', message)
 			this.messages.push(message);
 			let scrollElem = document.getElementById('conv');
 			scrollElem.scrollTop = scrollElem.scrollHeight;
@@ -61,6 +74,20 @@ export class ChatComponent implements OnInit {
 	      });
 	}
 
+	getChatHistory(lecture_id: number, course_id: number){
+		this.authService.getChatHistory(lecture_id, course_id)
+			.subscribe(res => {
+				console.log('getChatHistory', res);
+				if (res.message) {
+					this.messages = res.message;
+				}
+				console.log('getChatHistory', this.messages);
+
+			}, err => {
+				console.log(err);
+			});
+	}
+
 	private getRandomId(): number {
 	    return Math.floor(Math.random() * (1000000)) + 1;
 	}
@@ -69,15 +96,45 @@ export class ChatComponent implements OnInit {
 	    if (!message) {
 	      return;
 	    }
-
+		console.log('this.live_lecture ', this.live_lecture.lecture_id );
 	    this.chatService.send({
 	      from: this.user,
-	      content: message,
+		  content: message,
+		  parent_id: this.parent_id,
+		  parent_message: {
+			  parent_name: this.parent_name,
+			  parent_content: this.parent_content
+		  },
+		  lecture_id: this.live_lecture.lecture_id,
+		  course_id: this.live_lecture.course_id,
 	      created_at: new Date(),
-	    });
-	    this.messageContent = null;
+		});
+		let scrollElem = document.getElementById('conv');
+		scrollElem.scrollTop = scrollElem.scrollHeight;
+		this.messageContent = null;
+		this.parent_id = null;
 	}
 
+	public reply(parent_id, parent_name, parent_content) {
+		this.parent_id = parent_id;
+		this.parent_name = parent_name;
+		this.parent_content = parent_content;
+
+		console.log('this.replyId',this.parent_id);
+	}
+	deleteMessage(lecture_id, course_id, id, index) {
+		this.authService.deleteMessage(lecture_id, course_id, id)
+		  .subscribe(res => {
+			  console.log(res)
+			  if (res.ok) {
+				this.messages.splice(index, 1);
+			  }
+			  //this.router.navigate(['/quizs']);
+			}, (err) => {
+			  console.log(err);
+			}
+		  );
+	  }
 	public sendNotification(params: any, action: Action): void {
 	    let message: Message;
 

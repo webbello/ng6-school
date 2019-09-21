@@ -34,7 +34,9 @@ import { QuestionDetailComponent } from './components/question/question-detail/q
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
 
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ReportsComponent } from './components/reports/reports.component';
+import { ChatHistoryComponent } from './components/chat-history/chat-history.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
 
@@ -45,6 +47,12 @@ const routes : Routes = [
 	{
 		path: 'login',
 		component: LoginComponent
+	},
+	{
+		path: 'profile',
+		component: UserProfileComponent,
+		canActivate: [AuthGuard],
+		data: { title: 'User Profile' }
 	},
 	{
 		path: 'quiz',
@@ -133,10 +141,10 @@ const routes : Routes = [
 		data: { expectedRole: 'Admin' }
 	},
 	{
-		path: 'chat',
-		component: ChatComponent,
-		canActivate: [AuthGuard],
-		data: { title: 'Ask Question' }
+		path: 'chat-history',
+		component: ChatHistoryComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	}
 ];
 
