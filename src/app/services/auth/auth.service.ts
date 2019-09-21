@@ -166,6 +166,14 @@ export class AuthService {
       catchError(this.handleError));
   }
 
+  deleteMessage(lecture_id: number, course_id: number, id: string): Observable<{}> {
+    const url = `${environment.apiUrl}/chat/${lecture_id}/${course_id}/${id}`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   handRaise(data): Observable<any> {
     const url = phpApiUrl +'/hand_raise';
     return this.http.post(url, data, httpOptions).pipe(

@@ -47,10 +47,10 @@
     </div>
   </mat-expansion-panel>
 </mat-accordion>
-<!-- {{ quiz.questions | json }} -->
-<div class="row" *ngIf="chart">
+<!-- {{ quizResults | json }} -->
+<div class="row">
   <div class="col-md-4" *ngFor="let result of quiz.questions; let index = index">
-    <canvas id="{{ result._id }}"></canvas>
+    <canvas  id="{{ result._id }}"></canvas>
   </div>
 </div>
 <!-- <mat-list>

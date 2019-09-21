@@ -20,6 +20,9 @@ export class ChatComponent implements OnInit {
 	live_lecture: any;
 	messages: Message[] = [];
 	messageContent: string;
+	parent_id: any;
+	parent_name: string;
+	parent_content: any;
 	ioConnection: any;
 
   	constructor(private chatService: ChatService, private authService: AuthService) { }
@@ -97,13 +100,41 @@ export class ChatComponent implements OnInit {
 	    this.chatService.send({
 	      from: this.user,
 		  content: message,
+		  parent_id: this.parent_id,
+		  parent_message: {
+			  parent_name: this.parent_name,
+			  parent_content: this.parent_content
+		  },
 		  lecture_id: this.live_lecture.lecture_id,
 		  course_id: this.live_lecture.course_id,
 	      created_at: new Date(),
-	    });
-	    this.messageContent = null;
+		});
+		let scrollElem = document.getElementById('conv');
+		scrollElem.scrollTop = scrollElem.scrollHeight;
+		this.messageContent = null;
+		this.parent_id = null;
 	}
 
+	public reply(parent_id, parent_name, parent_content) {
+		this.parent_id = parent_id;
+		this.parent_name = parent_name;
+		this.parent_content = parent_content;
+
+		console.log('this.replyId',this.parent_id);
+	}
+	deleteMessage(lecture_id, course_id, id, index) {
+		this.authService.deleteMessage(lecture_id, course_id, id)
+		  .subscribe(res => {
+			  console.log(res)
+			  if (res.ok) {
+				this.messages.splice(index, 1);
+			  }
+			  //this.router.navigate(['/quizs']);
+			}, (err) => {
+			  console.log(err);
+			}
+		  );
+	  }
 	public sendNotification(params: any, action: Action): void {
 	    let message: Message;
 

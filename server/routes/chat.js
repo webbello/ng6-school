@@ -29,4 +29,18 @@ router.get('/:lectureId/:courseId?', function(req, res, next) {
   });
 });
 
+/* DELETE QUIZ */
+router.delete('/:lectureId/:courseId/:id', function(req, res, next) {
+  let query = { 
+    lecture_id: req.params.lectureId,
+    course_id: req.params.courseId,
+    $pull: { message: { _id: req.params.id } } 
+  };
+  console.log('deleteMessage', query)
+  Chat.update(query, function (err, post) {
+    if (err) return next(err);
+    res.json(post);
+  });
+});
+
 module.exports = router;
