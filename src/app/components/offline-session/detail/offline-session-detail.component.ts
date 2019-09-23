@@ -124,7 +124,19 @@ export class OfflineSessionDetailComponent implements OnInit {
 				console.log(err);
 			});
   }
-  
+  deleteMessage(lecture_id, course_id, id, index) {
+		this.authService.deleteMessage(lecture_id, course_id, id)
+		  .subscribe(res => {
+			  console.log(res)
+			  if (res) {
+				this.messages.splice(index, 1);
+			  }
+			  //this.router.navigate(['/quizs']);
+			}, (err) => {
+			  console.log(err);
+			}
+		  );
+	}
   rateThisSession(){
     console.log('lectureId', this.lectureId);
     let data = { 

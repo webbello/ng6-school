@@ -33,10 +33,29 @@
               
                         <mat-list dense class="conversation-history mat-typography">
                           <div class="conversation-container" id="conv" *ngIf="messages">
-                            <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
+                            <mat-list-item *ngFor="let message of messages; let i = index" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
                               <!-- <div class="avatar">
                                 <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
                               </div> -->
+                              <div class="float-right">
+                                <a class="" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                  <mat-icon>expand_more</mat-icon>
+                                </a>
+                                <mat-menu #menu="matMenu">
+                                  <!-- <button mat-menu-item (click)="reply(message._id, message.from.name, message.content)">
+                                    <mat-icon>reply</mat-icon>
+                                    <span>Reply</span>
+                                  </button> -->
+                                  <!-- <button mat-menu-item *ngIf="message.from.userId === loginUser.user.id" disabled>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                  </button> -->
+                                  <button mat-menu-item *ngIf="loginUser.user.id == 2" (click)="deleteMessage(lectureId, courseId, message._id, i)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Delete</span>
+                                  </button>
+                                </mat-menu>                    
+                              </div>
                               <h5 *ngIf="message.action === undefined"><b>{{message.from.name}}</b></h5>
                               <span *ngIf="message.action === undefined">
                                 {{message.content}}

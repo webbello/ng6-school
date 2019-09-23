@@ -126,15 +126,15 @@ export class ChatComponent implements OnInit {
 		this.authService.deleteMessage(lecture_id, course_id, id)
 		  .subscribe(res => {
 			  console.log(res)
-			  if (res.ok) {
+			  if (res) {
 				this.messages.splice(index, 1);
 			  }
 			  //this.router.navigate(['/quizs']);
 			}, (err) => {
 			  console.log(err);
 			}
-		  );
-	  }
+		);
+	}
 	public sendNotification(params: any, action: Action): void {
 	    let message: Message;
 

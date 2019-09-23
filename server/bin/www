@@ -43,62 +43,9 @@ io.on('connect', (socket) => {
       socket.removeAllListeners();
       console.log('Connected client on port %s.', 3000);
       socket.on('message', (message) => {
-        let Chat = require('../models/chat.js');
-        var chatExist = [];
-        var query = { 
-          lecture_id: message.lecture_id,
-          course_id: message.course_id
-        };
-        Chat.find(query, function (err, reports) {
-          if (err) {
-            //res.send(err);
-            console.log('err',err );
-            return err;
-          }
-          //res.json(reports);
-          chatExist.push(reports);
-          console.log('reports.length',reports.length);
-          var mongoose = require('mongoose');
-          let messageWithTime = {
-            _id: new mongoose.Types.ObjectId(),
-            from: {userId: message.from.userId, name: message.from.name, avatar: message.from.avatar },
-            content: message.content,
-            parent_id: message.parent_id,
-            parent_message: message.parent_message,
-            created_at: new Date()
-          }
-          if (typeof reports !== 'undefined' && reports.length > 0) {
-            console.log('reportsExist', reports );
-            Chat.updateOne(
-              { lecture_id: message.lecture_id,  course_id: message.course_id},
-              { $addToSet: { message: [ messageWithTime ] } }
-            ).then(chat => {
-                console.log('Update done', chat);
-            }).catch(err => {
-                console.log('Update failed', err);
-            });
-          } else {
-            console.log('reportsExist Else', reports );
-            Chat = new Chat({
-              // user_id: message.from.userId,
-              lecture_id: message.lecture_id,
-              course_id: message.course_id,
-              message: messageWithTime,
-              created_at: new Date()
-            });
-            Chat.save(function (err) {
-              if (err) {
-                //res.send(err);
-                console.log('err',err );
-                return err;
-              }
-              console.log('New Chat Log Created');
-            });
-          }
-        });
-        console.log('chatExist', chatExist);
+        saveChat(message);
         console.log('[server](message): %s', JSON.stringify(message));
-        io.emit('message', message);
+        // io.emit('message', message);
       });
 
       socket.on('quiz', (quiz) => {
@@ -126,6 +73,47 @@ httpsServer.listen(httpsPort, hostname);
 
 server.on('error', onError);
 server.on('listening', onListening);
+
+/**
+ * Save chat in mongodb.
+ */
+
+function saveChat(message) {
+  let Chat = require('../models/chat.js');
+  var mongoose = require('mongoose');
+  
+  var messageWithTime = {
+    _id: new mongoose.Types.ObjectId(),
+    from: {userId: message.from.userId, name: message.from.name, avatar: message.from.avatar },
+    content: message.content,
+    parent_id: message.parent_id,
+    parent_message: message.parent_message,
+    created_at: new Date()
+  }
+
+  var query = { 
+    lecture_id: message.lecture_id,
+    course_id: message.course_id
+  };
+
+  var update = { $addToSet: { message: [ messageWithTime ] } }
+
+  var options = {
+    upsert: true,
+    new: true,
+    setDefaultsOnInsert: true
+  }
+  Chat.findOneAndUpdate(query, update, options, function(err, result) {
+    if (err) {
+      //res.send(err);
+      console.log('err',err );
+      return err;
+    }
+    let lastMessage = result.message[result.message.length - 1]; 
+    io.emit('message', lastMessage);
+    console.log('New Chat Log Created', lastMessage);
+  })
+}
 
 /**
  * Normalize a port into a number, string, or false.

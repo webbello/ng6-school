@@ -31,16 +31,36 @@ router.get('/:lectureId/:courseId?', function(req, res, next) {
 
 /* DELETE QUIZ */
 router.delete('/:lectureId/:courseId/:id', function(req, res, next) {
+  // let query = { 
+  //   lecture_id: req.params.lectureId,
+  //   course_id: req.params.courseId,
+  //   $pull: { message: { _id: req.params.id } } 
+  // };
   let query = { 
     lecture_id: req.params.lectureId,
-    course_id: req.params.courseId,
-    $pull: { message: { _id: req.params.id } } 
+    course_id: req.params.courseId
   };
+
+  let update = { $pull: { message: { _id: req.params.id } } }
+
+  var options = {
+    new: true
+  }
   console.log('deleteMessage', query)
-  Chat.update(query, function (err, post) {
-    if (err) return next(err);
-    res.json(post);
-  });
+  // Chat.update(query, function (err, post) {
+  //   if (err) return next(err);
+  //   res.json(post);
+  // });
+  Chat.findOneAndUpdate(query, update, function(err, result) {
+    if (err) {
+      //res.send(err);
+      console.log('err',err );
+      return err;
+    }
+    res.json(result);
+    //let lastMessage = result.message[result.message.length - 1]; 
+    //console.log('Message Deleted', result);
+  })
 });
 
 module.exports = router;
