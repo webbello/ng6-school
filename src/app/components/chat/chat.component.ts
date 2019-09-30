@@ -61,6 +61,7 @@ export class ChatComponent implements OnInit {
 			this.messages.push(message);
 			let scrollElem = document.getElementById('conv');
 			scrollElem.scrollTop = scrollElem.scrollHeight;
+			// this.scrollTo('scrollToBottom');
 	      });
 
 	    this.chatService.onEvent(Event.CONNECT)
@@ -81,7 +82,7 @@ export class ChatComponent implements OnInit {
 				if (res.message) {
 					this.messages = res.message;
 				}
-				console.log('getChatHistory', this.messages);
+				//console.log('getChatHistory', this.messages);
 
 			}, err => {
 				console.log(err);
@@ -109,16 +110,25 @@ export class ChatComponent implements OnInit {
 		  course_id: this.live_lecture.course_id,
 	      created_at: new Date(),
 		});
+		//let lastMessage = this.messages[this.messages.length - 1]; 
 		let scrollElem = document.getElementById('conv');
 		scrollElem.scrollTop = scrollElem.scrollHeight;
+
+		// this.scrollTo(lastMessage._id);
 		this.messageContent = null;
 		this.parent_id = null;
+	}
+
+	public scrollTo(id) {
+		var elmnt = document.getElementById(id);
+		elmnt.scrollIntoView();
 	}
 
 	public reply(parent_id, parent_name, parent_content) {
 		this.parent_id = parent_id;
 		this.parent_name = parent_name;
 		this.parent_content = parent_content;
+		document.getElementById("mat-input-0").focus();
 
 		console.log('this.replyId',this.parent_id);
 	}

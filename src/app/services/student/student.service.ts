@@ -9,6 +9,10 @@
 })
  export class StudentService {
 
+   /**
+    *Creates an instance of StudentService.
+    * @memberof StudentService
+    */
    constructor() { }
 
    // Get all students list via API or any data storage

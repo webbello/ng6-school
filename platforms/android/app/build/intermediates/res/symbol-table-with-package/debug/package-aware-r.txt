@@ -1,4 +1,4 @@
-com.example.hello
+com.iirs.eclass
 drawable screen
 mipmap ic_launcher
 mipmap ic_launcher_background

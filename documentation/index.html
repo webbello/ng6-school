@@ -1,0 +1,188 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>E-CLASS documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="./images/favicon.ico">
+	      <link rel="stylesheet" href="./styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="./" class="navbar-brand">E-CLASS documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content getting-started">
+                   <div class="content-data">
+
+<h1 id="project-title">Project Title</h1>
+<p>E-Class (Electronic Collaborative Learning and Knowledge Sharing System.)</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.</p>
+<h3 id="prerequisites">Prerequisites</h3>
+<p>What things you need to install the software and how to install them</p>
+<div><pre class="line-numbers"><code class="language-none">NodeJs (10.x)
+MongoDb (4.0.12)
+Angular 8.x
+</code></pre></div><h3 id="installing">Installing</h3>
+<p>Download this project from where it kept and run bellow command in root folder</p>
+<div><pre class="line-numbers"><code class="language-none">npm run install</code></pre></div><p>And serve</p>
+<div><pre class="line-numbers"><code class="language-none">ng serve</code></pre></div><h2 id="development-server">Development server</h2>
+<p>Run <code>ng serve</code> for a dev server. Navigate to <code>http://localhost:4200/</code>. The app will automatically reload if you change any of the source files.</p>
+<h2 id="code-scaffolding">Code scaffolding</h2>
+<p>Run <code>ng generate component components/component-name</code> to generate a new component. You can also use <code>ng generate directive|pipe|service|class|guard|interface|enum|module</code>.</p>
+<h2 id="build">Build</h2>
+<p>Run <code>ng build</code> to build the project. The build artifacts will be stored in the <code>dist/</code> directory. Use the <code>--prod</code> flag for a production build.</p>
+<h2 id="backend-server">Backend server</h2>
+<p>Host IP: 192.168.17.31
+Local Backend server folder: <code>D:\Angular\ng8-school-cordova\server</code>
+Remote Backend server folder: <code>/home/ubuntu/Angular/ng8-school-cordova</code></p>
+<p>Backend Php Api named quizApi located in <code>/var/www/html/quizApi</code>
+databse mdlnew and edusat_lms</p>
+<p>If nodemon is installed globally in your system then run</p>
+<div><pre class="line-numbers"><code class="language-none">nodemon</code></pre></div><p>or</p>
+<div><pre class="line-numbers"><code class="language-none">node start ./server/bin/www</code></pre></div><p>And in production server install pm2 npm package for start server in background. and run
+or</p>
+<div><pre class="line-numbers"><code class="language-none">pm2 start ./server/bin/www</code></pre></div><h3 id="client-server">Client Server</h3>
+<p>If you installed this project locally then run</p>
+<div><pre class="line-numbers"><code class="language-none">ng serve</code></pre></div><p>And in production server just build the compiled file and copy all the generaded file on remote server. compiled file generated inside www folder</p>
+<div><pre class="line-numbers"><code class="language-none">ng build --prod</code></pre></div><h2 id="mongodb-screenshot">MongodB ScreenShot</h2>
+<p class="center">
+    <img src="./images/screenshot/mongo.png" width="600">
+</p>
+
+<h2 id="route-guide-with-screenshots">Route guide with screenshots</h2>
+<p>All components are located inside  <code>D:\Angular\ng8-school-cordova\src\app\components</code></p>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th><code>\src\app\components\login</code></th>
+<th align="center"><code>\src\app\components\quiz</code></th>
+<th align="right"><code>\src\app\components\offline-session</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/screenshot/eclass_login.png" alt="" class="img-responsive"></td>
+<td align="center"><img src="./images/screenshot/play.png" alt="" class="img-responsive"></td>
+<td align="right"><img src="./images/screenshot/offline-session.png" alt="" class="img-responsive"></td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th><code>\src\app\components\user-profile</code></th>
+<th align="center"><code>\src\app\components\quiz\quiz-list</code></th>
+<th align="right"><code>\src\app\components\question</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/screenshot/study_material.png" alt="" class="img-responsive"></td>
+<td align="center"><img src="./images/screenshot/quiz-list.png" alt="" class="img-responsive"></td>
+<td align="right"><img src="./images/screenshot/question.png" alt="" class="img-responsive"></td>
+</tr>
+</tbody>
+</table>
+<table class="table table-bordered compodoc-table">
+<thead>
+<tr>
+<th><code>\src\app\components\online-users</code></th>
+<th align="center"><code>\src\app\components\reports</code></th>
+<th align="right"><code>\src\app\components\chat-history</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="./images/screenshot/online-users.png" alt="" class="img-responsive"></td>
+<td align="center"><img src="./images/screenshot/report.png" alt="" class="img-responsive"></td>
+<td align="right"><img src="./images/screenshot/chat-history.png" alt="" class="img-responsive"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="refrence-for-quiz">Refrence for quiz</h2>
+<p><a href="https://www.codeproject.com/Articles/1167451/Quiz-Application-in-Angular"> Quiz App</a></p>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 0;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'getting-started';
+            var COMPODOC_CURRENT_PAGE_URL = 'index.html';
+       </script>
+
+       <script src="./js/libs/custom-elements.min.js"></script>
+       <script src="./js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="./js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="./js/menu-wc.js" defer></script>
+
+       <script src="./js/libs/bootstrap-native.js"></script>
+
+       <script src="./js/libs/es6-shim.min.js"></script>
+       <script src="./js/libs/EventDispatcher.js"></script>
+       <script src="./js/libs/promise.min.js"></script>
+       <script src="./js/libs/zepto.min.js"></script>
+
+       <script src="./js/compodoc.js"></script>
+
+       <script src="./js/tabs.js"></script>
+       <script src="./js/menu.js"></script>
+       <script src="./js/libs/clipboard.min.js"></script>
+       <script src="./js/libs/prism.js"></script>
+       <script src="./js/sourceCode.js"></script>
+          <script src="./js/search/search.js"></script>
+          <script src="./js/search/lunr.min.js"></script>
+          <script src="./js/search/search-lunr.js"></script>
+          <script src="./js/search/search_index.js"></script>
+       <script src="./js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

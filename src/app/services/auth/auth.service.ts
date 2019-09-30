@@ -23,6 +23,12 @@ export class AuthService {
   private user: User;
   public admin: boolean = false;
 
+  /**
+   *Create an instance of AuthService
+   * @param {HttpClient} http
+   * @param {Router} router
+   * @memberof AuthService
+   */
   constructor(private http: HttpClient, private router: Router) { }
 
   private handleError(error: HttpErrorResponse) {

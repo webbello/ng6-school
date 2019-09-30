@@ -78,6 +78,14 @@ export class QuizComponent implements OnInit {
   handRaiseWaiting = false;
   goToMeeting = false;
 
+  /**
+   * Create an instance of Quiz
+   * @param quizService Quiz Service
+   * @param router Router
+   * @param authService Auth Service
+   * @param log Log
+   * @param chatService Chat
+   */
   constructor(private quizService: QuizService, private router: Router, private authService: AuthService, private log: LogService, private chatService: ChatService ) { 
     //this.rating = 2;
     this.authService.getLoginUser()
@@ -146,6 +154,10 @@ export class QuizComponent implements OnInit {
         });
     }
   }
+  /** 
+   * @Date: 2019-09-25 17:55:07 
+   * @Desc: Get last played quiz for the user who logged in after quiz start 
+   */  
   getLastPlayedQuiz() {
     this.quizService.getLastPlayedQuiz()
     .subscribe(res => {
@@ -174,6 +186,10 @@ export class QuizComponent implements OnInit {
       console.log(err);
     });
   }
+  /** 
+   * @Date: 2019-09-25 17:56:06 
+   * @Desc: init Io Connection 
+   */  
   private initIoConnection(): void {
       this.ioConnection = this.chatService.onQuizStart()
         .subscribe((quiz: QuizChatModel) => {
@@ -203,6 +219,10 @@ export class QuizComponent implements OnInit {
         });
 
   }
+  /** 
+   * @Date: 2019-09-25 17:57:29 
+   * @Desc: Submit Attendence 
+   */  
   submitAttendance() {
     let data = {
       course_id: this.live_lecture.course_id

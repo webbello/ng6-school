@@ -37,6 +37,12 @@ export class QuizListComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
+  /**
+   * Create an instance of QuizListComponent
+   * @param {QuizService} api
+   * @param {AuthService} authService
+   * @memberof QuizListComponent
+   */
   constructor(private api: QuizService, private authService: AuthService) { 
     this.getLastActiveUsers();
     this.api.getQuizs()

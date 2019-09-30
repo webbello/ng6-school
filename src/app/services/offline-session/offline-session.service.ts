@@ -16,6 +16,11 @@ const phpApiUrl = `${environment.phpApiUrl}`;
 })
 export class OfflineSessionService {
 
+  /**
+   * Create an instance of OfflineSessionService
+   * @param {HttpClient} http
+   * @memberof OfflineSessionService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {

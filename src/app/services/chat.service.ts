@@ -20,6 +20,10 @@ export class ChatService {
     private chatUrl = `${environment.apiUrl}/chat`;
     private socket;
 
+    /**
+     *Create an instance of ChatService
+     * @memberof ChatService
+     */
     constructor() {
 	    this.socket = io(this.url);
 	}

@@ -1,13 +1,16 @@
 {
-  "name": "ng8-school",
-  "version": "0.0.0",
+  "name": "E-CLASS",
+  "version": "0.1.9",
   "scripts": {
     "ng": "ng",
     "start": "nodemon ./server/bin/www && ng build",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "compodoc": "compodoc",
+    "generate-docs":"compodoc -p src/tsconfig.app.json",
+    "serve-docs":"compodoc -s src/tsconfig.app.json"
   },
   "private": true,
   "dependencies": {
@@ -26,8 +29,7 @@
     "bootstrap": "^4.3.1",
     "chart.js": "^2.8.0",
     "cookie-parser": "^1.4.4",
-    "cordova-android": "^8.0.0",
-    "cordova-ios": "^5.0.1",
+    "cordova-android": "^8.1.0",
     "core-js": "^3.1.4",
     "cors": "^2.8.5",
     "debug": "^4.1.1",
@@ -51,6 +53,7 @@
     "@angular/cli": "^8.3.3",
     "@angular/compiler-cli": "~8.2.5",
     "@angular/language-service": "~8.2.5",
+    "@compodoc/compodoc": "^1.1.10",
     "@types/jasmine": "^3.3.16",
     "@types/jasminewd2": "~2.0.6",
     "@types/node": "~12.7.4",
@@ -73,7 +76,6 @@
       "cordova-plugin-whitelist": {}
     },
     "platforms": [
-      "ios",
       "android"
     ]
   }

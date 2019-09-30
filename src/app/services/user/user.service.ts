@@ -18,8 +18,21 @@ const apiUrl = `${environment.apiUrl}/users`;
 })
 export class UserService {
 
+  /**
+   *Create an instance of UserService
+   * @param {HttpClient} http
+   * @memberof UserService
+   */
   constructor(private http: HttpClient) { }
 
+  /**
+   *Handle error
+   *
+   * @private
+   * @param {HttpErrorResponse} error
+   * @returns
+   * @memberof UserService
+   */
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.

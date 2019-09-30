@@ -19,6 +19,11 @@ const phpApiUrl = `${environment.phpApiUrl}`;
 })
 export class QuizService {
 
+  /**
+   *Create an instance of QuizService
+   * @param {HttpClient} http
+   * @memberof QuizService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {

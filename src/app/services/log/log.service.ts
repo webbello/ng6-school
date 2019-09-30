@@ -19,6 +19,11 @@ const phpApiUrl = `${environment.phpApiUrl}/log`;
 })
 export class LogService {
 
+  /**
+   *Create an instance of LogService
+   * @param {HttpClient} http
+   * @memberof LogService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {

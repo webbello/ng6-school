@@ -19,6 +19,11 @@ const phpApiUrl = `${environment.phpApiUrl}`;
 })
 export class ReportsService {
 
+  /**
+   *Create an instance of ReportService
+   * @param {HttpClient} http
+   * @memberof ReportsService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
