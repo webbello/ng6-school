@@ -44,7 +44,7 @@ Run `ng generate component components/component-name` to generate a new componen
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
 ## Backend server
-
+Host IP: 192.168.17.31
 Local Backend server folder: `D:\Angular\ng8-school-cordova\server`
 Remote Backend server folder: `/home/ubuntu/Angular/ng8-school-cordova`
 

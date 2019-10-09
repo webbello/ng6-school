@@ -51,6 +51,15 @@ export class OfflineSessionService {
       catchError(this.handleError));
   }
 
+  getOfflineSessionByRegisterdCourse(data) {
+    const url = phpApiUrl +'/offline-session-by-courses';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getOfflineSession(id: string): Observable<any> {
     const url = phpApiUrl +'/offline-session/'+id;
     return this.http.get(url, httpOptions).pipe(

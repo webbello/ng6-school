@@ -20,12 +20,12 @@ router.get('/reports/:date/:courseId?', function(req, res, next) {
   console.log('end', end);
   console.log('courseId', req.params.courseId);
   var query = { 
-    "played_at": {"$gte": start, "$lte": end},
+    "created_at": {"$gte": start, "$lte": end},
     course_id: req.params.courseId };
 
   if (req.params.courseId == undefined || req.params.courseId === 'Any') {
     query = { 
-      "played_at": {"$gte": start, "$lte": end} 
+      "created_at": {"$gte": start, "$lte": end} 
     };
   }
   
@@ -48,19 +48,21 @@ router.get('/:id', function(req, res, next) {
 /* Log Log */
 router.post('/', function(req, res, next) {
   console.log('req.decoded', req.decoded);
-  console.log('req.body', req.body);
+  console.log('log.req.body', req.body);
     log = new Log({
       _id: new mongoose.Types.ObjectId(),
-      user_id: req.decoded.user_id,
-      player_id: req.body.from.userId,
+      from: req.body.from,
       course_id: req.body.courseId,
       quiz_id: req.body.id,
-      marks: req.body.correctAnswerCount,
-      answered: req.body.answers,
-      quiz_by: req.body.quiz_by
+      correctAnswerCount: req.body.correctAnswerCount,
+      questions: req.body.questions,
+      answers: req.body.answers,
+      quiz_by: req.body.quiz_by,
+      created_at: new Date(),
     });
     log.save(function (err) {
       if (err) {
+        // console.log('log error', err)
         res.send(err);
         return;
       }

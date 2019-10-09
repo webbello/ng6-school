@@ -2,6 +2,7 @@ import { Component, Inject, OnInit } from '@angular/core';
 import { OfflineSessionService } from '../../../services/offline-session/offline-session.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { QuizService } from '../../../services/quiz/quiz.service';
+import { AuthService } from '../../../services/auth/auth.service';
 
 export interface DialogData {
   course_id: string;
@@ -15,22 +16,48 @@ export interface DialogData {
 })
 export class OfflineSessionComponent implements OnInit {
   sessions: any;
+  response: any;
   breakpoint: number;
 
   course_id: string;
   name: string;
 
-  constructor(private api: OfflineSessionService, public dialog: MatDialog) { }
-
-  ngOnInit() {
-    this.breakpoint = (window.innerWidth <= 400) ? 1 : 4;
-    this.api.getOfflineSessions()
+  constructor(private api: OfflineSessionService, private authService: AuthService, public dialog: MatDialog) { 
+    this.authService.getLoginUser()
       .subscribe(res => {
-        console.log(res);
-        this.sessions = res.offlineSessions;
+        console.log('getLoginUser', res);
+        //this.loginUser = res;
+        let data = {
+          course_id: res.courses
+        }
+        if (res.admin) {
+          this.api.getOfflineSessions()
+          .subscribe(res => {
+            console.log(res);
+            this.sessions = res.offlineSessions;
+          }, err => {
+            console.log(err);
+          });
+        } else {
+          this.api.getOfflineSessionByRegisterdCourse(data)
+          .subscribe(res => {
+            console.log(res);
+            this.response = res;
+            this.sessions = this.response.offlineSessions;
+          }, err => {
+            console.log(err);
+          });
+        }
+        
+   
       }, err => {
         console.log(err);
       });
+  }
+
+  ngOnInit() {
+    this.breakpoint = (window.innerWidth <= 400) ? 1 : 4;
+    
   }
 
   onResize(event) {
