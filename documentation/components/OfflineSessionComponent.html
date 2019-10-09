@@ -1,0 +1,804 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>E-CLASS documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">E-CLASS documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>OfflineSessionComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/offline-session/list/offline-session.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-offline-session</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./offline-session.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./offline-session.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#breakpoint">breakpoint</a>
+                            </li>
+                            <li>
+                                <a href="#course_id">course_id</a>
+                            </li>
+                            <li>
+                                    <span class="modifier">Public</span>
+                                <a href="#dialog">dialog</a>
+                            </li>
+                            <li>
+                                <a href="#name">name</a>
+                            </li>
+                            <li>
+                                <a href="#sessions">sessions</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                            <li>
+                                <a href="#onResize">onResize</a>
+                            </li>
+                            <li>
+                                <a href="#openFilterDialog">openFilterDialog</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(api: <a href="../injectables/OfflineSessionService.html">OfflineSessionService</a>, dialog: MatDialog)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>api</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/OfflineSessionService.html" target="_self" >OfflineSessionService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>dialog</td>
+                                                  
+                                                        <td>
+                                                                    <code>MatDialog</code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="25"
+                            class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:25</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="onResize"></a>
+                    <span class="name">
+                        <b>
+                            onResize
+                        </b>
+                        <a href="#onResize"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>onResize(event)</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="36"
+                            class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:36</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Parameters :</b>
+                        <table class="params">
+                            <thead>
+                                <tr>
+                                    <td>Name</td>
+                                    <td>Optional</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>event</td>
+
+                                    <td>
+                                        No
+                                    </td>
+
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div>
+                    </div>
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                    <div class="io-description">
+                        
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="openFilterDialog"></a>
+                    <span class="name">
+                        <b>
+                            openFilterDialog
+                        </b>
+                        <a href="#openFilterDialog"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>openFilterDialog()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="40"
+                            class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:40</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="breakpoint"></a>
+                        <span class="name">
+                            <b>
+                            breakpoint</b>
+                            <a href="#breakpoint"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="course_id"></a>
+                        <span class="name">
+                            <b>
+                            course_id</b>
+                            <a href="#course_id"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="dialog"></a>
+                        <span class="name">
+                            <b>
+                                <span class="modifier">Public</span>
+                            dialog</b>
+                            <a href="#dialog"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>    <code>MatDialog</code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="23" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:23</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="name"></a>
+                        <span class="name">
+                            <b>
+                            name</b>
+                            <a href="#name"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/string" target="_blank" >string</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="21" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:21</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="sessions"></a>
+                        <span class="name">
+                            <b>
+                            sessions</b>
+                            <a href="#sessions"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/offline-session/list/offline-session.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, Inject, OnInit } from &#x27;@angular/core&#x27;;
+import { OfflineSessionService } from &#x27;../../../services/offline-session/offline-session.service&#x27;;
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from &#x27;@angular/material/dialog&#x27;;
+import { QuizService } from &#x27;../../../services/quiz/quiz.service&#x27;;
+
+export interface DialogData {
+  course_id: string;
+  name: string;
+}
+
+@Component({
+  selector: &#x27;app-offline-session&#x27;,
+  templateUrl: &#x27;./offline-session.component.html&#x27;,
+  styleUrls: [&#x27;./offline-session.component.scss&#x27;]
+})
+export class OfflineSessionComponent implements OnInit {
+  sessions: any;
+  breakpoint: number;
+
+  course_id: string;
+  name: string;
+
+  constructor(private api: OfflineSessionService, public dialog: MatDialog) { }
+
+  ngOnInit() {
+    this.breakpoint &#x3D; (window.innerWidth &lt;&#x3D; 400) ? 1 : 4;
+    this.api.getOfflineSessions()
+      .subscribe(res &#x3D;&gt; {
+        console.log(res);
+        this.sessions &#x3D; res.offlineSessions;
+      }, err &#x3D;&gt; {
+        console.log(err);
+      });
+  }
+
+  onResize(event) {
+    this.breakpoint &#x3D; (event.target.innerWidth &lt;&#x3D; 400) ? 1 : 4;
+  }
+
+  openFilterDialog(): void {
+    
+    const dialogRef &#x3D; this.dialog.open(OfflineSessionDialog, {
+      data: {name: this.name, course_id: this.course_id}
+    });
+
+    dialogRef.afterClosed().subscribe(result &#x3D;&gt; {
+      console.log(&#x27;The dialog was closed&#x27;);
+      if ( result !&#x3D;&#x3D; undefined) {
+
+        this.course_id &#x3D; result.course_id;
+        this.name &#x3D; result.name;
+      
+        let data &#x3D; {
+          course_id: this.course_id,
+          search: this.name
+        }
+        this.api.getOfflineSessionFilter(data)
+        .subscribe((res : any) &#x3D;&gt; {
+          console.log(&#x27;getOfflineSessionFilter&#x27;,res);
+          this.sessions &#x3D; res.offlineSessions;
+        }, err &#x3D;&gt; {
+          console.log(err);
+        });
+        console.log(&#x27;result&#x27;, result);
+      }
+    });
+  }
+
+}
+
+@Component({
+  selector: &#x27;offline-session-dialog&#x27;,
+  templateUrl: &#x27;offline-session-dialog.html&#x27;,
+})
+export class OfflineSessionDialog {
+  courseList: any &#x3D; [];
+  constructor(
+    public dialogRef: MatDialogRef&lt;OfflineSessionDialog&gt;, private quizService: QuizService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      this.quizService.getCourses()
+      .subscribe(res &#x3D;&gt; {
+        console.log(res.courses);
+        this.courseList &#x3D; res.courses;
+      }, err &#x3D;&gt; {
+        console.log(err);
+      });
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  getSessionByCourseId(course_id) {
+    console.log(&#x27;courseID&#x27;, course_id);
+  }
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-grid-list [cols]&#x3D;&quot;breakpoint&quot; rowHeight&#x3D;&quot;4:5&quot; (window:resize)&#x3D;&quot;onResize($event)&quot;&gt;
+  &lt;!-- {{sessions | json}} --&gt;
+    &lt;mat-grid-tile *ngFor&#x3D;&quot;let session of sessions&quot; &gt;
+      
+        &lt;mat-card class&#x3D;&quot;example-card&quot;&gt;
+            &lt;a [routerLink]&#x3D;&quot;[&#x27;/offline-session/&#x27;, session.lecture_id]&quot; &gt;
+              &lt;img mat-card-image src&#x3D;&quot;https://img.youtube.com/vi/{{session.off_lecture_url}}/0.jpg&quot; alt&#x3D;&quot;Photo of a Shiba Inu&quot; width&#x3D;&quot;200px&quot;&gt;
+            &lt;/a&gt;
+            &lt;mat-card-footer&gt;
+              &lt;h5&gt;{{session.session_name}}&lt;/h5&gt;
+              &lt;p&gt;{{session.presentation}}&lt;/p&gt;
+              &lt;mat-card-subtitle&gt;{{session.date | date}}&lt;/mat-card-subtitle&gt;
+            &lt;/mat-card-footer&gt;
+        &lt;/mat-card&gt;
+       
+    &lt;/mat-grid-tile&gt;
+  &lt;/mat-grid-list&gt;
+  &lt;div class&#x3D;&quot;fab-container&quot;&gt;
+    &lt;button mat-fab color&#x3D;&quot;primary&quot; class&#x3D;&quot;fab-toggler&quot;
+            (click)&#x3D;&quot;openFilterDialog()&quot;&gt;
+      &lt;i class&#x3D;&quot;material-icons&quot;&gt;filter_list&lt;/i&gt;
+    &lt;/button&gt;
+  &lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./offline-session.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">.example-card {
+    max-width: 400px;
+    height: 100%;
+  }
+  
+  .example-header-image {
+    background-image: url(&#x27;https://material.angular.io/assets/img/examples/shiba1.jpg&#x27;);
+    background-size: cover;
+  }
+  
+  .fab-container {
+    position: fixed;
+    bottom: 15px;
+    right: 15px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column-reverse;
+    align-items: center;
+  
+    &gt; div {
+      display: flex;
+      flex-direction: column-reverse;
+      align-items: center;
+      margin-bottom: 5px;
+  
+      button {
+        margin-bottom: 17px;
+      }
+    }
+  }
+  
+  .fab-toggler {
+    float: right;
+    z-index: 100;
+  }</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-grid-list [cols]="breakpoint" rowHeight="4:5" (window:resize)="onResize($event)">  <!-- {{sessions | json}} -->    <mat-grid-tile *ngFor="let session of sessions" >              <mat-card class="example-card">            <a [routerLink]="[\'/offline-session/\', session.lecture_id]" >              <img mat-card-image src="https://img.youtube.com/vi/{{session.off_lecture_url}}/0.jpg" alt="Photo of a Shiba Inu" width="200px">            </a>            <mat-card-footer>              <h5>{{session.session_name}}</h5>              <p>{{session.presentation}}</p>              <mat-card-subtitle>{{session.date | date}}</mat-card-subtitle>            </mat-card-footer>        </mat-card>           </mat-grid-tile>  </mat-grid-list>  <div class="fab-container">    <button mat-fab color="primary" class="fab-toggler"            (click)="openFilterDialog()">      <i class="material-icons">filter_list</i>    </button>  </div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookComponent', 'selector': 'app-book'},{'name': 'BookCreateComponent', 'selector': 'app-book-create'},{'name': 'BookDetailComponent', 'selector': 'app-book-detail'},{'name': 'BookEditComponent', 'selector': 'app-book-edit'},{'name': 'ChatComponent', 'selector': 'app-chat'},{'name': 'ChatHistoryComponent', 'selector': 'app-chat-history'},{'name': 'FacultyAddComponent', 'selector': 'app-faculty-add'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MaterialDashboardComponent', 'selector': 'app-material-dashboard'},{'name': 'MaterialNavComponent', 'selector': 'app-material-nav'},{'name': 'OfflineSessionComponent', 'selector': 'app-offline-session'},{'name': 'OfflineSessionDetailComponent', 'selector': 'app-offline-session-detail'},{'name': 'OfflineSessionDialog', 'selector': 'offline-session-dialog'},{'name': 'OnlineUsersComponent', 'selector': 'app-online-users'},{'name': 'QuestionComponent', 'selector': 'app-question'},{'name': 'QuestionCreateComponent', 'selector': 'app-question-create'},{'name': 'QuestionDetailComponent', 'selector': 'app-question-detail'},{'name': 'QuestionEditComponent', 'selector': 'app-question-edit'},{'name': 'QuizComponent', 'selector': 'app-quiz'},{'name': 'QuizCreateComponent', 'selector': 'app-quiz-create'},{'name': 'QuizDetailComponent', 'selector': 'app-quiz-detail'},{'name': 'QuizEditComponent', 'selector': 'app-quiz-edit'},{'name': 'QuizListComponent', 'selector': 'app-quiz-list'},{'name': 'RatingComponent', 'selector': 'rating'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'StudentAddComponent', 'selector': 'app-student-add'},{'name': 'StudentDetailsComponent', 'selector': 'app-student-details'},{'name': 'StudentListComponent', 'selector': 'app-student-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'OfflineSessionComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'OfflineSessionComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

@@ -8,20 +8,28 @@ import { QuizChatModel } from '../models/chat/quiz';
 import { QuizResultModel } from '../models/socket/quiz';
 import { Event } from '../models/chat/event';
 
+const apiUrl = `${environment.apiUrl}/chat`;
+
 @Injectable({
   providedIn: 'root'
 })
 
 export class ChatService {
 
-	private url = environment.apiUrl;
-    private socket;    
+    private url = environment.apiUrl;
+    private chatUrl = `${environment.apiUrl}/chat`;
+    private socket;
 
+    /**
+     *Create an instance of ChatService
+     * @memberof ChatService
+     */
     constructor() {
 	    this.socket = io(this.url);
 	}
 
 	public send(message: Message): void {
+        console.log(message);
         this.socket.emit('message', message);
     }
     public startQuiz(quiz: QuizChatModel): void {
@@ -33,26 +41,39 @@ export class ChatService {
     }
 
     public onMessage(): Observable<Message> {
-        return new Observable<Message>(observer => {
+        let observable = new Observable<Message>(observer => {
             this.socket.on('message', (data: Message) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onQuizStart(): Observable<QuizChatModel> {
-        return new Observable<QuizChatModel>(observer => {
+        let observable =  new Observable<QuizChatModel>(observer => {
             this.socket.on('quiz', (data: QuizChatModel) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onQuizSubmit(): Observable<QuizResultModel> {
-        return new Observable<QuizResultModel>(observer => {
+        let observable = new Observable<QuizResultModel>(observer => {
             this.socket.on('quizResult', (data: QuizResultModel) => observer.next(data));
+            return () => {
+                this.socket.disconnect();
+            };
         });
+        return observable;
     }
 
     public onEvent(event: Event): Observable<any> {
         return new Observable<Event>(observer => {
             this.socket.on(event, () => observer.next());
         });
-	}
+    }
+
 }

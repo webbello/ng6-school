@@ -14,15 +14,47 @@
           <!-- <mat-divider></mat-divider> -->
           <!-- {{ createdAt | date:'h:mm a'}} -->
           <mat-list dense class="conversation-history mat-typography">
-            <div class="conversation-container">
-              <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
+            <div class="conversation-container" id="conv" *ngIf="messages">
+              
+              <mat-list-item *ngFor="let message of messages; let i = index" [id]="message._id" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
                 <!-- <div class="avatar">
                   <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
                 </div> -->
+                <div *ngIf="message.parent_id" class="parent-container" >
+                  <!-- <a > -->
+                  <div *ngIf="message.parent_id" class="parent-quoted" (click)="scrollTo(message.parent_id)">
+                      <h5 class="mb-0"><b>{{message.parent_message.parent_name}}</b> </h5>
+                      <span>
+                          {{message.parent_message.parent_content | slice:0:50}} ...
+                      </span>
+                    </div>
+                  <!-- </a> -->
+                </div>
+                <div class="more-option float-right">
+                  <a class="" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                    <mat-icon>expand_more</mat-icon>
+                  </a>
+                  <mat-menu #menu="matMenu">
+                    <button mat-menu-item (click)="reply(message._id, message.from.name, message.content)">
+                      <mat-icon>reply</mat-icon>
+                      <span>Reply</span>
+                    </button>
+                    <!-- <button mat-menu-item *ngIf="message.from.userId === loginUser.user.id" disabled>
+                      <mat-icon>edit</mat-icon>
+                      <span>Edit</span>
+                    </button> -->
+                    <button mat-menu-item *ngIf="message.from.userId === loginUser.user.id || loginUser.user.id == 2" (click)="deleteMessage(live_lecture.lecture_id, live_lecture.course_id, message._id, i)">
+                      <mat-icon>delete_forever</mat-icon>
+                      <span>Delete</span>
+                    </button>
+                  </mat-menu>                    
+                </div>
                 <h5 *ngIf="message.action === undefined"><b>{{message.from.name}}</b></h5>
+                
                 <span *ngIf="message.action === undefined">
-                  {{message.content}}
+                  {{message.content }}
                 </span>
+                
                 <!-- {{message.content}} -->
                 <span class="metadata">
                     <span class="time">{{ message.created_at | date:'h:mm a'}}</span>
@@ -36,11 +68,23 @@
                 </p>
               </mat-list-item>
             </div>
-            
+            <span id="scrollToBottom"></span>
           </mat-list>
 
           <div class="conversation-input">
-            <mat-divider></mat-divider>
+            <!-- <mat-divider></mat-divider> -->
+            <div class="parent-container" >
+              <mat-list-item *ngIf="parent_id" class="message received">
+                  <a class="float-right" (click)="parent_id = null" mat-icon-button aria-label="Example icon-button with a heart icon">
+                      <mat-icon>clear</mat-icon>
+                    </a>
+                  <b>{{parent_name}}</b> <br>
+                  <span >
+                    {{parent_content | slice:0:50}} ...
+                  </span>
+              </mat-list-item>
+            </div>
+
             <mat-form-field class="full-width">
               <!-- <input matInput placeholder="Start chatting..." name="text" [(ngModel)]="text"> -->
               <input matInput 
@@ -52,6 +96,7 @@
               <mat-hint align="end">{{inputMessage.value.length}}/640</mat-hint>
               <mat-icon matSuffix (click)="sendMessage(messageContent)">send</mat-icon>
             </mat-form-field>
+
           </div>
         </section>
     </div>

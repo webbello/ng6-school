@@ -8,29 +8,19 @@ import { HttpClientModule } from '@angular/common/http';
 // Guard
 import { AuthGuard } from './_guards/auth/auth.guard';
 import { RoleGuard } from './_guards/role/role.guard';
+
 // Services
 import { AuthService } from './services/auth/auth.service';
-import { UserService } from './services/user/user.service';
-import { StudentService } from './services/student/student.service';
-import { BookService } from './services/book/book.service';
 
 // Components
-import { AppComponent } from './components/index/app.component';
 import { MaterialDashboardComponent } from './components/layout/material-dashboard/material-dashboard.component';
 
 import { LoginComponent } from './components/login/login.component';
 import { SignupComponent } from './components/signup/signup.component';
-//Student
-import { StudentAddComponent } from './components/student/add/student-add.component';
-import { StudentDetailsComponent } from './components/student/details/student-details.component';
-import { StudentListComponent } from './components/student/list/student-list.component';
-// Faculty
-import { FacultyAddComponent } from './components/faculty/add/faculty-add.component';
-// Book
+
 import { OfflineSessionComponent } from './components/offline-session/list/offline-session.component';
-import { BookCreateComponent } from './components/book/book-create/book-create.component';
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
-import { BookEditComponent } from './components/book/book-edit/book-edit.component';
+
 // Quiz
 import { QuizComponent } from './components/quiz/quiz.component';
 import { QuizListComponent } from './components/quiz/quiz-list/quiz-list.component';
@@ -42,18 +32,33 @@ import { QuestionComponent } from './components/question/question/question.compo
 import { QuestionCreateComponent } from './components/question/question-create/question-create.component';
 import { QuestionDetailComponent } from './components/question/question-detail/question-detail.component';
 import { QuestionEditComponent } from './components/question/question-edit/question-edit.component';
+
+import { OnlineUsersComponent } from './components/online-users/online-users.component';
+import { UserProfileComponent } from './components/user-profile/user-profile.component';
+import { ReportsComponent } from './components/reports/reports.component';
+import { ChatHistoryComponent } from './components/chat-history/chat-history.component';
 //Chat
 import { ChatComponent } from './components/chat/chat.component';
 
 // Parent Routes
 const routes : Routes = [
+	
+	{ path: '', redirectTo: '/quiz', pathMatch: 'full' },
 	{
 		path: 'login',
 		component: LoginComponent
 	},
 	{
+		path: 'profile',
+		component: UserProfileComponent,
+		canActivate: [AuthGuard],
+		data: { title: 'User Profile' }
+	},
+	{
 		path: 'quiz',
-		component: QuizComponent
+		component: QuizComponent,
+		canActivate: [AuthGuard],
+		data: { title: 'Play Quiz' }
 	},
 	{
 		path: 'dashboard',
@@ -68,74 +73,79 @@ const routes : Routes = [
 	{
 		path: 'quiz-details/:id',
 		component: QuizDetailComponent,
-		data: { title: 'Quiz Details' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'quiz-edit/:id',
 		component: QuizEditComponent,
-		data: { title: 'Quiz Edit' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'quiz-create',
-		component: QuizCreateComponent
+		component: QuizCreateComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'signup',
 		component: SignupComponent
 	},
 	{
-		path: 'faculty',
-		component: FacultyAddComponent
+		path: 'online-users',
+		component: OnlineUsersComponent,
+		canActivate: [AuthGuard],
+		data: { title: 'Online Users' }
 	},
 	{
-		path: 'student',
-		component: StudentListComponent
+		path: 'reports',
+		component: ReportsComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'offline-session',
 		component: OfflineSessionComponent,
+		canActivate: [AuthGuard],
 		data: { title: 'Offline Session' }
 	},
 	{
 		path: 'offline-session/:id',
 		component: OfflineSessionDetailComponent,
+		canActivate: [AuthGuard],
 		data: { title: 'Offline Session Details' }
-	},
-	{
-		path: 'book-create',
-		component: BookCreateComponent,
-		data: { title: 'Create Book' }
-	},
-	{
-		path: 'book-edit/:id',
-		component: BookEditComponent,
-		data: { title: 'Edit Book' }
 	},
 	{
 		path: 'questions',
 		component: QuestionComponent,
-		data: { title: 'Question List' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'question-details/:id',
 		component: QuestionDetailComponent,
-		data: { title: 'Question Details' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'question-create',
 		component: QuestionCreateComponent,
-		canActivate: [AuthGuard],
-		data: { title: 'Create Question' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
 		path: 'question-edit/:id',
 		component: QuestionEditComponent,
-		data: { title: 'Edit Question' }
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
 	},
 	{
-		path: 'chat',
-		component: ChatComponent
-	},
+		path: 'chat-history',
+		component: ChatHistoryComponent,
+		canActivate: [RoleGuard],
+		data: { expectedRole: 'Admin' }
+	}
 ];
 
 @NgModule({
@@ -145,6 +155,6 @@ const routes : Routes = [
   FormsModule,
   HttpClientModule],
   exports: [RouterModule],
-  providers: [BookService]
+  providers: [AuthService]
 })
 export class AppRoutingModule { }

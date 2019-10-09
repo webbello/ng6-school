@@ -3,17 +3,25 @@ import { CanActivate, Router, ActivatedRouteSnapshot, RouterStateSnapshot } from
 import { Observable } from 'rxjs';
 import { AuthService } from '../../services/auth/auth.service';
 
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
+
   constructor(private router: Router, private authService: AuthService) {}
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean> | Promise<boolean> | boolean {
       let url: string = state.url;
+
     	if (this.authService.isLoggedIn()) {
+        this.authService.setUserLastActive()
+        .subscribe(res => {
+          console.log('AuthGuard',res);
+        }, err => {
+          console.log(err);
+        });
+        //console.log('AuthGuard', url)
     		return true;
     	}
       // not logged in so redirect to login page with the return url

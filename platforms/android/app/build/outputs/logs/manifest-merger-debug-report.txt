@@ -1,15 +1,15 @@
 -- Merging decision tree log ---
 manifest
-ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
+ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
 MERGED from [:CordovaLib] D:\Angular\ng8-school-cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:20:1-27:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-14:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:1-13:12
 	package
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:102-129
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:102-127
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 	android:versionName
@@ -19,7 +19,7 @@ INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\Andro
 	android:hardwareAccelerated
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:11-45
 	xmlns:android
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:130-188
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:128-186
 	android:versionCode
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:2:46-73
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
@@ -52,20 +52,20 @@ ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidM
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:5:18-52
 	android:icon
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:5:53-87
-activity#com.example.hello.MainActivity
+activity#com.iirs.eclass.MainActivity
 ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:9-11:20
 	android:label
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:97-134
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:136-173
 	android:launchMode
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:135-165
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:174-204
 	android:windowSoftInputMode
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:257-299
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:296-338
 	android:configChanges
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:19-96
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:19-135
 	android:theme
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:194-256
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:233-295
 	android:name
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:166-193
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:6:205-232
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
 ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:7:13-10:29
 	android:label
@@ -79,14 +79,18 @@ ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidM
 	android:name
 		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:9:27-74
 uses-sdk
-ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:13:5-74
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:13:5-74
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 MERGED from [:CordovaLib] D:\Angular\ng8-school-cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:5-44
 MERGED from [:CordovaLib] D:\Angular\ng8-school-cordova\platforms\android\CordovaLib\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:5-44
-INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:13:5-74
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 	android:targetSdkVersion
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:13:42-71
-	android:minSdkVersion
-		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml:13:15-41
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+	android:minSdkVersion
+		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
+		ADDED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml
 		INJECTED from D:\Angular\ng8-school-cordova\platforms\android\app\src\main\AndroidManifest.xml

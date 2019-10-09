@@ -1,20 +1,87 @@
-<div class="button-row">
-  <a mat-raised-button color="primary" [routerLink]="['/offline-session']"><mat-icon>list</mat-icon></a>
+<div class="offline-lecture-container">
+  <div class="row">
+      <div class="col-md-9">
+          <div class="card h-100" *ngIf="session">
+              
+              <div class="card-header">
+                  <button type="button" [routerLink]="['/offline-session']" class="btn btn-outline-primary btn-sm float-right">Back</button>
+                {{session.session_name}}
+              </div>
+              <div class="card-body">
+                <div class="iframe-container">
+                  <iframe id="player" width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
+                </div>
+                Presenter: {{session.presentation}}
+                
+                <mat-card-actions>
+                  <!-- <button mat-stroked-button color="warn" class="live-now-button" ><mat-icon>fiber_manual_record</mat-icon>Live Now</button> -->
+                  <rating [(rating)]="sessionRating" (click)="rateThisSession()"></rating>
+                </mat-card-actions>
+                Please Rate this session:
+              </div>
+              
+          </div>
+      </div>
+      <div class="col-md-3">
+          <div class="card h-100">
+              <div class="card-header">Question Asked</div>
+              <div class="card-body">
+                <div class="chat-history-container">
+                  <div class="conversation">
+                    
+                      <section *ngIf="true">
+              
+                        <mat-list dense class="conversation-history mat-typography">
+                          <div class="conversation-container" id="conv" *ngIf="messages">
+                            <mat-list-item *ngFor="let message of messages; let i = index" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
+                              <!-- <div class="avatar">
+                                <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
+                              </div> -->
+                              <div class="float-right">
+                                <a class="" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                                  <mat-icon>expand_more</mat-icon>
+                                </a>
+                                <mat-menu #menu="matMenu">
+                                  <!-- <button mat-menu-item (click)="reply(message._id, message.from.name, message.content)">
+                                    <mat-icon>reply</mat-icon>
+                                    <span>Reply</span>
+                                  </button> -->
+                                  <!-- <button mat-menu-item *ngIf="message.from.userId === loginUser.user.id" disabled>
+                                    <mat-icon>edit</mat-icon>
+                                    <span>Edit</span>
+                                  </button> -->
+                                  <button mat-menu-item *ngIf="loginUser.user.id == 2" (click)="deleteMessage(lectureId, courseId, message._id, i)">
+                                    <mat-icon>delete_forever</mat-icon>
+                                    <span>Delete</span>
+                                  </button>
+                                </mat-menu>                    
+                              </div>
+                              <h5 *ngIf="message.action === undefined"><b>{{message.from.name}}</b></h5>
+                              <span *ngIf="message.action === undefined">
+                                {{message.content}}
+                              </span>
+                              <!-- {{message.content}} -->
+                              <span class="metadata">
+                                  <span class="time">{{ message.created_at | date:'h:mm a'}}</span>
+                                  <span *ngIf="message.from.userId === loginUser.user.id" class="tick"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7"/></svg></span>
+                              </span>
+                              <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">
+                                <span> <b>{{message.from.name}}</b> joined to the conversation. </span>
+                              </p>
+                              <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">
+                                <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>
+                              </p>
+                            </mat-list-item>
+                          </div>
+                          
+                        </mat-list>
+                      </section>
+                  </div>
+                </div>
+              </div>
+          </div>
+      </div>
+  </div>
 </div>
-<mat-card class="example-card">
-  
-  <mat-card-content>
-    <div class="iframe-container">
-      <iframe width="660" height="415" [src]="videoUrl | safeUrl" *ngIf="videoUrl" frameborder="0" allowfullscreen></iframe>
-    </div>
-  </mat-card-content>
-  <mat-card-content>
-    <mat-card-title><h2>{{session.session_name}}</h2></mat-card-title>
-    <mat-card-subtitle>{{session.presentation}}</mat-card-subtitle>
-  </mat-card-content>
-  <!-- <mat-card-actions>
-    <a mat-raised-button color="primary" [routerLink]="['/question-edit', session.lecture_id]"><mat-icon>edit</mat-icon></a>
-    <a mat-raised-button color="warn" (click)="deleteSession(session.lecture_id)"><mat-icon>delete</mat-icon></a>
-  </mat-card-actions> -->
-</mat-card>
+
   

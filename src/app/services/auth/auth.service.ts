@@ -23,12 +23,18 @@ export class AuthService {
   private user: User;
   public admin: boolean = false;
 
+  /**
+   *Create an instance of AuthService
+   * @param {HttpClient} http
+   * @param {Router} router
+   * @memberof AuthService
+   */
   constructor(private http: HttpClient, private router: Router) { }
 
   private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
-      console.error('An error occurred:', error.error.message);
+      console.error('An error occurred client-side:', error.error.message);
     } else {
       // The backend returned an unsuccessful response code.
       // The response body may contain clues as to what went wrong,
@@ -66,19 +72,24 @@ export class AuthService {
       
   }
 
-	private setSession(authResult) {
-	    const expiresAt = moment().add(authResult.expiresIn,'second');
-
-	    localStorage.setItem('id_token', authResult.idToken);
-	    localStorage.setItem("expires_at", JSON.stringify(expiresAt.valueOf()) );
-	}          
+  public setUserLastActive(status = 1): Observable<any>{
+    
+    //const url = `${apiUrl}/loggedin`;
+    const url = phpApiUrl + '/set-user-last-active/'+ status;
+    console.log(url);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+      
+  }       
 
 	public logout() {
-	    localStorage.removeItem("currentUser");
-      localStorage.removeItem("id_token");
-      localStorage.removeItem("expires_at");
-      this.router.navigate(['/login']);
-	    
+
+    localStorage.removeItem("currentUser");
+    localStorage.removeItem("id_token");
+    localStorage.removeItem("expires_at");
+    
+    this.router.navigate(['/login']);
 	}
 
 	public isLoggedIn() {
@@ -113,6 +124,99 @@ export class AuthService {
        user = roles;
        return user;
       }));
+  }
+
+  getLiveLectureUrl(): Observable<any> {
+    const url = phpApiUrl +'/live_lecture';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getVideoLectureLogById(data): Observable<any> {
+    const url = phpApiUrl +'/video-lecture-log';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+  getStudyMaterialByCourseList(data): Observable<any> {
+    const url = phpApiUrl +'/study-material';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  rateThisSession(data): Observable<any> {
+    const url = phpApiUrl +'/rate_session';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  getLoginInfoFromEdusatLms(): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+  getPublishedLectureByCourseId(course_id: number): Observable<any> {
+    
+    const url = phpApiUrl +'/lecture/' + course_id;
+    console.log(url);
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getChatHistory(lecture_id: number, course_id: number): Observable<any> {
+    const chatApiUrl = `${environment.apiUrl}/chat/${lecture_id}/${course_id}`;
+    return this.http.get(chatApiUrl, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  deleteMessage(lecture_id: number, course_id: number, id: string): Observable<{}> {
+    const url = `${environment.apiUrl}/chat/${lecture_id}/${course_id}/${id}`;
+    return this.http.delete(url, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  handRaise(data): Observable<any> {
+    const url = phpApiUrl +'/hand_raise';
+    return this.http.post(url, data, httpOptions).pipe(
+      catchError(this.handleError));
+  }
+
+  public postRate(data): Observable<any> {
+
+    const url = phpApiUrl + '/rate_session';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
+  getLastActiveUsers(): Observable<any> {
+    const url = phpApiUrl +'/last-active-users';
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  getLastActiveUserByCourseId(courseId): Observable<any> {
+    const url = phpApiUrl +'/last-active-users/'+ courseId;
+    return this.http.get(url, httpOptions).pipe(
+      map(this.extractData),
+      catchError(this.handleError));
+  }
+
+  submitAttendance(data) {
+    const url = phpApiUrl + '/submit_attendance';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
 

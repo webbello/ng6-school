@@ -16,6 +16,11 @@ const phpApiUrl = `${environment.phpApiUrl}`;
 })
 export class OfflineSessionService {
 
+  /**
+   * Create an instance of OfflineSessionService
+   * @param {HttpClient} http
+   * @memberof OfflineSessionService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {
@@ -46,11 +51,29 @@ export class OfflineSessionService {
       catchError(this.handleError));
   }
 
+  getOfflineSessionByRegisterdCourse(data) {
+    const url = phpApiUrl +'/offline-session-by-courses';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
+  }
+
   getOfflineSession(id: string): Observable<any> {
     const url = phpApiUrl +'/offline-session/'+id;
     return this.http.get(url, httpOptions).pipe(
       map(this.extractData),
       catchError(this.handleError));
+  }
+
+  getOfflineSessionFilter(data) {
+    const url = phpApiUrl +'/offline-session';
+  	//console.log(url);
+    return this.http.post(url, data, httpOptions)
+      .pipe(
+        catchError(this.handleError)
+      );
   }
 
   deleteSession(id: string): Observable<{}> {

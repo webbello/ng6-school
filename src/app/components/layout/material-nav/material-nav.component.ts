@@ -19,14 +19,26 @@ export class MaterialNavComponent {
     
   constructor(private breakpointObserver: BreakpointObserver, public authService: AuthService) {}
 	changeTheme(): void {
-	this.isDarkTheme = !this.isDarkTheme;
-	const body = document.getElementsByTagName('body')[0];
-	if (this.isDarkTheme) {
-		//this.isDarkTheme = false;
-		body.classList.add('iirs-dark-theme');
-	} else {
-		//this.isDarkTheme = true;
-		body.classList.remove('iirs-dark-theme');
+		this.isDarkTheme = !this.isDarkTheme;
+		const body = document.getElementsByTagName('body')[0];
+		if (this.isDarkTheme) {
+			//this.isDarkTheme = false;
+			body.classList.add('iirs-dark-theme');
+		} else {
+			//this.isDarkTheme = true;
+			body.classList.remove('iirs-dark-theme');
+		}
 	}
+	logout() {
+		if (this.authService.isLoggedIn()) {
+
+			this.authService.setUserLastActive(0)
+			.subscribe(res => {
+				console.log('AuthGuard',res);
+			}, err => {
+				console.log(err);
+			});
+			this.authService.logout();
+		}
 	}
 }

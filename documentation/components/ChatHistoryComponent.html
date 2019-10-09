@@ -1,0 +1,1140 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title>E-CLASS documentation</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+	      <link rel="stylesheet" href="../styles/style.css">
+    </head>
+    <body>
+
+        <div class="navbar navbar-default navbar-fixed-top visible-xs">
+            <a href="../" class="navbar-brand">E-CLASS documentation</a>
+            <button type="button" class="btn btn-default btn-menu ion-ios-menu" id="btn-menu"></button>
+        </div>
+
+        <div class="xs-menu menu" id="mobile-menu">
+                <div id="book-search-input" role="search"><input type="text" placeholder="Type to search"></div>            <compodoc-menu></compodoc-menu>
+        </div>
+
+        <div class="container-fluid main">
+           <div class="row main">
+               <div class="hidden-xs menu">
+                   <compodoc-menu mode="normal"></compodoc-menu>
+               </div>
+               <!-- START CONTENT -->
+               <div class="content component">
+                   <div class="content-data">
+
+
+
+
+<ol class="breadcrumb">
+  <li>Components</li>
+  <li>ChatHistoryComponent</li>
+</ol>
+
+<ul class="nav nav-tabs" role="tablist">
+        <li class="active">
+            <a href="#info" role="tab" id="info-tab" data-toggle="tab" data-link="info">Info</a>
+        </li>
+        <li >
+            <a href="#source" role="tab" id="source-tab" data-toggle="tab" data-link="source">Source</a>
+        </li>
+        <li >
+            <a href="#templateData" role="tab" id="templateData-tab" data-toggle="tab" data-link="template">Template</a>
+        </li>
+        <li >
+            <a href="#styleData" role="tab" id="styleData-tab" data-toggle="tab" data-link="style">Styles</a>
+        </li>
+        <li >
+            <a href="#tree" role="tab" id="tree-tab" data-toggle="tab" data-link="dom-tree">DOM Tree</a>
+        </li>
+</ul>
+
+<div class="tab-content">
+    <div class="tab-pane fade active in" id="c-info"><p class="comment">
+    <h3>File</h3>
+</p>
+<p class="comment">
+    <code>src/app/components/chat-history/chat-history.component.ts</code>
+</p>
+
+
+
+    <p class="comment">
+        <h3>Implements</h3>
+    </p>
+    <p class="comment">
+                    <code><a href="https://angular.io/api/core/OnInit" target="_blank" >OnInit</a></code>
+    </p>
+
+
+<section>
+    <h3>Metadata</h3>
+    <table class="table table-sm table-hover">
+        <tbody>
+
+
+
+
+
+
+
+
+
+
+
+            <tr>
+                <td class="col-md-3">selector</td>
+                <td class="col-md-9"><code>app-chat-history</code></td>
+            </tr>
+
+            <tr>
+                <td class="col-md-3">styleUrls</td>
+                <td class="col-md-9"><code>./chat-history.component.scss</code></td>
+            </tr>
+
+
+
+            <tr>
+                <td class="col-md-3">templateUrl</td>
+                <td class="col-md-9"><code>./chat-history.component.html</code></td>
+            </tr>
+
+
+
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="index">Index</h3>
+    <table class="table table-sm table-bordered index-table">
+        <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Properties</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#action">action</a>
+                            </li>
+                            <li>
+                                <a href="#courseId">courseId</a>
+                            </li>
+                            <li>
+                                <a href="#courseList">courseList</a>
+                            </li>
+                            <li>
+                                <a href="#lectureId">lectureId</a>
+                            </li>
+                            <li>
+                                <a href="#lectureList">lectureList</a>
+                            </li>
+                            <li>
+                                <a href="#loginUser">loginUser</a>
+                            </li>
+                            <li>
+                                <a href="#messages">messages</a>
+                            </li>
+                            <li>
+                                <a href="#user">user</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                        <h6><b>Methods</b></h6>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="col-md-4">
+                        <ul class="index-list">
+                            <li>
+                                <a href="#getChatHistory">getChatHistory</a>
+                            </li>
+                            <li>
+                                <a href="#getLecturesByCourseId">getLecturesByCourseId</a>
+                            </li>
+                            <li>
+                                <a href="#ngOnInit">ngOnInit</a>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+
+
+
+
+
+        </tbody>
+    </table>
+</section>
+
+    <section>
+    <h3 id="constructor">Constructor</h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+<code>constructor(authService: <a href="../injectables/AuthService.html">AuthService</a>, quizService: <a href="../injectables/QuizService.html">QuizService</a>)</code>
+                    </td>
+                </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+                <tr>
+                    <td class="col-md-4">
+                            <div>
+                                    <b>Parameters :</b>
+                                    <table class="params">
+                                        <thead>
+                                            <tr>
+                                                <td>Name</td>
+                                                    <td>Type</td>
+                                                <td>Optional</td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                                <tr>
+                                                        <td>authService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/AuthService.html" target="_self" >AuthService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                                <tr>
+                                                        <td>quizService</td>
+                                                  
+                                                        <td>
+                                                                        <code><a href="../injectables/QuizService.html" target="_self" >QuizService</a></code>
+                                                        </td>
+                                                  
+                                                    <td>
+                                                            No
+                                                    </td>
+                                                    
+                                                </tr>
+                                        </tbody>
+                                    </table>
+                            </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+</section>
+
+
+
+
+
+    <section>
+    
+    <h3 id="methods">
+        Methods
+    </h3>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getChatHistory"></a>
+                    <span class="name">
+                        <b>
+                            getChatHistory
+                        </b>
+                        <a href="#getChatHistory"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getChatHistory()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="57"
+                            class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:57</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="getLecturesByCourseId"></a>
+                    <span class="name">
+                        <b>
+                            getLecturesByCourseId
+                        </b>
+                        <a href="#getLecturesByCourseId"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>getLecturesByCourseId()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="45"
+                            class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:45</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <table class="table table-sm table-bordered">
+        <tbody>
+            <tr>
+                <td class="col-md-4">
+                    <a name="ngOnInit"></a>
+                    <span class="name">
+                        <b>
+                            ngOnInit
+                        </b>
+                        <a href="#ngOnInit"><span class="icon ion-ios-link"></span></a>
+                    </span>
+                </td>
+            </tr>
+            <tr>
+                <td class="col-md-4">
+<code>ngOnInit()</code>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+                    <div class="io-line">Defined in <a href="" data-line="24"
+                            class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:24</a></div>
+                </td>
+            </tr>
+
+
+            <tr>
+                <td class="col-md-4">
+
+                    <div class="io-description">
+                        <b>Returns : </b>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >void</a></code>
+
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+    <section>
+    
+        <h3 id="inputs">
+            Properties
+        </h3>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="action"></a>
+                        <span class="name">
+                            <b>
+                            action</b>
+                            <a href="#action"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>Action</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="13" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:13</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="courseId"></a>
+                        <span class="name">
+                            <b>
+                            courseId</b>
+                            <a href="#courseId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="16" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:16</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="courseList"></a>
+                        <span class="name">
+                            <b>
+                            courseList</b>
+                            <a href="#courseList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="17" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:17</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lectureId"></a>
+                        <span class="name">
+                            <b>
+                            lectureId</b>
+                            <a href="#lectureId"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/number" target="_blank" >number</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="18" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:18</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="lectureList"></a>
+                        <span class="name">
+                            <b>
+                            lectureList</b>
+                            <a href="#lectureList"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="19" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:19</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="loginUser"></a>
+                        <span class="name">
+                            <b>
+                            loginUser</b>
+                            <a href="#loginUser"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="14" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:14</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="messages"></a>
+                        <span class="name">
+                            <b>
+                            messages</b>
+                            <a href="#messages"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="https://www.typescriptlang.org/docs/handbook/basic-types.html" target="_blank" >any</a></code>
+
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Default value : </i><code>[]</code>
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="20" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:20</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+        <table class="table table-sm table-bordered">
+            <tbody>
+                <tr>
+                    <td class="col-md-4">
+                        <a name="user"></a>
+                        <span class="name">
+                            <b>
+                            user</b>
+                            <a href="#user"><span class="icon ion-ios-link"></span></a>
+                        </span>
+                    </td>
+                </tr>
+                    <tr>
+                        <td class="col-md-4">
+                            <i>Type : </i>        <code><a href="../interfaces/User.html" target="_self" >User</a></code>
+
+                        </td>
+                    </tr>
+                        <tr>
+                            <td class="col-md-4">
+                                    <div class="io-line">Defined in <a href="" data-line="15" class="link-to-prism">src/app/components/chat-history/chat-history.component.ts:15</a></div>
+                            </td>
+                        </tr>
+
+
+            </tbody>
+        </table>
+</section>
+
+</div>
+
+
+    <div class="tab-pane fade  tab-source-code" id="c-source">
+        <pre class="line-numbers compodoc-sourcecode"><code class="language-typescript">import { Component, OnInit } from &#x27;@angular/core&#x27;;
+import { AuthService } from &#x27;../../services/auth/auth.service&#x27;;
+import { QuizService } from &#x27;../../services/quiz/quiz.service&#x27;;
+import { Action } from &#x27;../../models/chat/action&#x27;;
+import { User } from &#x27;../../models/chat/user&#x27;;
+
+@Component({
+  selector: &#x27;app-chat-history&#x27;,
+  templateUrl: &#x27;./chat-history.component.html&#x27;,
+  styleUrls: [&#x27;./chat-history.component.scss&#x27;]
+})
+export class ChatHistoryComponent implements OnInit {
+  action &#x3D; Action;
+  loginUser: any;
+  user: User;
+  courseId: number;
+  courseList: any &#x3D; [];
+  lectureId: number;
+  lectureList: any &#x3D; [];
+  messages: any &#x3D; [];
+
+  constructor(private authService: AuthService, private quizService: QuizService) { }
+
+  ngOnInit() {
+    this.authService.getLoginUser()
+	      .subscribe(res &#x3D;&gt; {
+	        console.log(res);
+	        this.loginUser &#x3D; res;
+	        this.user &#x3D; {
+		      userId: res.user.id,
+		      name: res.user.name
+		    };
+	      }, err &#x3D;&gt; {
+	        console.log(err);
+		  });
+    this.quizService.getCourses()
+      .subscribe(res &#x3D;&gt; {
+        console.log(res.courses);
+        this.courseList &#x3D; res.courses;
+      }, err &#x3D;&gt; {
+        console.log(err);
+      });
+  }
+
+  getLecturesByCourseId() {
+    console.log(this.courseId);
+    this.authService.getPublishedLectureByCourseId(this.courseId)
+      .subscribe(res &#x3D;&gt; {
+        console.log(&#x27;lectureList&#x27;, res.data);
+        //this.loginUser &#x3D; res;
+        this.lectureList &#x3D; res.data;
+      }, err &#x3D;&gt; {
+        console.log(err);
+      });
+  }
+
+  getChatHistory(){
+    console.log(this.lectureId);
+		this.authService.getChatHistory(this.lectureId, this.courseId)
+			.subscribe(res &#x3D;&gt; {
+				console.log(&#x27;getChatHistory&#x27;, res);
+				if (res.message) {
+					this.messages &#x3D; res.message;
+				}
+				console.log(&#x27;getChatHistory&#x27;, this.messages);
+
+			}, err &#x3D;&gt; {
+				console.log(err);
+			});
+	}
+
+}
+</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-templateData">
+        <pre class="line-numbers"><code class="language-html">&lt;mat-form-field class&#x3D;&quot;full-width&quot;&gt;
+    &lt;mat-select placeholder&#x3D;&quot;Course&quot; [(value)]&#x3D;&quot;courseId&quot;&gt;
+      &lt;mat-option *ngFor&#x3D;&quot;let course of courseList&quot; [value]&#x3D;&quot;course.id&quot; (click)&#x3D;&quot;getLecturesByCourseId()&quot;&gt;{{course.id}}: {{course.fullname}}&lt;/mat-option&gt;
+    &lt;/mat-select&gt;
+&lt;/mat-form-field&gt;
+&lt;mat-form-field class&#x3D;&quot;full-width&quot;&gt;
+    &lt;mat-select placeholder&#x3D;&quot;Lecture&quot; [(value)]&#x3D;&quot;lectureId&quot;&gt;
+      &lt;mat-option *ngFor&#x3D;&quot;let lecture of lectureList&quot; [value]&#x3D;&quot;lecture.lecture_id&quot; (click)&#x3D;&quot;getChatHistory()&quot;&gt;{{lecture.session_name}}&lt;/mat-option&gt;
+    &lt;/mat-select&gt;
+&lt;/mat-form-field&gt;
+
+&lt;!-- &lt;mat-divider&gt;&lt;/mat-divider&gt; --&gt;
+
+&lt;div class&#x3D;&quot;chat-history-container&quot;&gt;
+    &lt;div class&#x3D;&quot;conversation&quot;&gt;
+      
+        &lt;section *ngIf&#x3D;&quot;true&quot;&gt;
+
+          &lt;mat-list dense class&#x3D;&quot;conversation-history mat-typography&quot;&gt;
+            &lt;div class&#x3D;&quot;conversation-container&quot; id&#x3D;&quot;conv&quot; *ngIf&#x3D;&quot;messages&quot;&gt;
+              &lt;mat-list-item *ngFor&#x3D;&quot;let message of messages&quot; [class]&#x3D;&quot;message.from.userId &#x3D;&#x3D;&#x3D; loginUser.user.id ? &#x27;message sent&#x27; : &#x27;message received&#x27;&quot; class&#x3D;&quot;message sent&quot;&gt;
+                &lt;!-- &lt;div class&#x3D;&quot;avatar&quot;&gt;
+                  &lt;img mat-list-avatar *ngIf&#x3D;&quot;message.action &#x3D;&#x3D;&#x3D; undefined&quot; [src]&#x3D;&quot;message.from.avatar&quot;&gt;
+                &lt;/div&gt; --&gt;
+                &lt;h5 *ngIf&#x3D;&quot;message.action &#x3D;&#x3D;&#x3D; undefined&quot;&gt;&lt;b&gt;{{message.from.name}}&lt;/b&gt;&lt;/h5&gt;
+                &lt;span *ngIf&#x3D;&quot;message.action &#x3D;&#x3D;&#x3D; undefined&quot;&gt;
+                  {{message.content}}
+                &lt;/span&gt;
+                &lt;!-- {{message.content}} --&gt;
+                &lt;span class&#x3D;&quot;metadata&quot;&gt;
+                    &lt;span class&#x3D;&quot;time&quot;&gt;{{ message.created_at | date:&#x27;h:mm a&#x27;}}&lt;/span&gt;
+                    &lt;span *ngIf&#x3D;&quot;message.from.userId &#x3D;&#x3D;&#x3D; loginUser.user.id&quot; class&#x3D;&quot;tick&quot;&gt;&lt;svg xmlns&#x3D;&quot;http://www.w3.org/2000/svg&quot; width&#x3D;&quot;16&quot; height&#x3D;&quot;15&quot; id&#x3D;&quot;msg-dblcheck-ack&quot; x&#x3D;&quot;2063&quot; y&#x3D;&quot;2076&quot;&gt;&lt;path d&#x3D;&quot;M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z&quot; fill&#x3D;&quot;#4fc3f7&quot;/&gt;&lt;/svg&gt;&lt;/span&gt;
+                &lt;/span&gt;
+                &lt;p mat-line *ngIf&#x3D;&quot;message.action &#x3D;&#x3D;&#x3D; action.JOINED&quot; class&#x3D;&quot;chat-notification&quot;&gt;
+                  &lt;span&gt; &lt;b&gt;{{message.from.name}}&lt;/b&gt; joined to the conversation. &lt;/span&gt;
+                &lt;/p&gt;
+                &lt;p mat-line *ngIf&#x3D;&quot;message.action &#x3D;&#x3D;&#x3D; action.RENAME&quot; class&#x3D;&quot;chat-notification&quot;&gt;
+                  &lt;span&gt; &lt;b&gt;{{message.content.previousUsername}}&lt;/b&gt; is now &lt;b&gt;{{message.content.username}}&lt;/b&gt; &lt;/span&gt;
+                &lt;/p&gt;
+              &lt;/mat-list-item&gt;
+            &lt;/div&gt;
+            
+          &lt;/mat-list&gt;
+        &lt;/section&gt;
+    &lt;/div&gt;
+&lt;/div&gt;</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-styleData">
+                <p class="comment">
+                    <code>./chat-history.component.scss</code>
+                </p>
+                <pre class="line-numbers"><code class="language-scss">/* Chat */
+
+.chat {
+    height: calc(100% - 69px);
+  }
+  
+  .chat-container {
+    height: 100%;
+  }
+  
+  /* Conversation */
+  
+  .mat-drawer.mat-drawer-side {
+      padding: 0 5px;
+  }
+  
+  .container ::ng-deep .mat-tab-label {
+      min-width: 100px;
+  }
+  
+  
+  .divider {
+      width: 100%;
+  }
+  
+  .empty-conversation {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+  }
+  
+  .conversation-header h2, .conversation-header p {
+      align-items: center;
+      display: flex;
+  }
+  
+  
+  .text-center {
+      text-align: center;
+      width: 100%;
+  }
+  
+  .conversation-history.mat-list {
+      height: calc(100% - 210px);
+      //overflow-x: scroll;
+      position: absolute;
+      width: calc(100% - 30px);
+      background: #efe7dd url(&quot;https://i.pinimg.com/originals/a5/c2/44/a5c244761a4573da8dd2d55d66ee7b72.jpg&quot;) repeat;
+      z-index: 0;
+  }
+  .conversation .conversation-container {
+    height: 100%;
+    box-shadow: inset 0 10px 10px -10px #000000;
+    overflow-x: hidden;
+    padding: 0 16px;
+    margin-bottom: 5px;
+  }
+  .conversation .conversation-container:after {
+    content: &quot;&quot;;
+    display: table;
+    clear: both;
+  }
+  .conversation-history.mat-list p {
+      margin: 0;
+  }
+  
+  .empty-conversation h1 {
+      margin: 0;
+  }
+  
+  .conversations .mat-list-item {
+      cursor: pointer;
+  }
+  
+  .create-conversation {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+  }
+  
+  .mat-card {
+      height: 100%;
+      padding: 0 24px;
+      overflow: scroll;
+  }
+  
+  
+  .conversation-input {
+      position: absolute;
+      bottom: 0.1em;
+      width: 100%;
+      padding: 5px;
+      //background-color: #fafafa;
+  }
+  
+  section .mat-list .mat-list-avatar{
+      width: 25px;
+      height: 25px;
+  }
+  
+  .mat-list-avatar {
+      margin: 0 5px;
+  }
+  
+  .right {
+      text-align: right;
+  }
+  
+  .full-width {
+      width: 100%;
+  }
+  
+  .full-width .mat-icon {
+      cursor: pointer;
+  }
+  
+  .all-conversations {
+      opacity: 0.7;
+  }
+  
+  /* Messages */
+  
+  .message {
+    color: #000;
+    clear: both;
+    line-height: 18px;
+    font-size: 15px;
+    padding: 8px;
+    position: relative;
+    margin: 8px 0;
+    max-width: 85%;
+    word-wrap: break-word;
+    z-index: -1;
+  }
+  
+  .message:after {
+    position: absolute;
+    content: &quot;&quot;;
+    width: 0;
+    height: 0;
+    border-style: solid;
+  }
+  
+  
+  .metadata {
+    display: inline-block;
+    float: right;
+    padding: 0 0 0 7px;
+    position: relative;
+    bottom: -4px;
+  }
+  
+  .metadata .time {
+    color: rgba(0, 0, 0, .45);
+    font-size: 11px;
+    display: inline-block;
+  }
+  
+  .metadata .tick {
+    display: inline-block;
+    margin-left: 2px;
+    position: relative;
+    top: 4px;
+    height: 16px;
+    width: 16px;
+  }
+  
+  .metadata .tick svg {
+    position: absolute;
+    transition: .5s ease-in-out;
+  }
+  
+  .metadata .tick svg:first-child {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transform: perspective(800px) rotateY(180deg);
+            transform: perspective(800px) rotateY(180deg);
+  }
+  
+  .metadata .tick svg:last-child {
+    -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+    -webkit-transform: perspective(800px) rotateY(0deg);
+            transform: perspective(800px) rotateY(0deg);
+  }
+  
+  .metadata .tick-animation svg:first-child {
+    -webkit-transform: perspective(800px) rotateY(0);
+            transform: perspective(800px) rotateY(0);
+  }
+  
+  .metadata .tick-animation svg:last-child {
+    -webkit-transform: perspective(800px) rotateY(-179.9deg);
+            transform: perspective(800px) rotateY(-179.9deg);
+  }
+  
+  .message:first-child {
+    margin: 16px 0 8px;
+  }
+  
+  .message.received {
+    background: #fff;
+    border-radius: 0px 5px 5px 5px;
+    float: left;
+  }
+  
+  .message.received .metadata {
+    padding: 0 0 0 16px;
+  }
+  
+  .message.received:after {
+    border-width: 0px 10px 10px 0;
+    border-color: transparent #fff transparent transparent;
+    top: 0;
+    left: -10px;
+  }
+  
+  .message.sent {
+    background: #e1ffc7;
+    border-radius: 5px 0px 5px 5px;
+    float: right;
+  }
+  
+  .message.sent:after {
+    border-width: 0px 0 10px 10px;
+    border-color: transparent transparent transparent #e1ffc7;
+    top: 0;
+    right: -10px;
+  }
+  
+  
+  section .mat-list .mat-list-avatar{
+      width: 25px;
+      height: 25px;
+  }
+  
+  .mat-list-avatar {
+      margin: 0 5px;
+  }
+  
+  .avatar {
+      position: relative;
+  }
+  .base_receive &gt; .avatar:after {
+      content: &quot;&quot;;
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 0;
+      height: 0;
+      border: 5px solid #FFF;
+      border-left-color: rgba(0, 0, 0, 0);
+      border-bottom-color: rgba(0, 0, 0, 0);
+  }
+  
+  .base_sent {
+    justify-content: flex-end;
+    align-items: flex-end;
+  }
+  .base_sent &gt; .avatar:after {
+      content: &quot;&quot;;
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0;
+      height: 0;
+      border: 5px solid white;
+      border-right-color: transparent;
+      border-top-color: transparent;
+      box-shadow: 1px 1px 2px rgba(black, 0.2); // not quite perfect but close
+  }
+  
+  // Small devices (landscape phones, 576px and up)
+  @media (max-width: 767px) { 
+    .conversation-history.mat-list {
+      height: 500px;
+      //overflow-x: scroll;
+      position: relative;
+      width: 100%;
+      background: #efe7dd url(&quot;https://i.pinimg.com/originals/a5/c2/44/a5c244761a4573da8dd2d55d66ee7b72.jpg&quot;) repeat;
+      z-index: 0;
+    }
+    .conversation .conversation-container {
+      height: 100%;
+      box-shadow: inset 0 10px 10px -10px #000000;
+      overflow-x: hidden;
+      padding: 0 16px;
+      margin-bottom: 5px;
+    }
+  
+    .conversation-input {
+      position: relative;
+      bottom: 0.1em;
+      width: 100%;
+      background-color: white !important;
+    }
+  }</code></pre>
+    </div>
+
+    <div class="tab-pane fade " id="c-tree">
+        <div id="tree-container"></div>
+        <div class="tree-legend">
+            <div class="title">
+                <b>Legend</b>
+            </div>
+            <div>
+                <div class="color htmlelement"></div><span>Html element</span>
+            </div>
+            <div>
+                <div class="color component"></div><span>Component</span>
+            </div>
+            <div>
+                <div class="color directive"></div><span>Html element with directive</span>
+            </div>
+        </div>
+    </div>
+
+    
+</div>
+
+<script src="../js/libs/vis.min.js"></script>
+<script src="../js/libs/htmlparser.js"></script>
+<script src="../js/libs/deep-iterator.js"></script>
+<script>
+        var COMPONENT_TEMPLATE = '<div><mat-form-field class="full-width">    <mat-select placeholder="Course" [(value)]="courseId">      <mat-option *ngFor="let course of courseList" [value]="course.id" (click)="getLecturesByCourseId()">{{course.id}}: {{course.fullname}}</mat-option>    </mat-select></mat-form-field><mat-form-field class="full-width">    <mat-select placeholder="Lecture" [(value)]="lectureId">      <mat-option *ngFor="let lecture of lectureList" [value]="lecture.lecture_id" (click)="getChatHistory()">{{lecture.session_name}}</mat-option>    </mat-select></mat-form-field><!-- <mat-divider></mat-divider> --><div class="chat-history-container">    <div class="conversation">              <section *ngIf="true">          <mat-list dense class="conversation-history mat-typography">            <div class="conversation-container" id="conv" *ngIf="messages">              <mat-list-item *ngFor="let message of messages" [class]="message.from.userId === loginUser.user.id ? \'message sent\' : \'message received\'" class="message sent">                <!-- <div class="avatar">                  <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">                </div> -->                <h5 *ngIf="message.action === undefined"><b>{{message.from.name}}</b></h5>                <span *ngIf="message.action === undefined">                  {{message.content}}                </span>                <!-- {{message.content}} -->                <span class="metadata">                    <span class="time">{{ message.created_at | date:\'h:mm a\'}}</span>                    <span *ngIf="message.from.userId === loginUser.user.id" class="tick"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="15" id="msg-dblcheck-ack" x="2063" y="2076"><path d="M15.01 3.316l-.478-.372a.365.365 0 0 0-.51.063L8.666 9.88a.32.32 0 0 1-.484.032l-.358-.325a.32.32 0 0 0-.484.032l-.378.48a.418.418 0 0 0 .036.54l1.32 1.267a.32.32 0 0 0 .484-.034l6.272-8.048a.366.366 0 0 0-.064-.512zm-4.1 0l-.478-.372a.365.365 0 0 0-.51.063L4.566 9.88a.32.32 0 0 1-.484.032L1.892 7.77a.366.366 0 0 0-.516.005l-.423.433a.364.364 0 0 0 .006.514l3.255 3.185a.32.32 0 0 0 .484-.033l6.272-8.048a.365.365 0 0 0-.063-.51z" fill="#4fc3f7"/></svg></span>                </span>                <p mat-line *ngIf="message.action === action.JOINED" class="chat-notification">                  <span> <b>{{message.from.name}}</b> joined to the conversation. </span>                </p>                <p mat-line *ngIf="message.action === action.RENAME" class="chat-notification">                  <span> <b>{{message.content.previousUsername}}</b> is now <b>{{message.content.username}}</b> </span>                </p>              </mat-list-item>            </div>                      </mat-list>        </section>    </div></div></div>'
+    var COMPONENTS = [{'name': 'AppComponent', 'selector': 'app-root'},{'name': 'BookComponent', 'selector': 'app-book'},{'name': 'BookCreateComponent', 'selector': 'app-book-create'},{'name': 'BookDetailComponent', 'selector': 'app-book-detail'},{'name': 'BookEditComponent', 'selector': 'app-book-edit'},{'name': 'ChatComponent', 'selector': 'app-chat'},{'name': 'ChatHistoryComponent', 'selector': 'app-chat-history'},{'name': 'FacultyAddComponent', 'selector': 'app-faculty-add'},{'name': 'LoginComponent', 'selector': 'app-login'},{'name': 'MaterialDashboardComponent', 'selector': 'app-material-dashboard'},{'name': 'MaterialNavComponent', 'selector': 'app-material-nav'},{'name': 'OfflineSessionComponent', 'selector': 'app-offline-session'},{'name': 'OfflineSessionDetailComponent', 'selector': 'app-offline-session-detail'},{'name': 'OfflineSessionDialog', 'selector': 'offline-session-dialog'},{'name': 'OnlineUsersComponent', 'selector': 'app-online-users'},{'name': 'QuestionComponent', 'selector': 'app-question'},{'name': 'QuestionCreateComponent', 'selector': 'app-question-create'},{'name': 'QuestionDetailComponent', 'selector': 'app-question-detail'},{'name': 'QuestionEditComponent', 'selector': 'app-question-edit'},{'name': 'QuizComponent', 'selector': 'app-quiz'},{'name': 'QuizCreateComponent', 'selector': 'app-quiz-create'},{'name': 'QuizDetailComponent', 'selector': 'app-quiz-detail'},{'name': 'QuizEditComponent', 'selector': 'app-quiz-edit'},{'name': 'QuizListComponent', 'selector': 'app-quiz-list'},{'name': 'RatingComponent', 'selector': 'rating'},{'name': 'ReportsComponent', 'selector': 'app-reports'},{'name': 'SidebarComponent', 'selector': 'app-sidebar'},{'name': 'SignupComponent', 'selector': 'app-signup'},{'name': 'StudentAddComponent', 'selector': 'app-student-add'},{'name': 'StudentDetailsComponent', 'selector': 'app-student-details'},{'name': 'StudentListComponent', 'selector': 'app-student-list'},{'name': 'UserProfileComponent', 'selector': 'app-user-profile'}];
+    var DIRECTIVES = [];
+    var ACTUAL_COMPONENT = {'name': 'ChatHistoryComponent'};
+</script>
+<script src="../js/tree.js"></script>
+
+
+
+
+
+
+
+
+
+
+                   
+
+
+
+
+                   </div><div class="search-results">
+    <div class="has-results">
+        <h1 class="search-results-title"><span class='search-results-count'></span> result-matching "<span class='search-query'></span>"</h1>
+        <ul class="search-results-list"></ul>
+    </div>
+    <div class="no-results">
+        <h1 class="search-results-title">No results matching "<span class='search-query'></span>"</h1>
+    </div>
+</div>
+</div>
+               <!-- END CONTENT -->
+           </div>
+       </div>
+
+       <script>
+            var COMPODOC_CURRENT_PAGE_DEPTH = 1;
+            var COMPODOC_CURRENT_PAGE_CONTEXT = 'component';
+            var COMPODOC_CURRENT_PAGE_URL = 'ChatHistoryComponent.html';
+       </script>
+
+       <script src="../js/libs/custom-elements.min.js"></script>
+       <script src="../js/libs/lit-html.js"></script>
+       <!-- Required to polyfill modern browsers as code is ES5 for IE... -->
+       <script src="../js/libs/custom-elements-es5-adapter.js" charset="utf-8" defer></script>
+       <script src="../js/menu-wc.js" defer></script>
+
+       <script src="../js/libs/bootstrap-native.js"></script>
+
+       <script src="../js/libs/es6-shim.min.js"></script>
+       <script src="../js/libs/EventDispatcher.js"></script>
+       <script src="../js/libs/promise.min.js"></script>
+       <script src="../js/libs/zepto.min.js"></script>
+
+       <script src="../js/compodoc.js"></script>
+
+       <script src="../js/tabs.js"></script>
+       <script src="../js/menu.js"></script>
+       <script src="../js/libs/clipboard.min.js"></script>
+       <script src="../js/libs/prism.js"></script>
+       <script src="../js/sourceCode.js"></script>
+          <script src="../js/search/search.js"></script>
+          <script src="../js/search/lunr.min.js"></script>
+          <script src="../js/search/search-lunr.js"></script>
+          <script src="../js/search/search_index.js"></script>
+       <script src="../js/lazy-load-graphs.js"></script>
+
+
+    </body>
+</html>

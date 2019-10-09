@@ -8,14 +8,6 @@
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\drawable-land-xhdpi\\screen.png"
     },
     {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi-v26_ic_launcher_background.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi-v26\\ic_launcher_background.png"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-ldpi_ic_launcher.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi\\ic_launcher.png"
-    },
-    {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi-v26_ic_launcher_background.png.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi-v26\\ic_launcher_background.png"
     },
@@ -40,14 +32,6 @@
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi-v26\\ic_launcher_foreground.png"
     },
     {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-ldpi-v26_ic_launcher.xml.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi-v26\\ic_launcher.xml"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_ic_launcher.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher.png"
-    },
-    {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\drawable-port-xxhdpi_screen.png.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\drawable-port-xxhdpi\\screen.png"
     },
@@ -56,28 +40,12 @@
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\drawable-land-xxhdpi\\screen.png"
     },
     {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi-v26_ic_launcher.xml.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-mdpi-v26\\ic_launcher.xml"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi-v26_ic_launcher.xml.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi-v26\\ic_launcher.xml"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi-v26_ic_launcher_foreground.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-mdpi-v26\\ic_launcher_foreground.png"
-    },
-    {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v26_ic_launcher_foreground.png.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi-v26\\ic_launcher_foreground.png"
     },
     {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v26_ic_launcher_background.png.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi-v26\\ic_launcher_background.png"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-mdpi-v26_ic_launcher_background.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-mdpi-v26\\ic_launcher_background.png"
     },
     {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi_ic_launcher.png.flat",
@@ -104,10 +72,6 @@
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\drawable-land-mdpi\\screen.png"
     },
     {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi-v26_ic_launcher_foreground.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-hdpi-v26\\ic_launcher_foreground.png"
-    },
-    {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi-v26_ic_launcher.xml.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxhdpi-v26\\ic_launcher.xml"
     },
@@ -128,16 +92,8 @@
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\drawable-port-ldpi\\screen.png"
     },
     {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-ldpi-v26_ic_launcher_background.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi-v26\\ic_launcher_background.png"
-    },
-    {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxxhdpi-v26_ic_launcher.xml.flat",
         "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-xxxhdpi-v26\\ic_launcher.xml"
-    },
-    {
-        "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\mipmap-ldpi-v26_ic_launcher_foreground.png.flat",
-        "source": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\src\\main\\res\\mipmap-ldpi-v26\\ic_launcher_foreground.png"
     },
     {
         "merged": "D:\\Angular\\ng8-school-cordova\\platforms\\android\\app\\build\\intermediates\\res\\merged\\release\\drawable-land-xxxhdpi_screen.png.flat",

@@ -18,6 +18,11 @@ const apiUrl = `${environment.apiUrl}/question`;
 })
 export class QuestionService {
 
+  /**
+   *Create an instance of QuestionService
+   * @param {HttpClient} http
+   * @memberof QuestionService
+   */
   constructor(private http: HttpClient) { }
 
   private handleError(error: HttpErrorResponse) {

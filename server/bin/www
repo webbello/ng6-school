@@ -25,7 +25,8 @@ app.set('port', port);
 var server = http.createServer(app);
 
 
-const hostname = 'localhost';
+//const hostname = 'eclass.iirs.gov.in';
+const hostname = '192.168.17.35';
 const httpsPort = normalizePort(process.env.PORT || '3001');
 
 const httpsOptions = {
@@ -39,10 +40,12 @@ const httpsServer = https.createServer(httpsOptions, app);
 var io = require('socket.io')(server);
 
 io.on('connect', (socket) => {
+      socket.removeAllListeners();
       console.log('Connected client on port %s.', 3000);
       socket.on('message', (message) => {
-          console.log('[server](message): %s', JSON.stringify(message));
-          io.emit('message', message);
+        saveChat(message);
+        console.log('[server](message): %s', JSON.stringify(message));
+        // io.emit('message', message);
       });
 
       socket.on('quiz', (quiz) => {
@@ -66,10 +69,51 @@ io.on('connect', (socket) => {
 
 server.listen(port);
 //for https
-httpsServer.listen(httpsPort);
+httpsServer.listen(httpsPort, hostname);
 
 server.on('error', onError);
 server.on('listening', onListening);
+
+/**
+ * Save chat in mongodb.
+ * @param message 
+ */
+function saveChat(message) {
+  let Chat = require('../models/chat.js');
+  var mongoose = require('mongoose');
+  
+  var messageWithTime = {
+    _id: new mongoose.Types.ObjectId(),
+    from: {userId: message.from.userId, name: message.from.name, avatar: message.from.avatar },
+    content: message.content,
+    parent_id: message.parent_id,
+    parent_message: message.parent_message,
+    created_at: new Date()
+  }
+
+  var query = { 
+    lecture_id: message.lecture_id,
+    course_id: message.course_id
+  };
+
+  var update = { $addToSet: { message: [ messageWithTime ] } }
+
+  var options = {
+    upsert: true,
+    new: true,
+    setDefaultsOnInsert: true
+  }
+  Chat.findOneAndUpdate(query, update, options, function(err, result) {
+    if (err) {
+      //res.send(err);
+      console.log('err',err );
+      return err;
+    }
+    let lastMessage = result.message[result.message.length - 1]; 
+    io.emit('message', lastMessage);
+    console.log('New Chat Log Created', lastMessage);
+  })
+}
 
 /**
  * Normalize a port into a number, string, or false.

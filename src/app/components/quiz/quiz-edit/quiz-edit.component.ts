@@ -12,7 +12,7 @@ export class QuizEditComponent implements OnInit {
 
   quizForm: FormGroup;
   courseList: any = [];
-  courseId:number = 0;
+  courseId: number = 0;
   questionList: any = [];
   id:string = '';
   name:string = '';
@@ -27,9 +27,10 @@ export class QuizEditComponent implements OnInit {
     this.quizForm = this.formBuilder.group({
       'course' : [null, Validators.required],
       'name' : [null, Validators.required],
+      'duration' : [null, Validators.required],
       'description' : [null, Validators.required],
       'questions': [],
-      'creator' : [null, Validators.required],
+      // 'creator' : [null, Validators.required],
       'created' : [null, Validators.required]
     });
     this.api.getCourses()
@@ -44,13 +45,15 @@ export class QuizEditComponent implements OnInit {
   getQuiz(id) {
     this.api.getQuiz(id).subscribe(data => {
       this.id = data._id;
+      console.log(data);
       this.courseId = data.courseId;
       this.quizForm.setValue({
         course: data.courseId,
         name: data.name,
+        duration: data.duration,
         description: data.description,
         questions: data.questions,
-        creator: data.creator,
+        // creator: data.creator,
         created: data.created
       });
     });

@@ -22,6 +22,12 @@
         <span *ngIf="!quizForm.get('description').valid && quizForm.get('description').touched">Please enter Quiz Description</span>
       </mat-error>
     </mat-form-field>
+    <mat-form-field class="full-width">
+      <input matInput placeholder="Quiz Duration in Seconds" formControlName="duration">
+      <mat-error>
+        <span *ngIf="!quizForm.get('duration').valid && quizForm.get('duration').touched">Please enter Quiz Duration</span>
+      </mat-error>
+    </mat-form-field>
     <!-- <mat-form-field class="full-width">
       <mat-select placeholder="Questions" formControlName="questions" multiple>
         <mat-option *ngFor="let question of questionList" [value]="question._id">{{question.name}}</mat-option>
