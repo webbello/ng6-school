@@ -136,6 +136,10 @@ export class OfflineSessionDetailComponent implements OnInit {
 			  console.log(err);
 			}
 		  );
+  }
+  public scrollTo(id) {
+		var elmnt = document.getElementById(id);
+		elmnt.scrollIntoView();
 	}
   rateThisSession(){
     console.log('lectureId', this.lectureId);

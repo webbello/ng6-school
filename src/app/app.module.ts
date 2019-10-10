@@ -54,7 +54,7 @@ import { OfflineSessionComponent, OfflineSessionDialog } from './components/offl
 import { OfflineSessionDetailComponent } from './components/offline-session/detail/offline-session-detail.component';
 import { SafeUrlPipe } from './pipe/safe-url.pipe';
 import { OnlineUsersComponent } from './components/online-users/online-users.component';
-import { ReportsComponent } from './components/reports/reports.component';
+import { ReportsComponent, ReportsFilterDialog } from './components/reports/reports.component';
 import { UserProfileComponent } from './components/user-profile/user-profile.component';
 import { ChatHistoryComponent } from './components/chat-history/chat-history.component';
 
@@ -91,6 +91,7 @@ import { ChatHistoryComponent } from './components/chat-history/chat-history.com
     SafeUrlPipe,
     OnlineUsersComponent,
     ReportsComponent,
+    ReportsFilterDialog,
     UserProfileComponent,
     ChatHistoryComponent
   ],
@@ -103,7 +104,7 @@ import { ChatHistoryComponent } from './components/chat-history/chat-history.com
     BrowserAnimationsModule,
     SharedModule
   ],
-  entryComponents: [OfflineSessionDialog],
+  entryComponents: [OfflineSessionDialog, ReportsFilterDialog],
   providers: [
     BookService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },

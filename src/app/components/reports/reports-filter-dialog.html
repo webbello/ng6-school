@@ -1,0 +1,20 @@
+<!-- <h1 mat-dialog-title>Hi {{data.name}}</h1> -->
+<div mat-dialog-content >
+    <mat-form-field class="full-width">
+        <mat-select placeholder="Course" [(ngModel)]="data.course_id">
+            <!-- <mat-option [value]="" >ALL</mat-option> -->
+            <mat-option *ngFor="let course of courseList" [value]="course.id" >{{course.id}}: {{course.fullname}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+       
+    <mat-form-field class="full-width">
+        <input matInput [(ngModel)]="data.name" placeholder="Search">
+        <mat-icon matSuffix>search</mat-icon>
+    </mat-form-field>
+</div>
+<div mat-dialog-actions>
+    <button mat-button (click)="onNoClick()">Cancel</button>
+    <button mat-button [mat-dialog-close]="data" cdkFocusInitial>Filter</button>
+    <!-- <button mat-button mat-dialog-close (click)="getSessionByCourseId(data.course_id)" cdkFocusInitial>Ok</button> -->
+</div>
+    

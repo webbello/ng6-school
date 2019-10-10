@@ -105,6 +105,7 @@
   padding: 0 16px;
   margin-bottom: 5px;
 }
+
 .conversation .conversation-container:after {
   content: "";
   display: table;
@@ -261,6 +262,10 @@ section .mat-list .mat-list-avatar{
   padding-bottom: 3px;
   border-left: 2px solid rgba(124, 122, 122, 0.9);
   border-radius: 3px 3px 3px 3px;
+  cursor: pointer;
+}
+.more-option .mat-icon {
+  cursor: pointer;
 }
 .parent-container .message.received {
   background: rgb(124, 122, 122);

@@ -33,10 +33,20 @@
               
                         <mat-list dense class="conversation-history mat-typography">
                           <div class="conversation-container" id="conv" *ngIf="messages">
-                            <mat-list-item *ngFor="let message of messages; let i = index" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
+                            <mat-list-item *ngFor="let message of messages; let i = index" [id]="message._id" [class]="message.from.userId === loginUser.user.id ? 'message sent' : 'message received'" class="message sent">
                               <!-- <div class="avatar">
                                 <img mat-list-avatar *ngIf="message.action === undefined" [src]="message.from.avatar">
                               </div> -->
+                              <div *ngIf="message.parent_id" class="parent-container" >
+                                  <!-- <a > -->
+                                  <div *ngIf="message.parent_id" class="parent-quoted" (click)="scrollTo(message.parent_id)">
+                                      <h5 class="mb-0"><b>{{message.parent_message.parent_name}}</b> </h5>
+                                      <span>
+                                          {{message.parent_message.parent_content | slice:0:50}} ...
+                                      </span>
+                                    </div>
+                                  <!-- </a> -->
+                              </div>
                               <div class="float-right">
                                 <a class="" [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
                                   <mat-icon>expand_more</mat-icon>

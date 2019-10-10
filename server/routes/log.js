@@ -23,11 +23,13 @@ router.get('/reports/:date/:courseId?', function(req, res, next) {
     "created_at": {"$gte": start, "$lte": end},
     course_id: req.params.courseId };
 
-  if (req.params.courseId == undefined || req.params.courseId === 'Any') {
+  if (req.params.courseId == undefined || req.params.courseId === 'undefined' || req.params.courseId === 'Any') {
     query = { 
       "created_at": {"$gte": start, "$lte": end} 
     };
   }
+
+  console.log('query', query)
   
   Log.find(query, function (err, reports) {
     if (err) return next(err);

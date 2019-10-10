@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource} from '@angular/material/table';
 import { MatDatepickerInputEvent } from '@angular/material/datepicker';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormControl } from '@angular/forms';
 import { Chart } from 'chart.js';
 
@@ -14,6 +15,12 @@ export interface UserData {
   name: string;
   total_marks: string;
   on_create: string;
+}
+
+export interface DialogData {
+  course_id: string;
+  date: string;
+  name: string;
 }
 
 /** Constants used to fill up our data base. */
@@ -38,6 +45,7 @@ export class ReportsComponent implements OnInit {
   dataSource: MatTableDataSource<UserData>;
   quizDate: string;
   courseId = 'Any';
+  name: string;
 
   //chart data
   quiz: any = [];
@@ -73,12 +81,12 @@ export class ReportsComponent implements OnInit {
   @ViewChild(MatPaginator, {static: true}) paginator: MatPaginator;
   @ViewChild(MatSort, {static: true}) sort: MatSort;
 
-  constructor( private quizService: QuizService, private reportsService: ReportsService) {
+  constructor( private quizService: QuizService, private reportsService: ReportsService, public dialog: MatDialog) {
     var dt = new Date();
     this.quizDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
     //this.getQuizReport();
     this.getQuizReportFromMongo();
-    console.log(this.date)
+    console.log('this.date',this.date)
     
     // Assign the data to the data source for the table to render
     //this.dataSource = new MatTableDataSource(users);
@@ -98,6 +106,26 @@ export class ReportsComponent implements OnInit {
     // Prevent Saturday and Sunday from being selected.
     return d <= dt ;
   }
+
+  openFilterDialog(): void {
+    
+    const dialogRef = this.dialog.open(ReportsFilterDialog, {
+      data: {name: this.name, course_id: this.courseId, date: this.quizDate}
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      console.log('The dialog was closed', result);
+      if ( result !== undefined) {
+
+        this.courseId = result.course_id;
+        this.quizDate = result.date;
+        this.name = result.name;
+      
+        this.getQuizReportFromMongo();
+      }
+    });
+  }
+
   addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
     this.quizDate = event.value.getFullYear() + "-" + (event.value.getMonth() + 1) + "-" + event.value.getDate();
     //this.getQuizReport();
@@ -129,7 +157,7 @@ export class ReportsComponent implements OnInit {
     //this.date = '2019-8-27';
     console.log('quizDate', this.quizDate);
     console.log('courseId', this.courseId);
-    this.getQuizDetails('5d8073e410ef3e0f64d24547');
+    //this.getQuizDetails('5d8073e410ef3e0f64d24547');
     this.reportsService.getQuizReportFromMongo(this.quizDate, this.courseId)
     .subscribe(res => {
       console.log('getQuizReportFromMongo',res);
@@ -151,6 +179,7 @@ export class ReportsComponent implements OnInit {
       // //this.quizResults = res;
       this.totalQuizResponse = res;
       this.dataSource = new MatTableDataSource(res);
+      
       this.dataSource.paginator = this.paginator;
       this.dataSource.sort = this.sort;
       //this.prepareChart(res);
@@ -275,6 +304,7 @@ export class ReportsComponent implements OnInit {
   }
 
   applyFilter(filterValue: string) {
+    console.log(this.dataSource.filter)
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
     if (this.dataSource.paginator) {
@@ -284,15 +314,39 @@ export class ReportsComponent implements OnInit {
 
 }
 
-/** Builds and returns a new User. */
-function createNewUser(id: number): UserData {
-  const name = NAMES[Math.round(Math.random() * (NAMES.length - 1))] + ' ' +
-      NAMES[Math.round(Math.random() * (NAMES.length - 1))].charAt(0) + '.';
 
-  return {
-    id: id.toString(),
-    name: name,
-    total_marks: Math.round(Math.random() * 100).toString(),
-    on_create: COLORS[Math.round(Math.random() * (COLORS.length - 1))]
-  };
+@Component({
+  selector: 'reports-filter-dialog',
+  templateUrl: 'reports-filter-dialog.html',
+})
+export class ReportsFilterDialog {
+  courseList: any = [];
+  quizDate: string;
+  date = new FormControl(new Date());
+  constructor(
+    public dialogRef: MatDialogRef<ReportsFilterDialog>, private quizService: QuizService,
+    @Inject(MAT_DIALOG_DATA) public data: DialogData) {
+      this.quizService.getCourses()
+      .subscribe(res => {
+        console.log(res.courses);
+        this.courseList = res.courses;
+      }, err => {
+        console.log(err);
+      });
+      var dt = new Date();
+      this.quizDate = dt.getFullYear() + "-" + (dt.getMonth() + 1) + "-" + dt.getDate();
+    }
+
+  onNoClick(): void {
+    this.dialogRef.close();
+  }
+
+  addEvent(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.quizDate = event.value.getFullYear() + "-" + (event.value.getMonth() + 1) + "-" + event.value.getDate();
+    console.log(this.quizDate)
+    //this.getQuizReportFromMongo();
+    //console.log(`self: ${this.quizDate}`);
+    //console.log(`${type}: ${event.value}`);
+  }
+
 }
