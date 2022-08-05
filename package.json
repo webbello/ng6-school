@@ -33,7 +33,7 @@
     "http-errors": "~1.6.2",
     "jsonwebtoken": "^8.3.0",
     "moment": "^2.22.2",
-    "mongoose": "^5.2.6",
+    "mongoose": "^5.7.5",
     "morgan": "~1.9.0",
     "ngx-toastr": "^8.10.0",
     "rxjs": "^6.2.2",
